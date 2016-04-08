@@ -6,6 +6,7 @@ const options = {
   forceSquareRatio:true,
   fontFamily: 'Nova Square'
 };
+
 const display = new ROT.Display(options);
 
 export default display;

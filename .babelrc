@@ -1,0 +1,13 @@
+{
+compact: false,
+  ast: false,
+  babelrc: false,
+
+  "presets": [
+    "meteor",
+    "stage-0"
+  ],
+
+  "plugins": [ "transform-decorators-legacy" ]
+
+}
