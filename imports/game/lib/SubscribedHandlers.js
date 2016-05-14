@@ -4,37 +4,38 @@ import IncrementalSet from './IncrementalSet';
 
 export default class SubscribedHandlers {
   constructor() {
-    this.events = new IncrementalSet();
-    this.subscribedComponents = new Set();
-    this.subscriptionsByEvent = {};
+    this._events = new IncrementalSet();
+    this._subscribedComponents = new Set();
+    this._handlersByEvent = {};
   }
 
   add(subscription) {
-    this.events.add(subscription.eventName);
+    this._events.add(subscription.eventName);
 
-    const subscriptionList = this.subscriptionsByEvent[subscription.eventName] || (this.subscriptionsByEvent[subscription.eventName] = []);
-    subscriptionList.push(subscription);
-    subscriptionList.sort((subscriptionA, subscriptionB) => subscriptionA.priority - subscriptionB.priority);
+    const handlers = this._handlersByEvent[subscription.eventName] || (this._handlersByEvent[subscription.eventName] = []);
+    handlers.push(subscription);
+    handlers.sort((subscriptionA, subscriptionB) => subscriptionA.priority - subscriptionB.priority);
 
-    this.subscribedComponents.add(subscription.component);
+    this._subscribedComponents.add(subscription.component);
+  }
   }
 
   removeComponent(component) {
-    if (!this.subscribedComponents.has(component))
+    if (!this._subscribedComponents.has(component))
       return;
 
     component.handlers.forEach(handler=>this.remove(handler));
-    this.subscribedComponents.delete(component);
+    this._subscribedComponents.delete(component);
 
   }
 
   remove(subscription) {
-    if (!this.events.has(subscription.eventName))
+    if (!this._events.has(subscription.eventName))
       return;
 
-    const eventSubscriptions = this.subscriptionsByEvent[subscription.eventName];
-    eventSubscriptions.splice(eventSubscriptions.indexOf(subscription), 1);
+    const handlers = this._handlersByEvent[subscription.eventName];
+    handlers.splice(handlers.indexOf(subscription), 1);
 
-    this.events.delete(subscription.eventName);
+    this._events.delete(subscription.eventName);
   }
 }
