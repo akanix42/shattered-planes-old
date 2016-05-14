@@ -1,3 +1,4 @@
+'use strict';
 import chai from 'chai';
 import Entity from './Entity.js';
 
@@ -5,6 +6,7 @@ chai.should();
 
 describe('Entity', () => {
   describe('addComponent', ()=> {
+
     it('should add a new component', ()=> {
       const entity = new Entity();
       const component = {_key: 'component'};
@@ -15,6 +17,7 @@ describe('Entity', () => {
   });
 
   describe('removeComponent', ()=> {
+
     it('should remove an existing component', ()=> {
       const entity = new Entity();
       entity._components = {_key: 'component'};
@@ -22,6 +25,7 @@ describe('Entity', () => {
 
       entity._components.should.not.have.property('component');
     });
+
   });
 
   it('should be serializable', () => {

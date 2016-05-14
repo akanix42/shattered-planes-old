@@ -1,8 +1,11 @@
-import { serializable } from 'jsonc';
+'use strict';
+import {serializable} from 'jsonc';
+import SubscribedHandlers from './SubscribedHandlers';
 
 @serializable('Entity')
 class Entity {
   _components = [];
+  subscribedHandlers = new SubscribedHandlers();
 
   addComponent(component) {
     if (component._key in this._components)
@@ -14,6 +17,15 @@ class Entity {
 
   removeComponent(key) {
     delete this._components[key];
+  }
+
+
+  subscribeComponent(component) {
+    component.handlers.forEach(subscription => this.subscribedHandlers.add(subscription, component));
+  }
+
+  unsubscribeComponent(component) {
+    this.subscribedHandlers.removeComponent(component);
   }
 
 }
