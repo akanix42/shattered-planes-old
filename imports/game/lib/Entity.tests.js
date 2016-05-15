@@ -9,11 +9,32 @@ describe('Entity', () => {
 
     it('should add a new component', ()=> {
       const entity = new Entity();
-      const component = {_key: 'component'};
+      const component = {_key: 'component', handlers: []};
       entity.addComponent(component);
 
       entity._components['component'].should.equal(component);
     });
+  });
+
+  describe('addStat', ()=> {
+
+    it('should add a stat', ()=> {
+      const entity = new Entity();
+      entity.addStat('test');
+
+      ('test' in entity.stats).should.be.true;
+    });
+
+    it('should emit a get event when the stat is referenced', ()=> {
+      const entity = new Entity();
+      let eventName = '';
+      entity.emit = event => eventName = event.name;
+
+      entity.addStat('test');
+      entity.stats.test;
+      eventName.should.equal('onStat.test');
+    });
+
   });
 
   describe('removeComponent', ()=> {
@@ -32,7 +53,7 @@ describe('Entity', () => {
 
     it('should emit the event to the subscribed handlers', ()=> {
       const entity = new Entity();
-      let wasEventEmitted =false;
+      let wasEventEmitted = false;
       entity.subscribedHandlers = {emit: event => wasEventEmitted = true};
       entity.emit({});
 

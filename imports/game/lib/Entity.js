@@ -5,6 +5,7 @@ import SubscribedHandlers from './SubscribedHandlers';
 @serializable('Entity')
 class Entity {
   _components = [];
+  stats = {};
   subscribedHandlers = new SubscribedHandlers();
 
   addComponent(component) {
@@ -17,7 +18,7 @@ class Entity {
   }
 
   removeComponent(key) {
-    const component =this._components[key];
+    const component = this._components[key];
     if (!component)
       return;
 
@@ -25,6 +26,20 @@ class Entity {
     delete this._components[key];
   }
 
+  addStat(name) {
+    if (name in this.stats)
+      return;
+
+    Object.defineProperty(this.stats, name, {
+      get: () => this.emit({name: 'onStat.' + name }),
+      configurable: true,
+      enumerable: true
+    });
+  }
+
+  removeStat(name) {
+    delete this.stats[name];
+  }
 
   subscribeComponent(component) {
     component.handlers.forEach(subscription => this.subscribedHandlers.add(subscription, component));
