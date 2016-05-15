@@ -13,6 +13,7 @@ class Entity {
       throw new Error(`Component ${_key} already exists for entity ${_this}`);
 
     this._components[component._key] = component;
+    component.entity = this;
     this.subscribeComponent(component);
     return this;
   }
@@ -24,6 +25,7 @@ class Entity {
 
     this.unsubscribeComponent(component);
     delete this._components[key];
+    component.entity = null;
   }
 
   addStat(name) {
