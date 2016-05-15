@@ -1,6 +1,8 @@
 'use strict';
+import {serializable} from 'jsonc';
 
-export default class Component {
+@serializable('Component', {exclude: ['_handlers']})
+class Component {
   entity = null;
   _handlers = [];
 
@@ -12,5 +14,6 @@ export default class Component {
     this._handlers.push({eventName, priority, callback, component: this});
   }
 
-
 }
+
+export default Component;

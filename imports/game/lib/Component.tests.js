@@ -1,5 +1,6 @@
 'use strict';
 import chai from 'chai';
+import jsonc from 'jsonc';
 import Component from './Component.js';
 
 chai.should();
@@ -33,7 +34,20 @@ describe('Component', () => {
       handler.callback.should.equal(callback);
       handler.component.should.equal(component);
     });
-    
+
   });
 
+  describe('serialization', () => {
+    it('should be serializable', () => {
+      Component.__type__.should.equal('Component');
+    });
+
+    it('should deserialize properly', () => {
+      const originalComponent = new Component();
+      originalComponent._stats.test = 'test';
+      const serializedData = jsonc.serialize({component: originalComponent});
+      const deserializedComponent = jsonc.deserialize(serializedData).component;
+      deserializedComponent._stats.test.should.equal('test');
+    });
+  });
 });
