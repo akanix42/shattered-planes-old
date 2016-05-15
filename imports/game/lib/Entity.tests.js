@@ -28,6 +28,28 @@ describe('Entity', () => {
 
   });
 
+  describe('emit', ()=> {
+
+    it('should emit the event to the subscribed handlers', ()=> {
+      const entity = new Entity();
+      let wasEventEmitted =false;
+      entity.subscribedHandlers = {emit: event => wasEventEmitted = true};
+      entity.emit({});
+
+      wasEventEmitted.should.be.true;
+    });
+
+    it('should return the updated event', ()=> {
+      const entity = new Entity();
+      let updatedEvent = {};
+      entity.subscribedHandlers = {emit: event => updatedEvent};
+      const result = entity.emit({});
+
+      result.should.equal(updatedEvent);
+    });
+
+  });
+
   it('should be serializable', () => {
     Entity.__type__.should.equal('Entity');
   });

@@ -18,6 +18,21 @@ export default class SubscribedHandlers {
 
     this._subscribedComponents.add(subscription.component);
   }
+
+  emit(event) {
+    if (!this._events.has(event.name))
+      return;
+
+    const eventHandlers = this._handlersByEvent[event.name];
+    for (let handlerIndex = 0; handlerIndex < eventHandlers.length; handlerIndex++) {
+      let handler = eventHandlers[handlerIndex];
+      let result = handler.callback.call(handler.component || this, event);
+      if (result === false)
+        break;
+      else
+        event = result || event;
+    }
+    return event;
   }
 
   removeComponent(component) {

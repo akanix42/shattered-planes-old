@@ -28,6 +28,9 @@ class Entity {
     this.subscribedHandlers.removeComponent(component);
   }
 
+  emit(event) {
+    return this.subscribedHandlers.emit(event);
+  }
 }
 
 export default Entity;
