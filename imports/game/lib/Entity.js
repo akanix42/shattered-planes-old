@@ -12,10 +12,16 @@ class Entity {
       throw new Error(`Component ${_key} already exists for entity ${_this}`);
 
     this._components[component._key] = component;
+    this.subscribeComponent(component);
     return this;
   }
 
   removeComponent(key) {
+    const component =this._components[key];
+    if (!component)
+      return;
+
+    this.unsubscribeComponent(component);
     delete this._components[key];
   }
 
