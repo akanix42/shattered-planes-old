@@ -18,6 +18,7 @@
     "babel-preset-meteor": "^6.6.7",
     "babel-preset-stage-0": "^6.5.0",
     "babel-register": "^6.7.2",
+    "babel-root-import": "^3.2.2",
     "chai": "^3.5.0",
     "source-map-support": "^0.4.0"
   }
