@@ -1,0 +1,15 @@
+{
+  "name": "builder",
+  "version": "1.0.0",
+  "description": "",
+  "main": "auto-import.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "auto-import": "^0.1.4",
+    "recursive-readdir": "^2.0.0"
+  }
+}
