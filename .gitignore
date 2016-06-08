@@ -6,3 +6,4 @@ coverage/
 app/packages/jsonc
 app/packages/ecmascript
 app/packages/babel-compiler
+app/packages/
