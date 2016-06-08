@@ -1,0 +1,13 @@
+{
+  compact: false,
+  ast: false,
+  babelrc: false,
+  retainLines: true,
+  "presets": [
+    "babel-preset-es2015",
+    "stage-0"
+  ],
+  "plugins": [
+    "transform-decorators-legacy"
+  ]
+}

@@ -1,9 +1,7 @@
 'use strict';
 
-import Components from '/imports/game/components/components';
-
 export default class ComponentGenerator {
-  _components = Components;
+  _components = {};
 
   generate(componentName) {
     const Component = this._components[componentName];

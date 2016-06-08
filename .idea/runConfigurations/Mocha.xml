@@ -2,7 +2,7 @@
   <configuration default="false" name="Mocha" type="mocha-javascript-test-runner" factoryName="Mocha">
     <node-interpreter>project</node-interpreter>
     <node-options />
-    <working-directory>$PROJECT_DIR$</working-directory>
+    <working-directory>$PROJECT_DIR$/app</working-directory>
     <pass-parent-env>true</pass-parent-env>
     <envs />
     <ui>bdd</ui>

@@ -3,3 +3,6 @@ node_modules/
 npm-debug.log
 packages/rot.js
 coverage/
+app/packages/jsonc
+app/packages/ecmascript
+app/packages/babel-compiler

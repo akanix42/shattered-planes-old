@@ -1,4 +1,4 @@
-import { ROT } from 'meteor/nathantreid:rot.js';
+import ROT from 'rot-js';
 const options = {
   width: 40,
   height: 40,

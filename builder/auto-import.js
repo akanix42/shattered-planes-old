@@ -16,8 +16,9 @@ recursive(directory, ['!*.js', outputFile], function (err, files) {
   const importRegistrations = [];
 
   files.forEach(file=> {
-    const importAs = path.relative(directory, file).replace(/\//g, '_').replace(/\./g, '_');
-    const importStatement = `import ${importAs} from './${file}';`;
+    const relativeFile = path.relative(directory, file);
+    const importAs = path.basename(relativeFile, path.extname(relativeFile)).replace(/\//g, '_').replace(/\./g, '_');
+    const importStatement = `import ${importAs} from './${relativeFile}';`;
     const importRegistration = `importRegistrations[${importAs}.name] = ${importAs};`;
     importStatements.push(importStatement);
     importRegistrations.push(importRegistration);

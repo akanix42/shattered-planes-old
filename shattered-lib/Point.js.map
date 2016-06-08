@@ -1,0 +1,1 @@
+{"version":3,"sources":["Point.js"],"names":[],"mappings":"oOAAM,K;AACJ,eAAY,CAAZ,EAAc,CAAd,EAAiB;AACf,OAAK,CAAL,GAAS,CAAT;AACA,OAAK,CAAL,GAAS,CAAT,CACD,C;;;;;AAIY,K","file":"Point.js","sourcesContent":["class Point {\r\n  constructor(x,y) {\r\n    this.x = x;\r\n    this.y = y;\r\n  }\r\n}\r\n\r\n\r\nexport default Point;\r\n"],"sourceRoot":"/source/"}

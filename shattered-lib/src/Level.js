@@ -1,9 +1,10 @@
 'use strict';
 
-import Point from './Point';
+let levelId = 0;
 
 class Level {
   _map = null;
+  id = levelId++;
 
   constructor(theme) {
     this._theme = theme;

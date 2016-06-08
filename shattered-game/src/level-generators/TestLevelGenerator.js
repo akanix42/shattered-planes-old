@@ -1,10 +1,10 @@
 'use strict';
 
-import Level from '../lib/Level';
-import Map from '../lib/Map';
-import Tile from '../lib/Tile';
-import Point from '../lib/Point';
-import EntityGenerator from '../lib/generators/EntityGenerator';
+import Level from 'shattered-lib/Level';
+import Map from 'shattered-lib/Map';
+import Tile from 'shattered-lib/Tile';
+import Point from 'shattered-lib/Point';
+import EntityGenerator from 'shattered-lib/generators/EntityGenerator';
 
 export default class TestLevelGenerator {
   _entityGenerator = new EntityGenerator();
@@ -13,6 +13,8 @@ export default class TestLevelGenerator {
   generate() {
     const level = new Level(this._theme);
     level.map = this._generateMap();
+    return level;
+
   }
 
   _generateMap() {
@@ -30,7 +32,7 @@ export default class TestLevelGenerator {
 
 
     function generateTile() {
-      const tile = new Tile(new Point(x, y), map)
+      const tile = new Tile(new Point(x, y), map);
       tile.addEntity(this._entityGenerator.generate('dirtFloor'));
       return tile;
     }

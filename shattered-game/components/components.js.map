@@ -1,0 +1,1 @@
+{"version":3,"sources":["components/components.js"],"names":[],"mappings":";;;AAGA,IAAM,sBAAsB,EAA5B,C;;;AAGe,mB","file":"components/components.js","sourcesContent":["\n\n\nconst importRegistrations = {};\n\n\nexport default importRegistrations;\n  "],"sourceRoot":"/source/"}

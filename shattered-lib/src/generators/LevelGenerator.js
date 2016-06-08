@@ -2,10 +2,9 @@
 import ROT from 'rot-js';
 
 class LevelGenerator {
-  _generators = {};
-
+  
   addGenerator(generator){
-    this._generators[generator.theme] = generator;
+    LevelGenerator._generators[generator.theme] = generator;
   }
 
   generateRandom() {
@@ -14,9 +13,11 @@ class LevelGenerator {
   }
 
   getRandomGenerator() {
-    const themes = Object.keys(this._generators);
-    return this._generators[themes.random()];
+    const themes = Object.keys(LevelGenerator._generators);
+    return LevelGenerator._generators[themes.random()];
   }
 }
+
+LevelGenerator._generators = {};
 
 export default LevelGenerator;

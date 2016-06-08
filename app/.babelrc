@@ -9,11 +9,11 @@
   ],
   "plugins": [
     "transform-decorators-legacy",
-    [
-      "babel-root-import",
-      {
-        "rootPathPrefix": "/"
-      }
-    ]
+//    [
+//      "babel-root-import",
+//      {
+//        "rootPathPrefix": "/"
+//      }
+//    ]
   ]
 }
