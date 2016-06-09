@@ -7,7 +7,8 @@ class Entity {
   _components = [];
   stats = {};
   subscribedHandlers = new SubscribedHandlers();
-
+  tile = {};
+  
   addComponent(component) {
     if (component._key in this._components)
       throw new Error(`Component ${_key} already exists for entity ${_this}`);
@@ -33,7 +34,7 @@ class Entity {
       return;
 
     Object.defineProperty(this.stats, name, {
-      get: () => this.emit({name: 'onStat.' + name }),
+      get: () => this.emit({name: 'onStat.' + name}),
       configurable: true,
       enumerable: true
     });
