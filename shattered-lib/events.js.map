@@ -1,0 +1,1 @@
+{"version":3,"sources":["events.js"],"names":[],"mappings":"2EAAA,IAAM,SAAS,EAAf;AACA,OAAO,WAAP,GAAqB,aAArB;AACA,OAAO,IAAP,GAAc,MAAd,C;;AAEe,M","file":"events.js","sourcesContent":["const events = {};\r\nevents.willCollide = 'willCollide';\r\nevents.move = 'move';\r\n\r\nexport default events;\r\n"],"sourceRoot":"/source/"}

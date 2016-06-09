@@ -32,5 +32,19 @@ describe('GameGenerator', function () {
 
 
       gameGenerator.generate({ numberOfLevels: 22 });
+      callCounter.should.equal(22);});
+
+
+    it('should create and start the game engine', function () {
+      var callCounter = 0;
+      var gameGenerator = new _GameGenerator2.default();
+      gameGenerator.LevelGenerator = function () {function LevelGenerator() {_classCallCheck(this, LevelGenerator);}_createClass(LevelGenerator, [{ key: 'generateRandom', value: function generateRandom() 
+          {
+            callCounter++;
+            return {};} }]);return LevelGenerator;}();
+
+
+      var game = gameGenerator.generate({ numberOfLevels: 22 });
+      game.engine.should.be.true;
       callCounter.should.equal(22);});});});
 //# sourceMappingURL=GameGenerator.tests.js.map
