@@ -35,6 +35,20 @@ describe('GameGenerator', () => {
       callCounter.should.equal(22);
     });
 
+    it('should create and start the game engine', () => {
+      let callCounter = 0;
+      const gameGenerator = new GameGenerator();
+      gameGenerator.LevelGenerator = class LevelGenerator {
+        generateRandom() {
+          callCounter++;
+          return {};
+        }
+      };
+      const game = gameGenerator.generate({numberOfLevels: 22});
+      game.engine.should.be.ok;
+      callCounter.should.equal(22);
+    });
+
   });
 
 });

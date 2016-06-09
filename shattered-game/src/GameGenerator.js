@@ -1,9 +1,12 @@
+'use strict';
 import ROT from 'rot-js';
 import LevelGenerator from './LevelGenerator';
+import Engine from './Engine';
 
 class Game {
   seed = null;
   levels = null;
+  engine = null;
 }
 
 class GameGenerator {
@@ -12,6 +15,7 @@ class GameGenerator {
     const game = new Game();
     game.seed = ROT.RNG.seed;
     game.levels = this._generateLevels(options.numberOfLevels||0);
+    game.engine = new Engine();
     return game;
   }
 
