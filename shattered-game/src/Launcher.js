@@ -1,3 +1,4 @@
+'use strict';
 import GameGenerator from './GameGenerator';
 import GameLoader from './GameLoader';
 
