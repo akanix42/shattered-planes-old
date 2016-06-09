@@ -45,6 +45,6 @@ describe('GameGenerator', function () {
 
 
       var game = gameGenerator.generate({ numberOfLevels: 22 });
-      game.engine.should.be.true;
+      game.engine.should.be.ok;
       callCounter.should.equal(22);});});});
 //# sourceMappingURL=GameGenerator.tests.js.map

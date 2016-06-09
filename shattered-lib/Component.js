@@ -2,16 +2,16 @@
 var _jsonc = require('jsonc');function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}var 
 
 
-Component = (_dec = (0, _jsonc.serializable)('Component', { exclude: ['_handlers'] }), _dec(_class = function () {
+Component = (_dec = (0, _jsonc.serializable)('Component', { exclude: ['handlers'] }), _dec(_class = function () {
 
 
 
-  function Component(stats) {_classCallCheck(this, Component);this.entity = null;this._handlers = [];
+  function Component(stats) {_classCallCheck(this, Component);this.entity = null;this.handlers = [];
     this._stats = stats || {};}_createClass(Component, [{ key: 'addHandler', value: function addHandler(
 
 
     eventName, priority, callback) {
-      this._handlers.push({ eventName: eventName, priority: priority, callback: callback, component: this });} }]);return Component;}()) || _class);exports.default = 
+      this.handlers.push({ eventName: eventName, priority: priority, callback: callback, component: this });} }]);return Component;}()) || _class);exports.default = 
 
 
 

@@ -1,10 +1,12 @@
 'use strict';Object.defineProperty(exports, "__esModule", { value: true });var _createClass = function () {function defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}return function (Constructor, protoProps, staticProps) {if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;};}();
 var _rotJs = require('rot-js');var _rotJs2 = _interopRequireDefault(_rotJs);
-var _LevelGenerator = require('./LevelGenerator');var _LevelGenerator2 = _interopRequireDefault(_LevelGenerator);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}var 
+var _LevelGenerator = require('./LevelGenerator');var _LevelGenerator2 = _interopRequireDefault(_LevelGenerator);
+var _Engine = require('./Engine');var _Engine2 = _interopRequireDefault(_Engine);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}var 
 
 Game = function Game() {_classCallCheck(this, Game);this.
   seed = null;this.
-  levels = null;};var 
+  levels = null;this.
+  engine = null;};var 
 
 
 GameGenerator = function () {function GameGenerator() {_classCallCheck(this, GameGenerator);this.
@@ -13,6 +15,7 @@ GameGenerator = function () {function GameGenerator() {_classCallCheck(this, Gam
       var game = new Game();
       game.seed = _rotJs2.default.RNG.seed;
       game.levels = this._generateLevels(options.numberOfLevels || 0);
+      game.engine = new _Engine2.default();
       return game;} }, { key: '_generateLevels', value: function _generateLevels(
 
 

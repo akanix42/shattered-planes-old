@@ -19,7 +19,7 @@ describe('Component', function () {
     it('should add the handler', function () {
       var component = new _Component2.default();
       component.addHandler({});
-      component._handlers.length.should.equal(1);});
+      component.handlers.length.should.equal(1);});
 
 
     it('should supply the event name, priority, callback, and component', function () {
@@ -28,7 +28,7 @@ describe('Component', function () {
 
       component.addHandler('test', 10, callback);
 
-      var handler = component._handlers[0];
+      var handler = component.handlers[0];
       handler.eventName.should.equal(eventName);
       handler.priority.should.equal(priority);
       handler.callback.should.equal(callback);

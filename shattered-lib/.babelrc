@@ -8,6 +8,13 @@
     "stage-0"
   ],
   "plugins": [
-    "transform-decorators-legacy"
+    "transform-decorators-legacy",
+    [
+      "babel-root-import",
+      {
+        "rootPathPrefix": "/",
+        "rootPathSuffix": "shattered-lib/src"
+      }
+    ]
   ]
 }

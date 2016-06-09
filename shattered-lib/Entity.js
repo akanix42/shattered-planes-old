@@ -6,7 +6,8 @@ var _SubscribedHandlers = require('./SubscribedHandlers');var _SubscribedHandler
 Entity = (_dec = (0, _jsonc.serializable)('Entity'), _dec(_class = function () {function Entity() {_classCallCheck(this, Entity);this.
     _components = [];this.
     stats = {};this.
-    subscribedHandlers = new _SubscribedHandlers2.default();}_createClass(Entity, [{ key: 'addComponent', value: function addComponent(
+    subscribedHandlers = new _SubscribedHandlers2.default();this.
+    tile = {};}_createClass(Entity, [{ key: 'addComponent', value: function addComponent(
 
     component) {
       if (component._key in this._components) 

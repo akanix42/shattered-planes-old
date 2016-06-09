@@ -91,5 +91,19 @@ describe('Engine', function () {
       false);
       engine.unlock();
 
-      wasCalled.should.be.true;});});});
+      wasCalled.should.be.true;});
+
+
+    it('should not unlock the engine if there are no actors', function () {
+      var wasCalled = false;
+      var engine = new _Engine2.default();
+
+      engine.unlock();
+      engine.add({ 
+        act: function act() {
+          wasCalled = true;} }, 
+
+      false);
+
+      wasCalled.should.be.false;});});});
 //# sourceMappingURL=Engine.tests.js.map

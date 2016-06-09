@@ -1,5 +1,5 @@
 'use strict';Object.defineProperty(exports, "__esModule", { value: true });var events = {};
-events.willCollide = 'willCollide';
+events.willNotCollide = 'willNotCollide';
 events.move = 'move';exports.default = 
 
 events;
