@@ -13,3 +13,12 @@ gulp.task('transpile', () =>
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest('.'))
 );
+
+gulp.task('transpile-now', () =>
+  gulp.src('src/**/*.js')
+    .pipe(plumber())
+    .pipe(sourcemaps.init())
+    .pipe(babel())
+    .pipe(sourcemaps.write('.'))
+    .pipe(gulp.dest('.'))
+);
