@@ -8,6 +8,7 @@ class Entity {
   stats = {};
   subscribedHandlers = new SubscribedHandlers();
   tile = {};
+  attributes = new Attributes();
   
   addComponent(component) {
     if (component._key in this._components)
