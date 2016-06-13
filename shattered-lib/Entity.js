@@ -7,7 +7,8 @@ Entity = (_dec = (0, _jsonc.serializable)('Entity'), _dec(_class = function () {
     _components = [];this.
     stats = {};this.
     subscribedHandlers = new _SubscribedHandlers2.default();this.
-    tile = {};}_createClass(Entity, [{ key: 'addComponent', value: function addComponent(
+    tile = {};this.
+    attributes = new Attributes();}_createClass(Entity, [{ key: 'addComponent', value: function addComponent(
 
     component) {
       if (component._key in this._components) 
