@@ -11,15 +11,15 @@ class NormalMovementComponent extends Component {
   }
 
   onMove(event) {
-    const actionTime = calculateActionTime();
+    const actionTime = this._calculateActionTime();
     this.entity.emit({name: events.position, destination: event.destination});
     return actionTime;
+  }
+
+  _calculateActionTime(){
+    const speed = this.entity.attributes.moveSpeed.current;
+    return speed;
   }
 }
 
 export default NormalMovementComponent;
-
-function calculateActionTime(){
-  const speed = this.entity.stats.moveSpeed;
-  return speed;
-}

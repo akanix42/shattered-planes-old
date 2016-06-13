@@ -7,26 +7,24 @@ chai.should();
 
 describe('NormalMovementComponent', ()=> {
   describe('onMove', () => {
-    it(`should calculate the timen `, () => {
-      const moveComponent = new MoveComponent();
+    it(`should calculate the time cost`, () => {
+      const movementComponent = new NormalMovementComponent();
       const entity = new Entity();
-      entity.addComponent(moveComponent);
+      entity.addComponent(movementComponent);
+      entity.attributes.add('moveSpeed', 1000);
 
       const destination = {};
-      moveComponent.onPosition({destination});
-      entity.tile.should.equal(destination);
+      const result = movementComponent.onMove({destination});
+      result.should.equal(1000);
     });
 
   });
-  describe('Move Handler', () => {
-    it('should listen to move events', () => {
-      const moveComponent = new MoveComponent();
-      const entity = new Entity();
-      entity.addComponent(moveComponent);
 
-      const destination = {};
-      entity.emit({name: events.move, destination});
-      entity.tile.should.equal(destination);
+
+  describe('Handlers', () => {
+    it('should listen to move events', () => {
+      const movementComponent = new NormalMovementComponent();
+      movementComponent.handlers.find(handler=>handler.eventName === events.move).should.be.ok;
     });
   });
 });
