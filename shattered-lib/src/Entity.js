@@ -1,6 +1,7 @@
 'use strict';
 import {serializable} from 'jsonc';
 import SubscribedHandlers from './SubscribedHandlers';
+import Attributes from './Attributes';
 
 @serializable('Entity')
 class Entity {

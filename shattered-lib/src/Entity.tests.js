@@ -1,8 +1,10 @@
 'use strict';
 import chai from 'chai';
 import Entity from './Entity.js';
+import Attributes from './Attributes';
 
 chai.should();
+const expect = chai.expect;
 
 describe('Entity', () => {
   describe('addComponent', ()=> {
@@ -35,6 +37,14 @@ describe('Entity', () => {
       eventName.should.equal('onStat.test');
     });
 
+  });
+
+  describe('attributes', ()=> {
+
+    it('should be an instance of Attributes', ()=> {
+      const entity = new Entity();
+      expect(entity.attributes).to.be.an.instanceOf(Attributes);
+    });
   });
 
   describe('removeComponent', ()=> {
