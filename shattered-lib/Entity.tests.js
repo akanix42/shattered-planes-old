@@ -1,8 +1,10 @@
 'use strict';
 var _chai = require('chai');var _chai2 = _interopRequireDefault(_chai);
-var _Entity = require('./Entity.js');var _Entity2 = _interopRequireDefault(_Entity);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+var _Entity = require('./Entity.js');var _Entity2 = _interopRequireDefault(_Entity);
+var _Attributes = require('./Attributes');var _Attributes2 = _interopRequireDefault(_Attributes);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 
 _chai2.default.should();
+var expect = _chai2.default.expect;
 
 describe('Entity', function () {
   describe('addComponent', function () {
@@ -34,6 +36,14 @@ describe('Entity', function () {
       entity.stats.test;
       eventName.should.equal('onStat.test');});});
 
+
+
+
+  describe('attributes', function () {
+
+    it('should be an instance of Attributes', function () {
+      var entity = new _Entity2.default();
+      expect(entity.attributes).to.be.an.instanceOf(_Attributes2.default);});});
 
 
 

@@ -4,21 +4,23 @@ var _Component2 = require('shattered-lib/Component');var _Component3 = _interopR
 var _events = require('f:/projects/shattered-planes/shattered-game/shattered-game/src/events');var _events2 = _interopRequireDefault(_events);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _possibleConstructorReturn(self, call) {if (!self) {throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call && (typeof call === "object" || typeof call === "function") ? call : self;}function _inherits(subClass, superClass) {if (typeof superClass !== "function" && superClass !== null) {throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);}subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;}var 
 
 
-CollideComponent = (_dec = (0, _jsonc.serializable)('CollideComponent'), _dec(_class = function (_Component) {_inherits(CollideComponent, _Component);
-  function CollideComponent() {_classCallCheck(this, CollideComponent);var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(CollideComponent).call(this));
+NormalMovementComponent = (_dec = (0, _jsonc.serializable)('NormalMovementComponent'), _dec(_class = function (_Component) {_inherits(NormalMovementComponent, _Component);
+  function NormalMovementComponent() {_classCallCheck(this, NormalMovementComponent);var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(NormalMovementComponent).call(this));
 
-    _this.addHandler(_events2.default.move, 50, _this.onPosition);
-    _this.addHandler(_events2.default.willNotCollide, 50, _this.onWillNotCollide);return _this;}_createClass(CollideComponent, [{ key: 'onPosition', value: function onPosition(
+    _this.addHandler(_events2.default.move, 100, _this.onMove);return _this;}_createClass(NormalMovementComponent, [{ key: 'onMove', value: function onMove(
 
 
     event) {
-      return event.destination.emit({ name: _events2.default.willNotCollide, entity: this.entity });} }, { key: 'onWillNotCollide', value: function onWillNotCollide() 
+      var actionTime = this._calculateActionTime();
+      this.entity.emit({ name: _events2.default.position, destination: event.destination });
+      return actionTime;} }, { key: '_calculateActionTime', value: function _calculateActionTime() 
 
 
     {
-      return false;} }]);return CollideComponent;}(_Component3.default)) || _class);exports.default = 
+      var speed = this.entity.attributes.moveSpeed.current;
+      return speed;} }]);return NormalMovementComponent;}(_Component3.default)) || _class);exports.default = 
 
 
 
-CollideComponent;
-//# sourceMappingURL=CollideComponent.js.map
+NormalMovementComponent;
+//# sourceMappingURL=NormalMovementComponent.js.map
