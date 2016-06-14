@@ -4,6 +4,8 @@ const babel = require('gulp-babel');
 const watch = require('gulp-watch');
 const plumber = require('gulp-plumber');
 
+gulp.task('default', ['transpile']);
+
 gulp.task('transpile', () =>
   gulp.src('src/**/*.js')
     .pipe(watch('src/**/*.js'))

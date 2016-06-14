@@ -24,11 +24,30 @@
       <option name="arguments" value="builder\auto-import.js $FileDirRelativeToProjectRoot$" />
       <option name="checkSyntaxErrors" value="true" />
       <option name="description" value="" />
+      <option name="exitCodeBehavior" value="ALWAYS" />
+      <option name="fileExtension" value="js" />
+      <option name="immediateSync" value="true" />
+      <option name="name" value="AutoImport Entity Templates" />
+      <option name="output" value="" />
+      <option name="outputFilters">
+        <array />
+      </option>
+      <option name="outputFromStdout" value="false" />
+      <option name="program" value="C:/Program Files/nodejs/node.exe" />
+      <option name="scopeName" value="Entity Templates" />
+      <option name="trackOnlyRoot" value="false" />
+      <option name="workingDir" value="$ProjectFileDir$" />
+      <envs />
+    </TaskOptions>
+    <TaskOptions isEnabled="true">
+      <option name="arguments" value="builder\auto-import.js $FileDirRelativeToProjectRoot$ --new" />
+      <option name="checkSyntaxErrors" value="true" />
+      <option name="description" value="" />
       <option name="exitCodeBehavior" value="ERROR" />
       <option name="fileExtension" value="js" />
       <option name="immediateSync" value="true" />
       <option name="name" value="AutoImport Level Generators" />
-      <option name="output" value="$FileDirName$.js" />
+      <option name="output" value="$FileDirRelativeToProjectRoot$\index.js" />
       <option name="outputFilters">
         <array />
       </option>
