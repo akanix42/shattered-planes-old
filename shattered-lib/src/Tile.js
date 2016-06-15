@@ -1,11 +1,16 @@
 'use strict';
 import EntitiesByPriority from './EntitiesByPriority';
+import Inventory from './Inventory';
+import SubscribedHandlers from './SubscribedHandlers';
+
 
 class Tile {
-  _entities = new EntitiesByPriority();
+  _architecture = null;
+  _handlers = new SubscribedHandlers();
+  inventory = new Inventory();
+  occupants = [];
 
   constructor(point, map) {
-    // super();
     this.point = point;
     this.map = map;
   }
@@ -14,13 +19,51 @@ class Tile {
     return this.map.level;
   }
 
-  addEntity(entity, priority) {
-    this._entities.add(entity, priority);
+  get architecture() {
+    return this._architecture;
   }
 
-  getEntitiesInSpace(space) {
-    const updatedEvent = this._entities.emit({name: 'onGet.location.space', space});
-    return updatedEvent.entities;
+  set architecture(architecture) {
+    const previousArchitecture = this._architecture;
+    if (previousArchitecture)
+      this._removeHandlers(previousArchitecture);
+
+    this._architecture = architecture;
+    if (architecture) {
+      architecture.tile = this;
+      this._addHandlers(architecture);
+    }
+  }
+
+  addOccupant(occupant) {
+    this.occupants.push(occupant);
+    occupant.tile = this;
+
+    this._addHandlers(occupant);
+  }
+
+  removeOccupant(occupant) {
+    const index = this.occupants.indexOf(occupant);
+    if (index === -1)
+      return;
+
+    this.occupants.splice(index, 1);
+    occupant.tile = null;
+    this._removeHandlers(occupant);
+  }
+
+  _addHandlers(entity) {
+    const keys = Object.keys(entity.subscribedHandlers._handlersByEvent);
+    keys.forEach(key=> {
+      entity.subscribedHandlers._handlersByEvent[key].forEach(handler=>this._handlers.add(handler));
+    });
+  }
+
+  _removeHandlers(entity) {
+    const keys = Object.keys(entity.subscribedHandlers._handlersByEvent);
+    keys.forEach(key=> {
+      entity.subscribedHandlers._handlersByEvent[key].forEach(handler=>this._handlers.remove(handler));
+    });
   }
 }
 
