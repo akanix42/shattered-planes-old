@@ -1,5 +1,7 @@
 'use strict';
 import ROT from 'rot-js';
+import ComponentGenerator from './ComponentGenerator';
+import EntityGenerator from './EntityGenerator';
 import LevelGenerator from './LevelGenerator';
 import Engine from './Engine';
 
