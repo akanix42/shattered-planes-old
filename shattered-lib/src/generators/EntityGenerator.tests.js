@@ -1,6 +1,6 @@
 'use strict';
-import chai from 'chai';
 import EntityGenerator from './EntityGenerator';
+import chai from 'chai';
 
 chai.should();
 
@@ -12,10 +12,12 @@ describe('EntityGenerator', () => {
         name: 'test',
       };
       const entityGenerator = new EntityGenerator();
-      entityGenerator._templates[testTemplate.name] = testTemplate;
+      EntityGenerator._templates[testTemplate.name] = testTemplate;
       
       const entity = entityGenerator.generate('test');
       entity.template.should.equal(testTemplate);
+
+      delete EntityGenerator._templates[testTemplate.name];
     });
 
     it(`should add all of the template's components to the entity`, ()=> {
@@ -30,13 +32,15 @@ describe('EntityGenerator', () => {
         }
       }
       const entityGenerator = new EntityGenerator();
+      EntityGenerator._templates[testTemplate.name] = testTemplate;
       entityGenerator._Entity = Entity;
-      entityGenerator._templates[testTemplate.name] = testTemplate;
       entityGenerator._componentGenerator = { generate: componentName=>({componentName})};
 
       entityGenerator.generate('test');
       addedComponents[0].should.eql({componentName:'component1'});
       addedComponents[1].should.eql({componentName:'component2'});
+
+      delete EntityGenerator._templates[testTemplate.name];
     });
   });
 
