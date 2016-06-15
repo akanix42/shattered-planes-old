@@ -3,6 +3,7 @@ import chai from 'chai';
 import SubscribedHandlers from './SubscribedHandlers.js';
 
 chai.should();
+const expect = chai.expect;
 
 describe('SubscribedHandlers', () => {
 
@@ -14,6 +15,64 @@ describe('SubscribedHandlers', () => {
       subscriptions.add(handler);
       subscriptions._events.has(handler.eventName).should.be.true;
     });
+
+    it('should sort handlers by priority', ()=> {
+      const handler1 = {eventName: 'test', priority: 0, component: {}};
+      const handler2 = {eventName: 'test', priority: 1, component: {}};
+      const handler3 = {eventName: 'test', priority: 2, component: {}};
+
+      const subscriptions = new SubscribedHandlers();
+      subscriptions.add(handler1);
+      subscriptions.add(handler3);
+      subscriptions.add(handler2);
+
+      expect(subscriptions._handlersByEvent['test']).to.eql([handler1, handler2, handler3])
+    });
+
+    it('should sort handlers by component id', ()=> {
+      const component1 = {
+        id: 1
+      };
+
+      const component2 = {
+        id: 2
+      };
+
+      const component3 = {
+        id: 3
+      };
+      const handler1 = {eventName: 'test', priority: 0, component: component1};
+      const handler2 = {eventName: 'test', priority: 0, component: component2};
+      const handler3 = {eventName: 'test', priority: 0, component: component3};
+
+      const subscriptions = new SubscribedHandlers();
+      subscriptions.add(handler1);
+      subscriptions.add(handler3);
+      subscriptions.add(handler2);
+
+      expect(subscriptions._handlersByEvent['test']).to.eql([handler1, handler2, handler3])
+    });
+
+    it('should sort handlers by priority then component', ()=> {
+      const component1 = {
+        id: 1
+      };
+
+      const component2 = {
+        id: 2
+      };
+      const handler1 = {eventName: 'test', priority: 0, component: component1};
+      const handler2 = {eventName: 'test', priority: 0, component: component2};
+      const handler3 = {eventName: 'test', priority: 1, component: component1};
+
+      const subscriptions = new SubscribedHandlers();
+      subscriptions.add(handler3);
+      subscriptions.add(handler2);
+      subscriptions.add(handler1);
+
+      expect(subscriptions._handlersByEvent['test']).to.eql([handler1, handler2, handler3])
+    });
+
   });
 
   describe('emit', ()=> {
@@ -28,7 +87,7 @@ describe('SubscribedHandlers', () => {
       subscriptions.add(handler1);
       subscriptions.add(handler2);
 
-      const event = {name:'test'};
+      const event = {name: 'test'};
       subscriptions.emit(event);
 
       handler1Called.should.be.true;
@@ -45,22 +104,25 @@ describe('SubscribedHandlers', () => {
 
       handledEvent.should.equal(event);
     });
-    
+
     it(`should return the updated event from the handler's callback`, ()=> {
       const subscriptions = new SubscribedHandlers();
       let updatedEvent = {};
       const handler = {eventName: 'test', priority: 0, component: {}, callback: event => updatedEvent};
-      const event = {name:'test'};
+      const event = {name: 'test'};
       subscriptions.add(handler);
       const result = subscriptions.emit(event);
 
       result.should.equal(updatedEvent);
     });
-    
+
     it(`should return the original event if the callback returns undefined`, ()=> {
       const subscriptions = new SubscribedHandlers();
-      const handler = {eventName: 'test', priority: 0, component: {}, callback: event => {}};
-      const event = {name:'test'};
+      const handler = {
+        eventName: 'test', priority: 0, component: {}, callback: event => {
+        }
+      };
+      const event = {name: 'test'};
       subscriptions.add(handler);
       const result = subscriptions.emit(event);
 

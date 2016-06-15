@@ -12,9 +12,22 @@ export default class SubscribedHandlers {
 
     const handlers = this._handlersByEvent[subscription.eventName] || (this._handlersByEvent[subscription.eventName] = []);
     handlers.push(subscription);
-    handlers.sort((subscriptionA, subscriptionB) => subscriptionA.priority - subscriptionB.priority);
+    handlers.sort(sortHandlers);
 
     this._subscribedComponents.add(subscription.component);
+
+    function sortHandlers(subscriptionA, subscriptionB) {
+      const sortByPriority = (subscriptionA, subscriptionB) => subscriptionA.priority - subscriptionB.priority;
+      const sortByComponent = (subscriptionA, subscriptionB) => subscriptionA.component.id - subscriptionB.component.id;
+      const sortByEntity = (subscriptionA, subscriptionB) => subscriptionA.component.entity.id - subscriptionB.component.entity.id;
+
+      let result = sortByPriority(subscriptionA, subscriptionB);
+      if (result !== 0)
+        return result;
+
+      result = sortByComponent(subscriptionA, subscriptionB);
+      return result;
+    }
   }
 
   emit(event) {

@@ -5,6 +5,7 @@ import {serializable} from 'jsonc';
 class Component {
   entity = null;
   handlers = [];
+  id = null;
 
   constructor(stats) {
     this._stats = stats || {};
