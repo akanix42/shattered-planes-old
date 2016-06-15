@@ -22,4 +22,6 @@ class NormalMovementComponent extends Component {
   }
 }
 
+NormalMovementComponent._name = 'normalMovement';
+
 export default NormalMovementComponent;

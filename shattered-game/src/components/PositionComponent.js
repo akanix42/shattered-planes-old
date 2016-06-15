@@ -14,5 +14,6 @@ class PositionComponent extends Component {
     this.entity.tile = event.destination;
   }
 }
+PositionComponent._name = 'position';
 
 export default PositionComponent;
