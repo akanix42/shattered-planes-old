@@ -7,5 +7,5 @@ app/packages/jsonc
 app/packages/ecmascript
 app/packages/babel-compiler
 app/packages/
-shattered-lib/src/**/*.js.map
-shattered-lib/src/**/*.js
+shattered-lib/**/*.js.map
+shattered-lib/**/*.js
