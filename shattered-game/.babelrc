@@ -13,7 +13,7 @@
       "babel-root-import",
       {
         "rootPathPrefix": "/",
-        "rootPathSuffix": "shattered-game/src"
+        "rootPathSuffix": "shattered-game"
       }
     ]
   ]

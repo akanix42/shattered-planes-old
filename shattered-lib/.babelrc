@@ -13,7 +13,7 @@
       "babel-root-import",
       {
         "rootPathPrefix": "/",
-        "rootPathSuffix": "shattered-lib/src"
+        "rootPathSuffix": "shattered-lib"
       }
     ]
   ]
