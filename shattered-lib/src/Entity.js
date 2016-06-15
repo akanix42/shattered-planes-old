@@ -8,9 +8,8 @@ class Entity {
   _components = [];
   stats = {};
   subscribedHandlers = new SubscribedHandlers();
-  tile = {};
+  tile = null;
   attributes = new Attributes();
-  
   addComponent(component) {
     if (component._key in this._components)
       throw new Error(`Component ${_key} already exists for entity ${_this}`);
