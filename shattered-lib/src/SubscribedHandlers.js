@@ -3,11 +3,9 @@
 import IncrementalSet from './IncrementalSet';
 
 export default class SubscribedHandlers {
-  constructor() {
-    this._events = new IncrementalSet();
-    this._subscribedComponents = new Set();
-    this._handlersByEvent = {};
-  }
+  _events = new IncrementalSet();
+  _subscribedComponents = new Set();
+  _handlersByEvent = {};
 
   add(subscription) {
     this._events.add(subscription.eventName);
