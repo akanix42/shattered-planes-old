@@ -9,3 +9,5 @@ app/packages/babel-compiler
 app/packages/
 shattered-lib/**/*.js.map
 shattered-lib/**/*.js
+shattered-game/**/*.js.map
+shattered-game/**/*.js
