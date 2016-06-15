@@ -3,8 +3,8 @@ import {serializable} from 'jsonc';
 import Component from 'shattered-lib/Component';
 import events from '/events';
 
-@serializable('CollideComponent')
-class CollideComponent extends Component {
+@serializable('CollisionComponent')
+class CollisionComponent extends Component {
   constructor() {
     super();
     this.addHandler(events.move, 50, this.onPosition);
@@ -20,4 +20,6 @@ class CollideComponent extends Component {
   }
 }
 
-export default CollideComponent;
+CollisionComponent._name = 'collision';
+
+export default CollisionComponent;

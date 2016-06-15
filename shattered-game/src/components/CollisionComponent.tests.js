@@ -1,17 +1,17 @@
 'use strict';
-import CollideComponent from './CollideComponent';
+import CollisionComponent from './CollisionComponent';
 import events from '/events';
 import Entity from 'shattered-lib/Entity';
 import chai from 'chai';
 
 chai.should();
 
-describe('CollideComponent', ()=> {
+describe('CollisionComponent', ()=> {
   describe('onPosition', () => {
     it(`should emit a willNotCollide event`, () => {
-      const collideComponent = new CollideComponent();
+      const collisionComponent = new CollisionComponent();
       const entity = new Entity();
-      entity.addComponent(collideComponent);
+      entity.addComponent(collisionComponent);
 
       let result = {};
       const destination = {
@@ -19,14 +19,14 @@ describe('CollideComponent', ()=> {
           result = event;
         }
       };
-      collideComponent.onPosition({destination});
+      collisionComponent.onPosition({destination});
       result.should.eql({name: events.willNotCollide, entity: entity});
     });
 
     it(`should return the result of the willNotCollide event`, () => {
-      const collideComponent = new CollideComponent();
+      const collisionComponent = new CollisionComponent();
       const entity = new Entity();
-      entity.addComponent(collideComponent);
+      entity.addComponent(collisionComponent);
 
       let expectedResult = 'test';
       const destination = {
@@ -34,7 +34,7 @@ describe('CollideComponent', ()=> {
           return expectedResult;
         }
       };
-      const result = collideComponent.onPosition({destination});
+      const result = collisionComponent.onPosition({destination});
       result.should.equal(expectedResult);
     });
 
@@ -42,13 +42,13 @@ describe('CollideComponent', ()=> {
 
   describe('Handlers', () => {
     it('should listen to onPosition events', () => {
-      const collideComponent = new CollideComponent();
-      collideComponent.handlers.find(handler=>handler.eventName === events.move).should.be.ok;
+      const collisionComponent = new CollisionComponent();
+      collisionComponent.handlers.find(handler=>handler.eventName === events.move).should.be.ok;
     });
 
     it('should listen to willNotCollide events', () => {
-      const collideComponent = new CollideComponent();
-      collideComponent.handlers.find(handler=>handler.eventName === events.willNotCollide).should.be.ok;
+      const collisionComponent = new CollisionComponent();
+      collisionComponent.handlers.find(handler=>handler.eventName === events.willNotCollide).should.be.ok;
     });
   });
 });
