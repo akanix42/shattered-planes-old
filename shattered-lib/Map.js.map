@@ -1,1 +1,0 @@
-{"version":3,"sources":["Map.js"],"names":[],"mappings":"AAAA,a;;AAEM,G;AACJ,S,GAAQ,I,gEADQ,K;;;AAIH,G","file":"Map.js","sourcesContent":["'use strict';\r\n\r\nclass Map extends Array {\r\n  level = null;\r\n}\r\n\r\nexport default Map;\r\n"],"sourceRoot":"/source/"}
