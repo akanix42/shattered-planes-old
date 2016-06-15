@@ -1,30 +1,31 @@
 import PositionComponent from './PositionComponent';
 import events from '/events';
 import Entity from 'shattered-lib/Entity';
+import Tile from 'shattered-lib/Tile';
 import chai from 'chai';
 
 chai.should();
 
-describe('PositionComponent', ()=> {
+describe('OccupantComponent', ()=> {
   describe('onPosition', () => {
     it(`should update the entity's tile`, () => {
-      const positionConent = new PositionComponent();
+      const occupantComponent = new OccupantComponent();
       const entity = new Entity();
-      entity.addComponent(positionConent);
+      entity.addComponent(occupantComponent);
 
-      const destination = {};
-      positionConent.onPosition({destination});
+      const destination = new Tile();
+      occupantComponent.onPosition({destination});
       entity.tile.should.equal(destination);
     });
   });
   
   describe('Handlers', () => {
     it('should listen to onMove events', () => {
-      const positionConent = new PositionComponent();
+      const occupantComponent = new OccupantComponent();
       const entity = new Entity();
-      entity.addComponent(positionConent);
+      entity.addComponent(occupantComponent);
 
-      const destination = {};
+      const destination = new Tile();
       entity.emit({name: events.move, destination});
       entity.tile.should.equal(destination);
     });
