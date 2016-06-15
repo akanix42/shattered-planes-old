@@ -2,8 +2,10 @@
 import chai from 'chai';
 import GameGenerator from './GameGenerator.js';
 import ROT from 'rot-js';
+import idGenerator from 'shattered-lib/generators/idGenerator';
 
 chai.should();
+const expect = chai.expect;
 
 describe('GameGenerator', () => {
 
@@ -20,6 +22,19 @@ describe('GameGenerator', () => {
       ROT.RNG.seed = seed;
       const game = gameGenerator.generate();
       game.seed.should.equal(seed);
+    });
+
+    it('should reset the id generator', () => {
+      const gameGenerator = new GameGenerator();
+      const oldReset = idGenerator.reset;
+      let wasCalled = false;
+      idGenerator.reset = ()=> wasCalled = true;
+
+      gameGenerator.generate();
+
+      expect(wasCalled).to.be.true;
+
+      idGenerator.reset = oldReset;
     });
 
     it('should generate the specified number of levels', () => {

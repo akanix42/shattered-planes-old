@@ -4,6 +4,7 @@ import ComponentGenerator from './ComponentGenerator';
 import EntityGenerator from './EntityGenerator';
 import LevelGenerator from './LevelGenerator';
 import Engine from './Engine';
+import idGenerator from 'shattered-lib/generators/idGenerator';
 
 class Game {
   seed = null;
@@ -17,10 +18,13 @@ class Game {
 
 class GameGenerator {
   LevelGenerator = LevelGenerator;
-  generate(options={}) {
+
+  generate(options = {}) {
+    idGenerator.reset();
+    
     const game = new Game();
     game.seed = ROT.RNG.seed;
-    game.levels = this._generateLevels(options.numberOfLevels||0);
+    game.levels = this._generateLevels(options.numberOfLevels || 0);
     game.engine = new Engine();
     return game;
   }
