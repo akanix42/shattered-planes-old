@@ -48,6 +48,7 @@ describe('LevelGenerator', () => {
       const generator2 = { theme: '2' };
       const generator3 = { theme: '3'};
 
+      LevelGenerator._generators = {};
       const levelGenerator = new LevelGenerator();
       levelGenerator.addGenerator(generator);
       levelGenerator.addGenerator(generator2);
