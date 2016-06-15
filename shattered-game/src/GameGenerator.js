@@ -9,6 +9,10 @@ class Game {
   seed = null;
   levels = null;
   engine = null;
+  
+  start() {
+    this.engine.unlock();
+  }
 }
 
 class GameGenerator {
