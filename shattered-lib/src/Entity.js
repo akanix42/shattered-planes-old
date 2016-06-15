@@ -47,7 +47,10 @@ class Entity {
   }
 
   subscribeComponent(component) {
-    component.handlers.forEach(subscription => this.subscribedHandlers.add(subscription, component));
+    component.handlers.forEach(subscription => {
+      subscription.component = component;
+      this.subscribedHandlers.add(subscription)
+    });
   }
 
   unsubscribeComponent(component) {
