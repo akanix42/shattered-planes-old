@@ -1,1 +1,0 @@
-{"version":3,"sources":["GameLoader.js"],"names":[],"mappings":"AAAA,a;AACM,U;AACC,U,EAAO,CAEX,C;;;;;AAGY,U","file":"GameLoader.js","sourcesContent":["'use strict';\r\nclass GameLoader {\r\n  load(gameId){\r\n    \r\n  }\r\n}\r\n\r\nexport default GameLoader;\r\n"],"sourceRoot":"/source/"}
