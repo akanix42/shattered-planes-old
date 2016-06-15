@@ -78,14 +78,14 @@
       <envs />
     </TaskOptions>
     <TaskOptions isEnabled="true">
-      <option name="arguments" value="--source-maps --out-file $FileNameWithoutExtension$.js $FilePath$" />
+      <option name="arguments" value="--source-maps --out-file $FileDirPathFromParent(shattered-lib)$/$FileNameWithoutExtension$.js $FilePath$" />
       <option name="checkSyntaxErrors" value="true" />
       <option name="description" value="Transpiles ECMAScript 6 code to ECMAScript 5" />
       <option name="exitCodeBehavior" value="ERROR" />
       <option name="fileExtension" value="es6" />
       <option name="immediateSync" value="true" />
       <option name="name" value="Shattered-Lib Babel" />
-      <option name="output" value="$FileNameWithoutExtension$.js:$FileNameWithoutExtension$.js.map" />
+      <option name="output" value="$FileDirPathFromParent(shattered-lib)$/$FileNameWithoutExtension$.js:$FileDirPathFromParent(shattered-lib)$/$FileNameWithoutExtension$.js.map" />
       <option name="outputFilters">
         <array />
       </option>
@@ -93,18 +93,18 @@
       <option name="program" value="$USER_HOME$/AppData/Roaming/npm/babel.cmd" />
       <option name="scopeName" value="shattered-lib" />
       <option name="trackOnlyRoot" value="true" />
-      <option name="workingDir" value="$FileDir$" />
+      <option name="workingDir" value="$ProjectFileDir$/shattered-lib" />
       <envs />
     </TaskOptions>
     <TaskOptions isEnabled="true">
-      <option name="arguments" value="--source-maps --out-file $FileNameWithoutExtension$.js $FilePath$" />
+      <option name="arguments" value="--source-maps --out-file $FileDirPathFromParent(shattered-game)$/$FileNameWithoutExtension$.js $FilePath$" />
       <option name="checkSyntaxErrors" value="true" />
       <option name="description" value="Transpiles ECMAScript 6 code to ECMAScript 5" />
       <option name="exitCodeBehavior" value="ERROR" />
       <option name="fileExtension" value="es6" />
       <option name="immediateSync" value="true" />
       <option name="name" value="Shattered-Game Babel" />
-      <option name="output" value="$FileNameWithoutExtension$.js:$FileNameWithoutExtension$.js.map" />
+      <option name="output" value="$FileDirPathFromParent(shattered-game)$/$FileNameWithoutExtension$.js:$FileDirPathFromParent(shattered-game)$/$FileNameWithoutExtension$.js.map" />
       <option name="outputFilters">
         <array />
       </option>
@@ -112,7 +112,7 @@
       <option name="program" value="$USER_HOME$/AppData/Roaming/npm/babel.cmd" />
       <option name="scopeName" value="shattered-game" />
       <option name="trackOnlyRoot" value="true" />
-      <option name="workingDir" value="$FileDir$" />
+      <option name="workingDir" value="$ProjectFileDir$/shattered-game" />
       <envs />
     </TaskOptions>
   </component>
