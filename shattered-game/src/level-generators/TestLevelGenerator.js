@@ -18,6 +18,7 @@ export default class TestLevelGenerator {
   }
 
   _generateMap() {
+    const generateTile = _generateTile.bind(this);
     const map = new Map();
     const size = 20;
     const tiles = map.tiles = new Array(size);
@@ -26,15 +27,17 @@ export default class TestLevelGenerator {
 
     for (let x = 0; x < tiles.length; x++)
       for (let y = 0, column = tiles[x]; y < column.length; y++)
-        column[y] = generateTile.call(this);
+        column[y] = generateTile(x, y);
 
     return map;
 
 
-    function generateTile() {
+    function _generateTile(x, y) {
       const tile = new Tile(new Point(x, y), map);
       tile.addEntity(this._entityGenerator.generate('dirtFloor'));
       return tile;
     }
   }
 }
+
+TestLevelGenerator.__type__ = 'TestLevelGenerator';
