@@ -6,9 +6,10 @@ class Component {
   entity = null;
   handlers = [];
   id = null;
-
-  constructor(stats) {
-    this._stats = stats || {};
+  _key = null;
+  
+  constructor() {
+    this._key = this.constructor._name;
   }
 
   addHandler(eventName, priority, callback) {

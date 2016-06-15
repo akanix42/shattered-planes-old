@@ -10,9 +10,11 @@ class Entity {
   subscribedHandlers = new SubscribedHandlers();
   tile = null;
   attributes = new Attributes();
+  id = null;
+
   addComponent(component) {
     if (component._key in this._components)
-      throw new Error(`Component ${_key} already exists for entity ${_this}`);
+      throw new Error(`Component ${component._key} already exists for entity ${this}`);
 
     this._components[component._key] = component;
     component.entity = this;

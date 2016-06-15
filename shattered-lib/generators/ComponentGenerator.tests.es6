@@ -13,10 +13,12 @@ describe('ComponentGenerator', () => {
 
       }
       const componentGenerator = new ComponentGenerator();
-      componentGenerator._components['test'] = TestComponent;
+      ComponentGenerator._components['test'] = TestComponent;
 
       const component = componentGenerator.generate('test');
       component.should.be.instanceOf(TestComponent);
+      
+      delete ComponentGenerator._components['test'];
     });
 
     it('should assign a numeric id', ()=> {
@@ -24,10 +26,12 @@ describe('ComponentGenerator', () => {
 
       }
       const componentGenerator = new ComponentGenerator();
-      componentGenerator._components['test'] = TestComponent;
+      ComponentGenerator._components['test'] = TestComponent;
 
       const component = componentGenerator.generate('test');
       expect(component.id).to.be.greaterThan(0);
+
+      delete ComponentGenerator._components['test'];
     });
   });
 
