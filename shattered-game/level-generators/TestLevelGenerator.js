@@ -18,21 +18,27 @@ TestLevelGenerator = function () {function TestLevelGenerator() {_classCallCheck
 
 
     {
+      var generateTile = _generateTile.bind(this);
       var map = new _Map2.default();
       var size = 20;
       var tiles = map.tiles = new Array(size);
-      for (var _x = 0; _x < tiles.length; _x++) {
-        tiles[_x] = new Array(size);}
+      for (var x = 0; x < tiles.length; x++) {
+        tiles[x] = new Array(size);}
 
-      for (var _x2 = 0; _x2 < tiles.length; _x2++) {
-        for (var _y = 0, column = tiles[_x2]; _y < column.length; _y++) {
-          column[_y] = generateTile.call(this);}}
+      for (var _x = 0; _x < tiles.length; _x++) {
+        for (var y = 0, column = tiles[_x]; y < column.length; y++) {
+          column[y] = generateTile(_x, y);}}
 
       return map;
 
 
-      function generateTile() {
+      function _generateTile(x, y) {
         var tile = new _Tile2.default(new _Point2.default(x, y), map);
         tile.addEntity(this._entityGenerator.generate('dirtFloor'));
         return tile;}} }]);return TestLevelGenerator;}();exports.default = TestLevelGenerator;
+
+
+
+
+TestLevelGenerator.__type__ = 'TestLevelGenerator';
 //# sourceMappingURL=TestLevelGenerator.js.map

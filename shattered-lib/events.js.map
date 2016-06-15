@@ -1,0 +1,1 @@
+{"version":3,"sources":["events.js"],"names":[],"mappings":"AAAA,a;;AAEA,IAAM,SAAS,EAAf,C;;AAEe,M","file":"events.js","sourcesContent":["'use strict';\r\n\r\nconst events = {};\r\n\r\nexport default events;\r\n"],"sourceRoot":"/source/"}

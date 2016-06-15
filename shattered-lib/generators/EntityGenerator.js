@@ -4,12 +4,11 @@ var _Entity = require('../Entity');var _Entity2 = _interopRequireDefault(_Entity
 var _ComponentGenerator = require('./ComponentGenerator');var _ComponentGenerator2 = _interopRequireDefault(_ComponentGenerator);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}var 
 
 EntityGenerator = function () {function EntityGenerator() {_classCallCheck(this, EntityGenerator);this.
-    _templates = {};this.
     _componentGenerator = new _ComponentGenerator2.default();this.
     _Entity = _Entity2.default;}_createClass(EntityGenerator, [{ key: 'generate', value: function generate(
 
     templateName) {var _this = this;
-      var template = this._templates[templateName];
+      var template = EntityGenerator._templates[templateName];
       var entity = new this._Entity();
       entity.template = template;
       if (template.components) 
@@ -18,4 +17,8 @@ EntityGenerator = function () {function EntityGenerator() {_classCallCheck(this,
 
 
       return entity;} }]);return EntityGenerator;}();exports.default = EntityGenerator;
+
+
+
+EntityGenerator._templates = {};
 //# sourceMappingURL=EntityGenerator.js.map

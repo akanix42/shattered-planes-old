@@ -2,12 +2,10 @@
 
 var _IncrementalSet = require('./IncrementalSet');var _IncrementalSet2 = _interopRequireDefault(_IncrementalSet);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}var 
 
-SubscribedHandlers = function () {
-  function SubscribedHandlers() {_classCallCheck(this, SubscribedHandlers);
-    this._events = new _IncrementalSet2.default();
-    this._subscribedComponents = new Set();
-    this._handlersByEvent = {};}_createClass(SubscribedHandlers, [{ key: 'add', value: function add(
-
+SubscribedHandlers = function () {function SubscribedHandlers() {_classCallCheck(this, SubscribedHandlers);this.
+    _events = new _IncrementalSet2.default();this.
+    _subscribedComponents = new Set();this.
+    _handlersByEvent = {};}_createClass(SubscribedHandlers, [{ key: 'add', value: function add(
 
     subscription) {
       this._events.add(subscription.eventName);

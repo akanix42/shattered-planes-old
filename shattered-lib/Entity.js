@@ -8,9 +8,8 @@ Entity = (_dec = (0, _jsonc.serializable)('Entity'), _dec(_class = function () {
     _components = [];this.
     stats = {};this.
     subscribedHandlers = new _SubscribedHandlers2.default();this.
-    tile = {};this.
+    tile = null;this.
     attributes = new _Attributes2.default();}_createClass(Entity, [{ key: 'addComponent', value: function addComponent(
-
     component) {
       if (component._key in this._components) 
       throw new Error('Component ' + _key + ' already exists for entity ' + _this);
@@ -47,7 +46,10 @@ Entity = (_dec = (0, _jsonc.serializable)('Entity'), _dec(_class = function () {
 
 
     component) {var _this3 = this;
-      component.handlers.forEach(function (subscription) {return _this3.subscribedHandlers.add(subscription, component);});} }, { key: 'unsubscribeComponent', value: function unsubscribeComponent(
+      component.handlers.forEach(function (subscription) {
+        subscription.component = component;
+        _this3.subscribedHandlers.add(subscription);});} }, { key: 'unsubscribeComponent', value: function unsubscribeComponent(
+
 
 
     component) {

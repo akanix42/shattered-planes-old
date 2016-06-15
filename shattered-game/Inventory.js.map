@@ -1,0 +1,1 @@
+{"version":3,"sources":["Inventory.js"],"names":[],"mappings":"AAAA,a;;AAEM,S;;;;AAIS,S","file":"Inventory.js","sourcesContent":["'use strict';\r\n\r\nclass Inventory {\r\n  \r\n}\r\n\r\nexport default Inventory;\r\n"],"sourceRoot":"/source/"}

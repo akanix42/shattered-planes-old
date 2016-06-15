@@ -18,9 +18,11 @@ NormalMovementComponent = (_dec = (0, _jsonc.serializable)('NormalMovementCompon
 
     {
       var speed = this.entity.attributes.moveSpeed.current;
-      return speed;} }]);return NormalMovementComponent;}(_Component3.default)) || _class);exports.default = 
+      return speed;} }]);return NormalMovementComponent;}(_Component3.default)) || _class);
 
 
+
+NormalMovementComponent._name = 'normalMovement';exports.default = 
 
 NormalMovementComponent;
 //# sourceMappingURL=NormalMovementComponent.js.map
