@@ -9,13 +9,11 @@ describe('components', ()=> {
     describe(key, ()=> {
       it('should be serializable', ()=> {
         const component = components[key];
-        console.log(key);
         expect(component.__type__).to.be.ok;
       });
 
       it('should have a name', ()=> {
         const component = components[key];
-        console.log(key);
         expect(component._name).to.be.ok;
       });
     });
