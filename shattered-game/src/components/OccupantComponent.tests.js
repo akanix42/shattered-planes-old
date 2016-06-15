@@ -1,4 +1,4 @@
-import PositionComponent from './PositionComponent';
+import OccupantComponent from './OccupantComponent';
 import events from '/events';
 import Entity from 'shattered-lib/Entity';
 import Tile from 'shattered-lib/Tile';
