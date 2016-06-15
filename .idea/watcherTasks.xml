@@ -97,14 +97,14 @@
       <envs />
     </TaskOptions>
     <TaskOptions isEnabled="true">
-      <option name="arguments" value="--source-maps --out-file $FileDirPathFromParent(shattered-game)$/$FileNameWithoutExtension$.js $FilePath$" />
+      <option name="arguments" value="--source-maps --out-file $FileDir$\$FileNameWithoutExtension$.js $FilePath$" />
       <option name="checkSyntaxErrors" value="true" />
       <option name="description" value="Transpiles ECMAScript 6 code to ECMAScript 5" />
       <option name="exitCodeBehavior" value="ERROR" />
       <option name="fileExtension" value="es6" />
       <option name="immediateSync" value="true" />
       <option name="name" value="Shattered-Game Babel" />
-      <option name="output" value="$FileDirPathFromParent(shattered-game)$/$FileNameWithoutExtension$.js:$FileDirPathFromParent(shattered-game)$/$FileNameWithoutExtension$.js.map" />
+      <option name="output" value="$FileDir$\$FileNameWithoutExtension$.js:$FileDir$\$FileNameWithoutExtension$.js.map" />
       <option name="outputFilters">
         <array />
       </option>
