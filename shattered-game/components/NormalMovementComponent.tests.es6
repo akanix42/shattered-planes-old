@@ -14,8 +14,9 @@ describe('NormalMovementComponent', ()=> {
       entity.attributes.add('moveSpeed', 1000);
 
       const destination = {};
-      const result = movementComponent.onMove({destination});
-      result.should.equal(1000);
+      const event = {destination};
+      movementComponent.onMove(event);
+      event.actionTime.should.equal(1000);
     });
 
   });

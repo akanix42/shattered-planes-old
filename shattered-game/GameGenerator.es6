@@ -5,6 +5,7 @@ import EntityGenerator from './EntityGenerator';
 import LevelGenerator from './LevelGenerator';
 import Engine from './Engine';
 import idGenerator from 'shattered-lib/generators/idGenerator';
+import global from './global';
 
 class Game {
   seed = null;
@@ -26,6 +27,7 @@ class GameGenerator {
     game.seed = ROT.RNG.seed;
     game.levels = this._generateLevels(options.numberOfLevels || 0);
     game.engine = new Engine();
+    global.game = game;
     return game;
   }
 
