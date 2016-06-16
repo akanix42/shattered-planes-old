@@ -1,6 +1,7 @@
 'use strict';
 import GameGenerator from 'shattered-game/GameGenerator';
 import Entity from 'shattered-lib/Entity';
+import Point from 'shattered-lib/Point';
 import Component from 'shattered-lib/Component';
 import components from 'shattered-game/components/index';
 import global from 'shattered-game/global';
@@ -101,12 +102,21 @@ describe('acting entites', ()=> {
   });
 });
 
+describe('moving entity', ()=> {
   it('should create an entity and move it around the map', (done) => {
     const gameGenerator = new GameGenerator();
     const game = gameGenerator.generate({numberOfLevels: 1});
 
     const entity = new Entity();
     const testDrivenActor = new TestDrivenActorComponent();
+    const movesToTake = [
+      new Point(1, 0),
+      new Point(1, 1),
+      new Point(2, 1),
+      new Point(1, 4),
+    ];
+    const movesRemaining = movesToTake.slice();
+    const movesTaken = [];
 
     class AfterMoveComponent extends Component {
       constructor() {
@@ -115,14 +125,20 @@ describe('acting entites', ()=> {
       }
 
       onMove() {
-        expect(this.entity.tile.point).to.eql({x:1, y:0});
-        done();
+        movesTaken.push(this.entity.tile.point);
       }
     }
     testDrivenActor.onAct = function () {
       const tile = testDrivenActor.entity.tile;
-      var event = {name: events.move, destination: tile.level.getTileAt({x: tile.point.x + 1, y: tile.point.y})};
+      var event = {name: events.move, destination: tile.level.getTileAt(movesRemaining.shift())};
       testDrivenActor.entity.emit(event);
+      if (!movesRemaining.length) {
+        expect(movesTaken).to.eql(movesToTake);
+        game.engine.lock();
+        done();
+      }
+
+      return event.actionTime;
     };
 
     entity.attributes.add('moveSpeed', 1);
@@ -134,7 +150,5 @@ describe('acting entites', ()=> {
 
     game.levels[1].getTileAt({x: 0, y: 0}).addOccupant(entity);
     game.start();
-
-
   });
 });
