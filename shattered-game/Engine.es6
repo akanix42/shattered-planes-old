@@ -1,3 +1,6 @@
+/**
+ * Adapted from ROT.Engine
+ */
 'use strict';
 import ROT from 'rot-js';
 

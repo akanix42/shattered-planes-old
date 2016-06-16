@@ -38,6 +38,7 @@ export default class SubscribedHandlers {
     for (let handlerIndex = 0; handlerIndex < eventHandlers.length; handlerIndex++) {
       let handler = eventHandlers[handlerIndex];
       let result = handler.callback.call(handler.component || this, event);
+      
       if (result === false)
         break;
       else

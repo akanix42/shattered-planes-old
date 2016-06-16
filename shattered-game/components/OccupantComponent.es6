@@ -13,6 +13,7 @@ class OccupantComponent extends Component {
   onPosition(event) {
     if (this.entity.tile)
       this.entity.tile.removeOccupant(this.entity);
+
     if (event.destination)
       event.destination.addOccupant(this.entity);
   }
