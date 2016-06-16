@@ -1,19 +1,11 @@
 {
-  compact: false,
-  ast: false,
-  babelrc: false,
-  retainLines: true,
-  "presets": [
-    "meteor",
+  "compact":false,
+  "ast":false,
+  "retainLines":true,
+  "presets":[
     "stage-0"
   ],
-  "plugins": [
-    "transform-decorators-legacy",
-//    [
-//      "babel-root-import",
-//      {
-//        "rootPathPrefix": "/"
-//      }
-//    ]
+  "plugins":[
+    "transform-decorators-legacy"
   ]
 }
