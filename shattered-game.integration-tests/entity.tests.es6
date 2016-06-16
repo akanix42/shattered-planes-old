@@ -14,7 +14,7 @@ class TestDrivenActorComponent extends Component {
 
   constructor() {
     super();
-    global.game.engine.add(this, false);
+    global.game.engine.add(this);
   }
 
   act() {
@@ -23,22 +23,22 @@ class TestDrivenActorComponent extends Component {
 }
 TestDrivenActorComponent._name = 'testDrivenActor';
 
-describe('moving entity', ()=> {
-  it('should create an entity and cause it to act', () => {
+describe('acting entites', ()=> {
+  it('should act', () => {
     const gameGenerator = new GameGenerator();
     const game = gameGenerator.generate({numberOfLevels: 1});
 
     const entity = new Entity();
     const testDrivenActor = new TestDrivenActorComponent();
     let wasCalled = false;
-    testDrivenActor.onAct = ()=>wasCalled = true;
+    testDrivenActor.onAct = ()=> {
+      wasCalled = true;
+      game.engine.lock();
+    };
 
     entity
-      .addComponent(new components.normalMovement())
-      .addComponent(new components.occupant())
       .addComponent(testDrivenActor);
 
-    game.levels[1].getTileAt({x: 0, y: 0}).addOccupant(entity);
     game.start();
 
     expect(wasCalled).to.be.true;
