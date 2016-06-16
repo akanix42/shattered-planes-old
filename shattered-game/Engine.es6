@@ -8,10 +8,10 @@ class Engine {
   _scheduler = new ROT.Scheduler.Action();
   _lock = 1;
 
-  add(actor, isRecurring=true) {
+  add(actor, isRecurring = true) {
     this._scheduler.add(actor, isRecurring);
   }
-  
+
   remove(actor) {
     this._scheduler.remove(actor);
   }
@@ -21,12 +21,17 @@ class Engine {
   }
 
   unlock() {
-    if (!this._lock) { throw new Error("Cannot unlock unlocked engine"); }
+    if (!this._lock) {
+      throw new Error("Cannot unlock unlocked engine");
+    }
     this._lock--;
 
     while (!this._lock) {
       const actor = this._scheduler.next();
-      if (!actor) { return this.lock(); } /* no actors */
+      if (!actor) {
+        return this.lock();
+      }
+      /* no actors */
       const result = actor.act();
       if (result && result.then) { /* actor returned a "thenable", looks like a Promise */
         this.lock();
