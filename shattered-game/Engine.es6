@@ -30,8 +30,11 @@ class Engine {
       const result = actor.act();
       if (result && result.then) { /* actor returned a "thenable", looks like a Promise */
         this.lock();
-        result.then(this.unlock.bind(this));
-      }
+        result
+          .then(duration=>this._scheduler.setDuration(duration))
+          .then(this.unlock.bind(this));
+      } else
+        this._scheduler.setDuration(result);
     }
   }
 }
