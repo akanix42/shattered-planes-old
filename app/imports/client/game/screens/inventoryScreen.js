@@ -1,36 +1,33 @@
-import display from './display';
-import gameInput from './game-input';
+import {createDisplay} from '../display';
 import global from 'shattered-game/global';
-import gameCommands from './game-commands';
 import ROT from 'rot-js';
+import Screen from './Screen';
 
-
-class InGameScreen {
+class InventoryScreen extends Screen {
   game = null;
-  _keyMap = getKeyMap.call(this);
-
-  load(game) {
-    this.game = game;
-    global.screen = this;
-    game.start();
-  }
+  // _keyMap = getKeyMap.call(this);
+  _display = createDisplay();
 
   render(gameState) {
-    console.log('render!')
+    this._display.drawText(6, 2, '\u2510_____________');
+
   }
 
-  handleInput(inputType, inputData) {
-    var command = this._keyMap[inputType][inputData.keyCode];
-    if (!command) return;
-
-    if (typeof command === 'function')
-      command = command();
-    if (command)
-      gameInput.add(command);
+  show() {
+    super.show();
   }
+  // handleInput(inputType, inputData) {
+  //   var command = this._keyMap[inputType][inputData.keyCode];
+  //   if (!command) return;
+  //
+  //   if (typeof command === 'function')
+  //     command = command();
+  //   if (command)
+  //     gameInput.add(command);
+  // }
 }
 
-export default new InGameScreen();
+export default new InventoryScreen();
 
 function getKeyMap() {
   const keyMap = {keydown: {}, keyup: {}, keypress: {}};

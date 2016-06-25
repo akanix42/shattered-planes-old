@@ -1,0 +1,20 @@
+const map = {
+  boxDownAndLeft: '┓',
+  boxDownAndRight: '┏',
+  boxUpAndRight: '┗',
+  boxUpAndLeft: '┛',
+  boxHorizontal: '━',
+  boxVertical: '┃',
+  boxDoubleDownAndLeft: '╗',
+  boxDoubleDownAndRight: '╔',
+  boxDoubleUpAndRight: '╚',
+  boxDoubleUpAndLeft: '╝',
+  boxDoubleHorizontal: '═',
+  boxDoubleDownAndHorizontal: '╦',
+  boxDoubleUpAndHorizontal: '╩',
+  boxDoubleVertical: '║',
+  boxDoubleVerticalAndHorizontal: '╬',
+  boxDoubleVerticalAndLeft: '╣',
+  boxDoubleVerticalAndRight: '╠',
+};
+export default map;

@@ -1,15 +1,21 @@
 
 'use strict';
-import ArchitectureComponent from './ArchitectureComponent.js';
-import CollisionComponent from './CollisionComponent.js';
-import NormalMovementComponent from './NormalMovementComponent.js';
-import OccupantComponent from './OccupantComponent.js';
+import ArchitectureComponent from './ArchitectureComponent';
+import CollisionComponent from './CollisionComponent';
+import NormalMovementComponent from './NormalMovementComponent';
+import OccupantComponent from './OccupantComponent';
+import TestAutomatedActorComponent from './TestAutomatedActorComponent';
+import UIObserverComponent from './UIObserverComponent';
+import VisionComponent from './VisionComponent';
 
 const importRegistrations = {};
 importRegistrations[ArchitectureComponent._name||ArchitectureComponent.__type__] = ArchitectureComponent;
 importRegistrations[CollisionComponent._name||CollisionComponent.__type__] = CollisionComponent;
 importRegistrations[NormalMovementComponent._name||NormalMovementComponent.__type__] = NormalMovementComponent;
 importRegistrations[OccupantComponent._name||OccupantComponent.__type__] = OccupantComponent;
+importRegistrations[TestAutomatedActorComponent._name||TestAutomatedActorComponent.__type__] = TestAutomatedActorComponent;
+importRegistrations[UIObserverComponent._name||UIObserverComponent.__type__] = UIObserverComponent;
+importRegistrations[VisionComponent._name||VisionComponent.__type__] = VisionComponent;
 
 export default importRegistrations;
   

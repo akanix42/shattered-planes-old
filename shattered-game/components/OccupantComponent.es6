@@ -7,10 +7,10 @@ import events from '/events';
 class OccupantComponent extends Component {
   constructor() {
     super();
-    this.addHandler(events.move, 100, this.onPosition);
+    this.addHandler(events.move, 100, this.onPositionChanged);
   }
 
-  onPosition(event) {
+  onPositionChanged(event) {
     if (this.entity.tile)
       this.entity.tile.removeOccupant(this.entity);
 

@@ -21,10 +21,14 @@ class Level {
   }
 
   getTileAt(point) {
-    const row = this._map[point.x];
+    return this.getTileAtXY(point.x, point.y);
+  }
+
+  getTileAtXY(x, y) {
+    const row = this._map[x];
     if (!row)
       return;
-    return row[point.y];
+    return row[y];
   }
 }
 

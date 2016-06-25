@@ -26,6 +26,7 @@
     "karma-coverage": "^1.0.0",
     "karma-mocha": "^1.0.1",
     "mocha": "^2.4.5",
+    "node-sass": "^3.8.0",
     "source-map-support": "^0.4.0"
   }
 }

@@ -40,6 +40,7 @@ class Tile {
     occupant.tile = this;
 
     this._addHandlers(occupant);
+    this.emit({name: events.onEntityAdded, tile: this});
   }
 
   removeOccupant(occupant) {
@@ -50,6 +51,7 @@ class Tile {
     this.occupants.splice(index, 1);
     occupant.tile = null;
     this._removeHandlers(occupant);
+    this.emit({name: events.onEntityRemoved, tile: this});
   }
 
   _addHandlers(entity) {
@@ -64,6 +66,10 @@ class Tile {
     keys.forEach(key=> {
       entity.subscribedHandlers._handlersByEvent[key].forEach(handler=>this._handlers.remove(handler));
     });
+  }
+
+  emit(event) {
+    this._handlers.emit(event);
   }
 }
 

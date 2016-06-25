@@ -7,9 +7,9 @@ const directory = args[0];
 console.log('auto import', directory)
 const useNew = args.indexOf('--new') != -1;
 
-const outputFile = `${directory}/index.js`;
+const outputFile = `${directory}/index.es6`;
 
-recursive(directory, ['!*.js', '*.tests.js', outputFile], function (err, files) {
+recursive(directory, ['!*.es6', '*.tests.es6', outputFile], function (err, files) {
   // Files is an array of filename
   if (!files) return;
   console.log(files);
@@ -18,8 +18,9 @@ recursive(directory, ['!*.js', '*.tests.js', outputFile], function (err, files) 
   const importRegistrations = [];
 
   files.forEach(file=> {
-    const relativeFile = path.relative(directory, file);
-    const importAs = path.basename(relativeFile, path.extname(relativeFile)).replace(/\//g, '_').replace(/\./g, '_');
+    let relativeFile = path.relative(directory, file);
+    relativeFile = path.basename(relativeFile, path.extname(relativeFile))
+    const importAs = relativeFile.replace(/\//g, '_').replace(/\./g, '_');
     const importStatement = `import ${importAs} from './${relativeFile}';`;
     const importRegistration = `importRegistrations[${importAs}._name||${importAs}.__type__] = ${useNew ? `new ${importAs}();` : importAs};`;
     importStatements.push(importStatement);
