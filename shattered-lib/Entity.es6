@@ -2,15 +2,25 @@
 import {serializable} from 'jsonc';
 import SubscribedHandlers from './SubscribedHandlers';
 import Attributes from './Attributes';
+import events from './events';
 
 @serializable('Entity')
 class Entity {
   _components = [];
   stats = {};
   subscribedHandlers = new SubscribedHandlers();
-  tile = null;
+  _tile = null;
   attributes = new Attributes();
   id = null;
+
+  get tile() {
+    return this._tile;
+  }
+
+  set tile(tile) {
+    this._tile = tile;
+    this.emit({name: events.onEntityTileUpdated});
+  }
 
   addComponent(component) {
     if (component._key in this._components)

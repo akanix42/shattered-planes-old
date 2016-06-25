@@ -2,6 +2,7 @@
 import EntitiesByPriority from './EntitiesByPriority';
 import Inventory from './Inventory';
 import SubscribedHandlers from './SubscribedHandlers';
+import events from '/events';
 
 
 class Tile {

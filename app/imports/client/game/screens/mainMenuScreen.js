@@ -13,7 +13,7 @@ class MainMenuScreen extends Screen {
 
     setTimeout(()=> {
       const gameGenerator = new GameGenerator();
-      const game = gameGenerator.generate();
+      const game = gameGenerator.generate({numberOfLevels: 1});
       const player = new Entity();
 
       player.attributes.add('moveSpeed', 1);
@@ -23,7 +23,7 @@ class MainMenuScreen extends Screen {
         .addComponent(new components.vision())
         .addComponent(new components.testAutomatedActor())
 
-      game.levels[0].getTileAt({x: 0, y: 0}).addOccupant(player);
+      game.levels[1].getTileAt({x: 0, y: 0}).addOccupant(player);
       inGameScreen.load(game);
       inGameScreen.show();
     }, 1000);

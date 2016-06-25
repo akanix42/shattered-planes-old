@@ -1,5 +1,5 @@
 'use strict';
-import {serializable} from 'jsonc';
+import {serializable, Deserializer} from 'jsonc';
 import Component from 'shattered-lib/Component';
 import uiObservers from '/uiObservers';
 import events from '/events';
@@ -13,16 +13,16 @@ class VisionComponent extends Component {
   constructor() {
     super();
     // uiObservers.add(this);
-    this.addHandler(events.onEntityAdded, this.onEntityAdded, 150);
-    this.addHandler(events.onEntityRemoved, this.onEntityRemoved, 150);
+    this.addHandler(events.onEntityAdded, 150, this.onEntityAdded);
+    this.addHandler(events.onEntityRemoved, 150, this.onEntityRemoved);
+    this.addHandler(events.onEntityTileUpdated, 150, this.onEntityTileUpdated);
   }
 
-  get entity() {
-    return this._entity;
+  [Deserializer.Symbols.PostProcess]() {
+    this.updateFov();
   }
 
-  set entity(entity) {
-    this._entity = entity;
+  onEntityTileUpdated() {
     this.updateFov();
   }
 
@@ -34,9 +34,11 @@ class VisionComponent extends Component {
     const onEntityRemovedHandler = {eventName: events.onEntityRemoved, priority: 100, component: this};
     for (let x = Math.max(0, this.entity.tile.point.x); x < Math.min(level.map.length, visionRange); x++) {
       for (let y = Math.max(0, this.entity.tile.point.y); y < Math.min(level.map.length, visionRange); y++) {
-        const tile = level.getTileAt(x, y);
-        tile._handlers._add(onEntityAddedHandler);
-        tile._handlers._add(onEntityRemovedHandler);
+        const tile = level.getTileAtXY(x, y);
+        if(!tile)
+          debugger
+        tile._handlers.add(onEntityAddedHandler);
+        tile._handlers.add(onEntityRemovedHandler);
         fov.push(tile);
       }
     }
