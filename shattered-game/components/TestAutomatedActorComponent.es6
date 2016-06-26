@@ -3,6 +3,7 @@ import {serializable} from 'jsonc';
 import Component from 'shattered-lib/Component';
 import global from 'shattered-game/global';
 import ROT from 'rot-js';
+import events from '/events';
 
 @serializable('TestAutomatedActorComponent')
 class TestAutomatedActorComponent extends Component {

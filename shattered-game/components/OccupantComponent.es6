@@ -7,7 +7,7 @@ import events from '/events';
 class OccupantComponent extends Component {
   constructor() {
     super();
-    this.addHandler(events.move, 100, this.onPositionChanged);
+    this.addHandler(events.onPositioned, 100, this.onPositionChanged);
   }
 
   onPositionChanged(event) {

@@ -1,10 +1,11 @@
-import { createDisplay} from '../display';
+import {createDisplay} from '../display';
 import gameInput from '../game-input';
 import global from 'shattered-game/global';
 import gameCommands from '../game-commands';
 import ROT from 'rot-js';
 import Screen from './Screen';
 import inventoryScreen from './inventoryScreen';
+import {postal} from 'shattered-game/global';
 
 class InGameScreen extends Screen {
   game = null;
@@ -14,32 +15,31 @@ class InGameScreen extends Screen {
   load(game) {
     this.game = game;
     global.screen = this;
-    game.start();
 
     postal.subscribe({
       channel: 'ui',
       topic: 'vision.update',
-      callback: (event)=> {
-        this.renderTile(event.data.tile);
+      callback: (data)=> {
+        this.renderTile(data.tile);
       }
     });
     postal.subscribe({
       channel: 'ui',
       topic: 'vision.reset',
-      callback: (event)=> {
-        this.renderFov(event.data.fov);
+      callback: (data)=> {
+        this.renderFov(data.fov);
       }
     });
   }
 
-  render(gameState=this.gameState) {
+  render(gameState = this.gameState) {
     this._display.clear();
     // this._display.drawText(5, 2, 'PLAY BALL');
     this.gameState = gameState;
   }
 
   renderFov(fov) {
-    fov.forEach(this.renderTile);
+    fov.forEach(this.renderTile.bind(this));
   }
 
   renderTile(tile) {

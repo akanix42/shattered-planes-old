@@ -1,5 +1,5 @@
 'use strict';
 
 const events = {};
-events.onEntityTileUpdated = 'onEntityTileUpdated';
+events.onEntityCreated = 'onEntityCreated';
 export default events;

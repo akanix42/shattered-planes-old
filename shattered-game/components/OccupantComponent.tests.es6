@@ -20,13 +20,13 @@ describe('OccupantComponent', ()=> {
   });
   
   describe('Handlers', () => {
-    it('should listen to onMove events', () => {
+    it('should listen to onPositioned events', () => {
       const occupantComponent = new OccupantComponent();
       const entity = new Entity();
       entity.addComponent(occupantComponent);
 
       const destination = new Tile();
-      entity.emit({name: events.move, destination});
+      entity.emit({name: events.onPositioned, destination});
       entity.tile.should.equal(destination);
     });
   });

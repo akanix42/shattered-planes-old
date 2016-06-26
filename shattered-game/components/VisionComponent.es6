@@ -12,31 +12,27 @@ class VisionComponent extends Component {
 
   constructor() {
     super();
-    // uiObservers.add(this);
-    this.addHandler(events.onEntityAdded, 150, this.onEntityAdded);
-    this.addHandler(events.onEntityRemoved, 150, this.onEntityRemoved);
-    this.addHandler(events.onEntityTileUpdated, 150, this.onEntityTileUpdated);
+    this.addHandler(events.onPositioned, 150, this.onPositionChanged);
   }
 
   [Deserializer.Symbols.PostProcess]() {
     this.updateFov();
   }
 
-  onEntityTileUpdated() {
+  onPositionChanged() {
     this.updateFov();
   }
 
   updateFov() {
+    console.log('fov')
     const visionRange = 20;
     const fov = [];
     const level = this.entity.tile.level;
-    const onEntityAddedHandler = {eventName: events.onEntityAdded, priority: 100, component: this};
-    const onEntityRemovedHandler = {eventName: events.onEntityRemoved, priority: 100, component: this};
+    const onEntityAddedHandler = {eventName: events.onEntityAdded, priority: 150, component: this, callback: this.onEntityAdded};
+    const onEntityRemovedHandler = {eventName: events.onEntityRemoved, priority: 150, component: this, callback: this.onEntityAdded};
     for (let x = Math.max(0, this.entity.tile.point.x); x < Math.min(level.map.length, visionRange); x++) {
       for (let y = Math.max(0, this.entity.tile.point.y); y < Math.min(level.map.length, visionRange); y++) {
         const tile = level.getTileAtXY(x, y);
-        if(!tile)
-          debugger
         tile._handlers.add(onEntityAddedHandler);
         tile._handlers.add(onEntityRemovedHandler);
         fov.push(tile);
@@ -50,6 +46,8 @@ class VisionComponent extends Component {
         fov
       }
     });
+    console.log('publish')
+
   }
 
   onEntityAdded(event) {
