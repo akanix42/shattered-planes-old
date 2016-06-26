@@ -7,7 +7,7 @@ import events from '/events';
 class ArchitectureComponent extends Component {
   constructor() {
     super();
-    this.addHandler(events.position, 150, this.onPosition);
+    this.addHandler(events.onPosition, 150, this.onPosition);
   }
 
   onPosition(event) {

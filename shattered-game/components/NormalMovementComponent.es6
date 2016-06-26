@@ -12,7 +12,7 @@ class NormalMovementComponent extends Component {
 
   onMove(event) {
     const actionTime = this._calculateActionTime();
-    this.entity.emit({name: events.position, destination: event.destination});
+    this.entity.emit({name: events.onPosition, destination: event.destination});
     event.actionTime = actionTime;
   }
 
