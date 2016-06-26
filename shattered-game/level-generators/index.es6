@@ -1,8 +1,9 @@
 
-import TestLevelGenerator from './TestLevelGenerator.js';
+'use strict';
+import TestLevelGenerator from './TestLevelGenerator';
 
 const importRegistrations = {};
-importRegistrations[TestLevelGenerator.__type__] = new TestLevelGenerator();;
+importRegistrations[TestLevelGenerator._name||TestLevelGenerator.__type__] = new TestLevelGenerator();;
 
 export default importRegistrations;
   

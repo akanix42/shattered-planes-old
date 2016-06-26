@@ -1,9 +1,9 @@
 
 'use strict';
-import ArchitectureComponent from './ArchitectureComponent.js';
-import CollisionComponent from './CollisionComponent.js';
-import NormalMovementComponent from './NormalMovementComponent.js';
-import OccupantComponent from './OccupantComponent.js';
+import ArchitectureComponent from './ArchitectureComponent';
+import CollisionComponent from './CollisionComponent';
+import NormalMovementComponent from './NormalMovementComponent';
+import OccupantComponent from './OccupantComponent';
 
 const importRegistrations = {};
 importRegistrations[ArchitectureComponent._name||ArchitectureComponent.__type__] = ArchitectureComponent;

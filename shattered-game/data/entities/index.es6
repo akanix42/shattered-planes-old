@@ -1,11 +1,11 @@
 
 'use strict';
-import architecture from './architecture.js';
-import creatures from './creatures.js';
+import architecture from './architecture';
+import creatures from './creatures';
 
 const importRegistrations = {};
-importRegistrations[architecture.__type__] = architecture;
-importRegistrations[creatures.__type__] = creatures;
+importRegistrations[architecture._name||architecture.__type__] = architecture;
+importRegistrations[creatures._name||creatures.__type__] = creatures;
 
 export default importRegistrations;
   
