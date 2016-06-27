@@ -1,4 +1,5 @@
 'use strict';
+import components from '../../components/index';
 
 const data =
   [
@@ -7,7 +8,7 @@ const data =
       character: '.',
       color: 'brown',
       components: [
-        'architecture'
+        components.architecture
       ]
     }
   ];
