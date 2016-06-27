@@ -7,14 +7,6 @@ chai.should();
 
 describe('Component', () => {
 
-  describe('constructor', ()=> {
-    it('should instantiate the stats object', ()=> {
-      const component = new Component();
-
-      component._stats.should.be.ok;
-    });
-  });
-
   describe('_addHandler', ()=> {
     it('should add the handler', () => {
       const component = new Component();
@@ -44,10 +36,10 @@ describe('Component', () => {
 
     it('should deserialize properly', () => {
       const originalComponent = new Component();
-      originalComponent._stats.test = 'test';
+      originalComponent.test = 'test';
       const serializedData = jsonc.serialize({component: originalComponent});
       const deserializedComponent = jsonc.deserialize(serializedData).component;
-      deserializedComponent._stats.test.should.equal('test');
+      deserializedComponent.test.should.equal('test');
     });
   });
 });
