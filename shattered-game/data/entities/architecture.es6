@@ -6,7 +6,7 @@ const data =
     {
       name: 'dirtFloor',
       character: '.',
-      color: 'brown',
+      color: '#AD642D',
       components: [
         components.architecture
       ]
