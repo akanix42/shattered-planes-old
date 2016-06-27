@@ -41,7 +41,7 @@ describe('CollisionComponent', ()=> {
   });
 
   describe('Handlers', () => {
-    it('should listen to onPosition events', () => {
+    it('should listen to move events', () => {
       const collisionComponent = new CollisionComponent();
       collisionComponent.handlers.find(handler=>handler.eventName === events.move).should.be.ok;
     });
