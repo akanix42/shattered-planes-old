@@ -3,8 +3,8 @@ const options = {
   width: 40,
   height: 40,
   fontSize: 18,
-  fontFamily: 'Nova Square'
   forceSquareRatio: true,
+  fontFamily: 'dejavu_sans_monobook'
 };
 
 const display = new ROT.Display(options);
