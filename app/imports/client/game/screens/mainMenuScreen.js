@@ -3,6 +3,7 @@ import inGameScreen from './inGameScreen';
 import GameGenerator from 'shattered-game/GameGenerator';
 import Screen from './Screen';
 import Entity from 'shattered-lib/Entity';
+import EntityGenerator from 'shattered-game/EntityGenerator';
 import components from 'shattered-game/components/index';
 import events from 'shattered-game/events';
 
@@ -17,16 +18,12 @@ class MainMenuScreen extends Screen {
       const game = gameGenerator.generate({numberOfLevels: 1});
       inGameScreen.load(game);
 
-      const player = new Entity();
+      const entityGenerator = new EntityGenerator();
+      const player = entityGenerator.generate('player');
 
       player.attributes.add('moveSpeed', 1);
-      player
-        .addComponent(new components.normalMovement())
-        .addComponent(new components.occupant())
-        .addComponent(new components.vision())
-        .addComponent(new components.testAutomatedActor())
 
-      player.emit({name: events.onPositioned, destination: game.levels[1].getTileAt({x: 0, y: 0})});
+      player.emit({name: events.onPosition, destination: game.levels[1].getTileAt({x: 0, y: 0})});
 
       inGameScreen.show();
       game.start();
