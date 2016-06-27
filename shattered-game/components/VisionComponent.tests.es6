@@ -7,6 +7,18 @@ import chai from 'chai';
 const expect = chai.expect;
 
 describe('VisionComponent', ()=> {
+  describe('onCreated', () => {
+    it(`should set a default visionRange of zero`, () => {
+      throw 'not implemented';
+    });
+  });
+
+  describe('deserialization', () => {
+    it(`should restore the vision handlers when deserialized`, () => {
+      throw 'not implemented';
+    });
+  });
+
   describe('onPositionChanged', () => {
     it(`should update the field-of-view (fov)`, (done) => {
       const visionComponent = new VisionComponent();
@@ -16,6 +28,22 @@ describe('VisionComponent', ()=> {
   });
 
   describe('updateFov', () => {
+    it(`should be empty when the visionRange is 0`, () => {
+      throw 'not implemented';
+    });
+
+    it(`should unsubscribe from tiles that are no longer in view`, () => {
+      throw 'not implemented';
+    });
+
+    it(`should update the previous fov`, () => {
+      throw 'not implemented';
+    });
+
+    it('should notify the ui of the fov changes', ()=>{
+      throw 'not implemented';
+    });
+
     it(`should add all visible tiles to the field-of-view`, () => {
       const level = new TestLevelGenerator().generate();
       const visionComponent = new VisionComponent();
@@ -35,6 +63,10 @@ describe('VisionComponent', ()=> {
       visionComponent.updateFov();
 
       expect(visionComponent.fov).to.deep.equal(expectedFov);
+    });
+
+    it(`should not display tiles that are blocked by other tiles`, () => {
+      throw 'not implemented';
     });
 
     it(`should subscribe to all tiles except for the current tile in the field-of-view (fov)`, () => {
@@ -58,6 +90,18 @@ describe('VisionComponent', ()=> {
         return result;
       };
       expect(visionComponent.fov.every(checkTileHandlers)).to.be.true;
+    });
+  });
+
+  describe('onEntityAdded', () => {
+    it ('should notify the ui of the changed tiles', ()=>{
+      throw 'not implemented';
+    });
+  });
+
+  describe('onEntityRemoved', () => {
+    it ('should notify the ui of the changed tiles', ()=>{
+      throw 'not implemented';
     });
   });
 
