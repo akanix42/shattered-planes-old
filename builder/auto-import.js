@@ -22,7 +22,9 @@ recursive(directory, ['!*.es6', '*.tests.es6', outputFile], function (err, files
     relativeFile = path.basename(relativeFile, path.extname(relativeFile))
     const importAs = relativeFile.replace(/\//g, '_').replace(/\./g, '_');
     const importStatement = `import ${importAs} from './${relativeFile}';`;
-    const importRegistration = `importRegistrations[${importAs}._name||${importAs}.__type__] = ${useNew ? `new ${importAs}();` : importAs};`;
+    const loadedFile = require(path.join(process.cwd(), file.replace(/\.es6$/, '.js')));
+    const registration = loadedFile.default._name || loadedFile.default.__type__;
+    const importRegistration = `importRegistrations.${registration} = ${useNew ? `new ${importAs}();` : importAs};`;
     importStatements.push(importStatement);
     importRegistrations.push(importRegistration);
   });
