@@ -24,7 +24,7 @@
       <option name="arguments" value="builder\auto-import.js $FileDirRelativeToProjectRoot$" />
       <option name="checkSyntaxErrors" value="true" />
       <option name="description" value="" />
-      <option name="exitCodeBehavior" value="ALWAYS" />
+      <option name="exitCodeBehavior" value="ERROR" />
       <option name="fileExtension" value="js" />
       <option name="immediateSync" value="true" />
       <option name="name" value="AutoImport Entity Templates" />

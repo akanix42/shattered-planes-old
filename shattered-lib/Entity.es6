@@ -5,12 +5,13 @@ import Attributes from './Attributes';
 
 @serializable('Entity')
 class Entity {
-  _components = [];
+  _components = {};
   stats = {};
   subscribedHandlers = new SubscribedHandlers();
   tile = null;
   attributes = new Attributes();
   id = null;
+  template = null;
 
   addComponent(component) {
     if (component._key in this._components)
