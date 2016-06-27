@@ -12,6 +12,10 @@ class Component {
     this._key = this.constructor._name;
   }
 
+  init(){
+
+  }
+
   addHandler(eventName, priority, callback) {
     this.handlers.push({eventName, priority, callback, component: this});
   }

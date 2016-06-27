@@ -13,6 +13,10 @@ class VisionComponent extends Component {
     this.addHandler(events.onPosition, 150, this.onPositionChanged);
   }
 
+  init() {
+    this.entity.attributes.add('visionRange', 0);
+  }
+
   [Deserializer.Symbols.PostProcess]() {
     this.updateFov();
   }

@@ -19,6 +19,7 @@ class Entity {
     this._components[component._key] = component;
     component.entity = this;
     this.subscribeComponent(component);
+    component.init();
     return this;
   }
 

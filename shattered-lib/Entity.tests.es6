@@ -11,10 +11,16 @@ describe('Entity', () => {
 
     it('should add a new component', ()=> {
       const entity = new Entity();
-      const component = {_key: 'component', handlers: []};
+      const component = {_key: 'component', handlers: [], init(){}};
       entity.addComponent(component);
 
       entity._components['component'].should.equal(component);
+    });
+
+    it(`should call the new component's init function`, (done)=> {
+      const entity = new Entity();
+      const component = {_key: 'component', handlers: [], init(){ done(); }};
+      entity.addComponent(component);
     });
   });
 
