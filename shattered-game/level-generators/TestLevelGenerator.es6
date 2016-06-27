@@ -18,10 +18,8 @@ export default class TestLevelGenerator {
 
   _generateMap() {
     const generateTile = _generateTile.bind(this);
-    const size = 20;
-    const map = new Map(size);
-    for (let x = 0; x < map.length; x++)
-      map[x] = new Array(size);
+    const width = 20, height = 20;
+    const map = new Map(width, height);
 
     for (let x = 0; x < map.length; x++)
       for (let y = 0, column = map[x]; y < column.length; y++)
