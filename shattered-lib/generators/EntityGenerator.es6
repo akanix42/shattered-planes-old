@@ -19,7 +19,6 @@ export default class EntityGenerator {
       template.components.forEach(componentName=> {
         entity.addComponent(this._componentGenerator.generate(componentName));
       });
-
     return entity;
   }
 }

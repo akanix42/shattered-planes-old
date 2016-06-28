@@ -14,7 +14,7 @@ describe('EntityGenerator', () => {
       };
       const entityGenerator = new EntityGenerator();
       EntityGenerator._templates[testTemplate.name] = testTemplate;
-      
+
       const entity = entityGenerator.generate('test');
       entity.template.should.equal(testTemplate);
 
@@ -27,7 +27,7 @@ describe('EntityGenerator', () => {
         components: ['component1', 'component2']
       };
       const addedComponents = [];
-      class Entity{
+      class Entity {
         addComponent(component) {
           addedComponents.push(component);
         }
