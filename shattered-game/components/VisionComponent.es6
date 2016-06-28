@@ -2,12 +2,12 @@
 import {serializable, Deserializer} from 'jsonc';
 import Component from 'shattered-lib/Component';
 import events from '/events';
-import postal from 'postal';
 import ROT from 'rot-js';
 
 @serializable('VisionComponent')
 class VisionComponent extends Component {
-  fov = null;
+  fov = [];
+  _previousFov = [];
   _shadowCaster = new ROT.FOV.PreciseShadowcasting(this._checkIfLightPasses.bind(this));
 
   constructor() {
@@ -29,39 +29,54 @@ class VisionComponent extends Component {
 
   updateFov() {
     const level = this.entity.tile.level;
+    const visionRange = this.entity.attributes.visionRange.current;
 
-    const fov = this._calculateFov();
+    const cachedFov = this.entity.tile.fovCache;
+    if (cachedFov && cachedFov.visionRange >= visionRange)
+      return cachedFov[Math.min(cachedFov.length - 1, visionRange)];
 
+    const {fov, tileFovCache} = this._calculateFov(visionRange);
+
+    this._previousFov = this.fov;
     this.fov = fov;
+    this.entity.tile.fovCache = tileFovCache;
   }
 
-  _calculateFov() {
+  _calculateFov(visionRange) {
     const fov = [];
+    const tileFovCache = [];
+    const fovAtRadius = [];
     const map = this.entity.tile.map;
-    const visionRange = this.entity.attributes.visionRange.current;
     // var clearSightDistance = visionRange * 0.667;
+    tileFovCache.visionRange = visionRange || 0;
+
     if (visionRange === 0)
-      return fov;
+      return {fov, tileFovCache};
 
     this._shadowCaster.compute(this.entity.tile.point.x, this.entity.tile.point.y, visionRange,
       function recordVisibleTile(x, y, distance, visibility) {
         if (visibility === 0 || x < 0 || y < 0 || x >= map.width || y >= map.height)
           return;
-
+        const ring = fovAtRadius[distance] || (fovAtRadius[distance] = []);
+        const tile = map[x][y];
+        ring.push(tile);
         // if (distance > clearSightDistance)
         //   visibility = (visionRange - distance) / (visionRange - clearSightDistance);
-        fov.push(map[x][y]);
+        fov.push(tile);
       });
 
-    return fov;
+    let previousFov = [];
+    for (var i = 0; i < fovAtRadius.length; i++)
+      previousFov = tileFovCache[i] = fovAtRadius.concat(previousFov);
+    return {fov, tileFovCache};
   }
 
   _checkIfLightPasses(x, y) {
     const map = this.entity.tile.map;
     if (x < 0 || y < 0 || x >= map.width || y >= map.height)
       return false;
-    var column = map[x];
-    const isBlockingLight = map[x][y].emit({name: events.isBlockingLight});
+    const isBlockingLight = map[x][y].emit({name: events.isBlockingLight}).isCanceled === true;
+
     return !isBlockingLight;
   }
 

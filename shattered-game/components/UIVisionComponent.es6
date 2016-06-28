@@ -2,8 +2,7 @@
 import {serializable, Deserializer} from 'jsonc';
 import VisionComponent from './VisionComponent';
 import events from '/events';
-import postal from 'postal';
-import ROT from 'rot-js';
+import { postal } from '/global';
 
 @serializable('UIVisionComponent')
 class UIVisionComponent extends VisionComponent {
@@ -20,23 +19,41 @@ class UIVisionComponent extends VisionComponent {
     callback: this.onEntityAdded
   };
 
+
   updateFov() {
     super.updateFov();
+
+    const newTiles = [];
+    const previousFovSet = new Set(this._previousFov);
+    this.fov.forEach(tile => {
+      if (!previousFovSet.has(tile)) {
+        if (tile != this.entity.tile) {
+          tile._handlers.add(this._onEntityAddedHandler);
+          tile._handlers.add(this._onEntityRemovedHandler);
+        }
+        newTiles.push(tile);
+      }
+      else {
+        /**
+         * This tile is still in the fov, remove it so we will only have unused tiles left
+         */
+        previousFovSet.delete(tile);
+      }
+    });
+
+    previousFovSet.forEach(tile=> {
+      tile._handlers.remove(this._onEntityAddedHandler);
+      tile._handlers.remove(this._onEntityRemovedHandler);
+    });
+
     postal.publish({
       channel: 'ui',
       topic: 'vision.reset',
       data: {
-        fov: this.fov
+        fov: newTiles
       }
     });
-    this.fov.forEach(tile => {
-      if (tile != this.entity.tile) {
-        tile._handlers.add(this._onEntityAddedHandler);
-        tile._handlers.add(this._onEntityRemovedHandler);
-      }
-      else
-        console.log('my tile')
-    });
+
   }
 
   onEntityAdded(event) {
