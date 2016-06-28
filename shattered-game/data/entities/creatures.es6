@@ -16,7 +16,7 @@ const data =
       components: [
         components.normalMovement,
         components.occupant,
-        components.vision,
+        components.uiVision,
         components.testAutomatedActor,
       ],
       attributes: {

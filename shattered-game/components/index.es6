@@ -5,6 +5,7 @@ import CollisionComponent from './CollisionComponent';
 import NormalMovementComponent from './NormalMovementComponent';
 import OccupantComponent from './OccupantComponent';
 import TestAutomatedActorComponent from './TestAutomatedActorComponent';
+import UIVisionComponent from './UIVisionComponent';
 import VisionComponent from './VisionComponent';
 
 const importRegistrations = {};
@@ -13,6 +14,7 @@ importRegistrations.collision = CollisionComponent;
 importRegistrations.normalMovement = NormalMovementComponent;
 importRegistrations.occupant = OccupantComponent;
 importRegistrations.testAutomatedActor = TestAutomatedActorComponent;
+importRegistrations.uiVision = UIVisionComponent;
 importRegistrations.vision = VisionComponent;
 
 export default importRegistrations;

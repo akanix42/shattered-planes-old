@@ -8,18 +8,6 @@ import ROT from 'rot-js';
 @serializable('VisionComponent')
 class VisionComponent extends Component {
   fov = null;
-  _onEntityAddedHandler = {
-    eventName: events.onEntityAdded,
-    priority: 150,
-    component: this,
-    callback: this.onEntityAdded
-  };
-  _onEntityRemovedHandler = {
-    eventName: events.onEntityRemoved,
-    priority: 150,
-    component: this,
-    callback: this.onEntityAdded
-  };
   _shadowCaster = new ROT.FOV.PreciseShadowcasting(this._checkIfLightPasses.bind(this));
 
   constructor() {
@@ -43,23 +31,8 @@ class VisionComponent extends Component {
     const level = this.entity.tile.level;
 
     const fov = this._calculateFov();
-    fov.forEach(tile => {
-      if (tile != this.entity.tile) {
-        tile._handlers.add(this._onEntityAddedHandler);
-        tile._handlers.add(this._onEntityRemovedHandler);
-      }
-      else
-        console.log('my tile')
-    });
 
     this.fov = fov;
-    postal.publish({
-      channel: 'ui',
-      topic: 'vision.reset',
-      data: {
-        fov
-      }
-    });
   }
 
   _calculateFov() {
@@ -92,25 +65,6 @@ class VisionComponent extends Component {
     return !isBlockingLight;
   }
 
-  onEntityAdded(event) {
-    postal.publish({
-      channel: 'ui',
-      topic: 'vision.update',
-      data: {
-        tile: event.tile
-      }
-    });
-  }
-
-  onEntityRemoved(event) {
-    postal.publish({
-      channel: 'ui',
-      topic: 'vision.update',
-      data: {
-        tile: event.tile
-      }
-    });
-  }
 }
 VisionComponent._name = 'vision';
 
