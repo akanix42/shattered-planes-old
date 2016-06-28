@@ -21,8 +21,6 @@ class MainMenuScreen extends Screen {
       const entityGenerator = new EntityGenerator();
       const player = entityGenerator.generate('player');
 
-      player.attributes.add('moveSpeed', 1);
-
       player.emit({name: events.onPosition, destination: game.levels[1].getTileAt({x: 0, y: 0})});
 
       inGameScreen.show();

@@ -20,6 +20,7 @@ const data =
         components.testAutomatedActor,
       ],
       attributes: {
+        'moveSpeed': 1000,
         'visionRange': 20
       }
     },
