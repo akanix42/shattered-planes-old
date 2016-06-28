@@ -18,8 +18,8 @@ class TestAutomatedActorComponent extends Component {
       setTimeout(() => {
         const tile = this.entity.tile;
 
-        const x = ROT.RNG.getUniformInt(Math.max(0, tile.point.x - 1), Math.min(tile.level._map.length, tile.point.x + 1));
-        const y = ROT.RNG.getUniformInt(Math.max(0, tile.point.y - 1), Math.min(tile.level._map.length, tile.point.y + 1));
+        const x = ROT.RNG.getUniformInt(Math.max(0, tile.point.x - 1), Math.min(tile.level._map.width - 1, tile.point.x + 1));
+        const y = ROT.RNG.getUniformInt(Math.max(0, tile.point.y - 1), Math.min(tile.level._map.height - 1, tile.point.y + 1));
         var event = {name: events.move, destination: tile.level.getTileAtXY(x, y)};
         this.entity.emit(event);
 
