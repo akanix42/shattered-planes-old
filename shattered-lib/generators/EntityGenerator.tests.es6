@@ -1,8 +1,9 @@
 'use strict';
 import EntityGenerator from './EntityGenerator';
-import chai from 'chai';
 
+import chai from 'chai';
 chai.should();
+const expect = chai.expect;
 
 describe('EntityGenerator', () => {
 
@@ -34,11 +35,27 @@ describe('EntityGenerator', () => {
       const entityGenerator = new EntityGenerator();
       EntityGenerator._templates[testTemplate.name] = testTemplate;
       entityGenerator._Entity = Entity;
-      entityGenerator._componentGenerator = { generate: componentName=>({componentName})};
+      entityGenerator._componentGenerator = {generate: componentName=>({componentName})};
 
       entityGenerator.generate('test');
-      addedComponents[0].should.eql({componentName:'component1'});
-      addedComponents[1].should.eql({componentName:'component2'});
+      addedComponents[0].should.eql({componentName: 'component1'});
+      addedComponents[1].should.eql({componentName: 'component2'});
+
+      delete EntityGenerator._templates[testTemplate.name];
+    });
+
+    it(`should add all of the template's attributes to the entity`, ()=> {
+      const testTemplate = {
+        name: 'test',
+        attributes: {attribute1: 10, attribute2: 5}
+      };
+     
+      const entityGenerator = new EntityGenerator();
+      EntityGenerator._templates[testTemplate.name] = testTemplate;
+
+      const entity = entityGenerator.generate('test');
+      expect(entity.attributes.attribute1.current).to.equal(testTemplate.attributes.attribute1);
+      expect(entity.attributes.attribute2.current).to.equal(testTemplate.attributes.attribute2);
 
       delete EntityGenerator._templates[testTemplate.name];
     });
