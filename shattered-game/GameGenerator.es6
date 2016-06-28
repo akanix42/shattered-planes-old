@@ -24,10 +24,10 @@ class GameGenerator {
     idGenerator.reset();
     
     const game = new Game();
+    global.game = game;
+    game.engine = new Engine();
     game.seed = ROT.RNG.seed;
     game.levels = this._generateLevels(options.numberOfLevels || 0);
-    game.engine = new Engine();
-    global.game = game;
     return game;
   }
 

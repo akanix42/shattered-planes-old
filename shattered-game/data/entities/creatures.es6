@@ -7,7 +7,15 @@ const data =
       name: 'munchkin',
       character: 'm',
       color: 'brown',
-      components: []
+      components: [
+        components.normalMovement,
+        components.occupant,
+        components.vision,
+        components.testAutomatedActor,
+      ],
+      attributes: {
+        'moveSpeed': 500
+      }
     },
     {
       name: 'player',

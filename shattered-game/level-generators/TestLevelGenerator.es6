@@ -5,6 +5,7 @@ import Map from 'shattered-lib/Map';
 import Tile from 'shattered-lib/Tile';
 import Point from 'shattered-lib/Point';
 import EntityGenerator from 'shattered-lib/generators/EntityGenerator';
+import ROT from 'rot-js';
 
 export default class TestLevelGenerator {
   _entityGenerator = new EntityGenerator();
@@ -13,6 +14,7 @@ export default class TestLevelGenerator {
   generate() {
     const level = new Level(this._theme);
     level.map = this._generateMap();
+    this._addCreatures(level.map);
     return level;
   }
 
@@ -32,6 +34,24 @@ export default class TestLevelGenerator {
       const tile = new Tile(new Point(x, y), map);
       tile.architecture = this._entityGenerator.generate('dirtFloor');
       return tile;
+    }
+  }
+
+  _addCreatures(map) {
+    const numberOfTiles = map.width * map.height;
+
+    const numberOfMonsters = numberOfTiles / 3;
+    const availableLocations = [];
+    for (i = 1; i < numberOfTiles; i++)
+      availableLocations.push(i);
+
+    for (let i = 0; i < numberOfMonsters; i++) {
+      if (!availableLocations.length) break;
+      const nextMonsterIndex = ROT.RNG.getUniformInt(0, availableLocations.length - 1);
+      const tile = map[Math.floor(nextMonsterIndex / map.height)][nextMonsterIndex % map.height];
+      tile.addOccupant(this._entityGenerator.generate('munchkin'));
+
+      availableLocations.splice(nextMonsterIndex, 1);
     }
   }
 }
