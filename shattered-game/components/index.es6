@@ -5,6 +5,7 @@ import CollisionComponent from './CollisionComponent';
 import NormalMovementComponent from './NormalMovementComponent';
 import OccupantComponent from './OccupantComponent';
 import TestAutomatedActorComponent from './TestAutomatedActorComponent';
+import TimekeeperActorComponent from './TimekeeperActorComponent';
 import UIVisionComponent from './UIVisionComponent';
 import VisionComponent from './VisionComponent';
 
@@ -14,6 +15,7 @@ importRegistrations.collision = CollisionComponent;
 importRegistrations.normalMovement = NormalMovementComponent;
 importRegistrations.occupant = OccupantComponent;
 importRegistrations.testAutomatedActor = TestAutomatedActorComponent;
+importRegistrations.timekeeperActor = TimekeeperActorComponent;
 importRegistrations.uiVision = UIVisionComponent;
 importRegistrations.vision = VisionComponent;
 

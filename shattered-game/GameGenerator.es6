@@ -26,6 +26,8 @@ class GameGenerator {
     const game = new Game();
     global.game = game;
     game.engine = new Engine();
+    const entityGenerator = new EntityGenerator();
+    const timekeeper = entityGenerator.generate('timekeeper');
     game.seed = ROT.RNG.seed;
     game.levels = this._generateLevels(options.numberOfLevels || 0);
     return game;
