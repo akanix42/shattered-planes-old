@@ -35,7 +35,7 @@ export default class TestLevelGenerator {
 
     function _generateTile(x, y) {
       const tile = new Tile(new Point(x, y), map);
-      tile.architecture = this._entityGenerator.generate('dirtFloor');
+      tile.architecture = this._entityGenerator.generateByName('dirtFloor');
       return tile;
     }
   }
@@ -52,7 +52,7 @@ export default class TestLevelGenerator {
       if (!availableLocations.length) break;
       const nextMonsterIndex = ROT.RNG.getUniformInt(0, availableLocations.length - 1);
       const tile = map[Math.floor(nextMonsterIndex / map.height)][nextMonsterIndex % map.height];
-      tile.addOccupant(this._entityGenerator.generate('munchkin'));
+      tile.addOccupant(this._entityGenerator.generateByName('munchkin'));
 
       availableLocations.splice(nextMonsterIndex, 1);
     }

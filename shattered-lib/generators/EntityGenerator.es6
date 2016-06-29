@@ -18,10 +18,15 @@ export default class EntityGenerator {
       attributes.forEach(attribute=>entity.attributes.add(attribute, template.attributes[attribute]));
     }
     if (template.components)
-      template.components.forEach(componentName=> {
-        entity.addComponent(this._componentGenerator.generate(componentName));
+      template.components.forEach(component=> {
+        entity.addComponent(this._componentGenerator.generate(component));
       });
     return entity;
+  }
+
+  generateByName(templateName) {
+    const template = EntityGenerator._templates[templateName];
+    return this.generate(template);
   }
 }
 
