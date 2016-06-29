@@ -6,14 +6,17 @@ import screenStack from './screens/screenStack';
 import styles from './game.scss';
 import {postal} from 'shattered-game/global';
 
-export { default as gameScreen } from './game.html';
+export {default as gameScreen} from './game.html';
 
 screen.helpers({
   styles
 });
 
+let avgTps = 0;
+let lastTurnAt = null;
 screen.viewmodel({
   turn: 0,
+  turnsPerSecond: 0,
   async onRendered(){
     await fonts;
     //setTimeout(()=>{
@@ -24,7 +27,15 @@ screen.viewmodel({
       channel: 'ui',
       topic: 'turn.update',
       callback: (data)=> {
+        const turnAt = performance.now();
         this.turn(data.turn);
+        if (lastTurnAt !== null) {
+          const diff = turnAt - lastTurnAt;
+          const tps = 1000 / diff;
+          avgTps += (tps - avgTps) / (data.turn - 1);
+          this.turnsPerSecond(avgTps.toFixed(2));
+        }
+        lastTurnAt = turnAt;
       }
     });
   }
