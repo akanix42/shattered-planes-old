@@ -1,11 +1,30 @@
 "use strict";
+import ROT from 'rot-js';
 
 class ScreenStack {
   stack = [];
 
   constructor(){
     window.screenStack = this;
+  }
 
+  bindInputEvents() {
+    bindInputEvent.call(this, 'keydown');
+    bindInputEvent.call(this, 'keyup');
+    bindInputEvent.call(this, 'keypress');
+
+    function bindInputEvent(event) {
+      var ui = document.getElementById('game');
+      if (!ui) return;
+
+      window.addEventListener(event, (e) => {
+        if (e.keyCode === ROT.VK_F5)
+          return;
+        e.preventDefault();
+        if (this.currentScreen)
+          this.currentScreen.handleInput(event, e);
+      });
+    }
   }
 
   get currentScreen() {

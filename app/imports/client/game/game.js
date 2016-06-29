@@ -20,6 +20,7 @@ screen.viewmodel({
   async onRendered(){
     await fonts;
     //setTimeout(()=>{
+    screenStack.bindInputEvents();
     screenStack.container = this.container;
     mainMenu.show();
     //}, 250)

@@ -1,19 +1,40 @@
-import { createDisplay} from '../display';
+import {createDisplay} from '../display';
 import inGameScreen from './inGameScreen';
 import GameGenerator from 'shattered-game/GameGenerator';
 import Screen from './Screen';
-import Entity from 'shattered-lib/Entity';
-import EntityGenerator from 'shattered-game/EntityGenerator';
-import components from 'shattered-game/components/index';
+import ROT from 'rot-js';
 import events from 'shattered-game/events';
 
 class MainMenuScreen extends Screen {
   _display = createDisplay();
+  _keyMap = this._getKeyMap();
+
+  handleInput(inputType, inputData) {
+    var command = this._keyMap[inputType][inputData.keyCode];
+    if (!command) return;
+
+    if (typeof command === 'function')
+      command = command();
+    if (command)
+      gameInput.add(command);
+  }
+
   render() {
     this._display.drawText(5, 2, 'Welcome to the Shattered Realms');
     this._display.drawText(5, 6, 'Press [Enter]┐ to start!');
+  }
 
-    setTimeout(()=> {
+  _getKeyMap() {
+    const keyMap = {keydown: {}, keyup: {}, keypress: {}};
+    const keydown = keyMap.keydown,
+      keyup = keyMap.keyup;
+
+    keydown[ROT.VK_L] = loadGameCommand.bind(this);
+    keydown[ROT.VK_N] = newGameCommand.bind(this);
+
+    return keyMap;
+
+    function newGameCommand() {
       const gameGenerator = new GameGenerator();
       const game = gameGenerator.generate({numberOfLevels: 1});
       inGameScreen.load(game);
@@ -24,9 +45,14 @@ class MainMenuScreen extends Screen {
       player.emit({name: events.onPosition, destination: game.levels[1].getTileAt({x: 0, y: 0})});
 
       game.start();
+    }
 
-    }, 1000);
+    function loadGameCommand() {
+      console.log('load game');
+    }
   }
+
 }
 
 export default new MainMenuScreen();
+
