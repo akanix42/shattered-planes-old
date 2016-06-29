@@ -2,7 +2,7 @@
 import {serializable, Deserializer} from 'jsonc';
 import VisionComponent from './VisionComponent';
 import events from '/events';
-import { postal } from '/global';
+import {postal} from '/global';
 
 @serializable('UIVisionComponent')
 class UIVisionComponent extends VisionComponent {
@@ -27,10 +27,8 @@ class UIVisionComponent extends VisionComponent {
     const previousFovSet = new Set(this._previousFov);
     this.fov.forEach(tile => {
       if (!previousFovSet.has(tile)) {
-        if (tile != this.entity.tile) {
-          tile._handlers.add(this._onEntityAddedHandler);
-          tile._handlers.add(this._onEntityRemovedHandler);
-        }
+        tile._handlers.add(this._onEntityAddedHandler);
+        tile._handlers.add(this._onEntityRemovedHandler);
         newTiles.push(tile);
       }
       else {
