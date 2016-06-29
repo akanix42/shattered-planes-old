@@ -45,12 +45,12 @@ export default class TestLevelGenerator {
 
     const numberOfMonsters = numberOfTiles / 3;
     const availableLocations = [];
-    for (i = 1; i < numberOfTiles; i++)
+    for (let i = 1; i < numberOfTiles; i++)
       availableLocations.push(i);
 
     for (let i = 0; i < numberOfMonsters; i++) {
       if (!availableLocations.length) break;
-      const nextMonsterIndex = ROT.RNG.getUniformInt(0, availableLocations.length - 1);
+      const nextMonsterIndex = availableLocations[ROT.RNG.getUniformInt(0, availableLocations.length - 1)];
       const tile = map[Math.floor(nextMonsterIndex / map.height)][nextMonsterIndex % map.height];
       tile.addOccupant(this._entityGenerator.generateByName('munchkin'));
 
