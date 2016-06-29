@@ -1,11 +1,18 @@
 'use strict';
-import chai from 'chai';
 import ComponentGenerator from './ComponentGenerator';
 
+import chai from 'chai';
 chai.should();
 const expect = chai.expect;
 
 describe('ComponentGenerator', () => {
+  describe('constructor', ()=> {
+    it ('should set the game property', ()=> {
+      const game = {};
+      const generator = new ComponentGenerator(game);
+      expect(generator._game).to.equal(game);
+    });
+  });
 
   describe('generate', ()=> {
     it('should return an instance of the requested component', ()=> {

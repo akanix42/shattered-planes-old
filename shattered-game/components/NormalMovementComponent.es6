@@ -5,8 +5,8 @@ import events from '/events';
 
 @serializable('NormalMovementComponent')
 class NormalMovementComponent extends Component {
-  constructor() {
-    super();
+  constructor(game) {
+    super(game);
     this.addHandler(events.move, 100, this.onMove);
   }
 

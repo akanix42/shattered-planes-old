@@ -8,7 +8,8 @@ class Component {
   id = null;
   _key = null;
   
-  constructor() {
+  constructor(game) {
+    this.game = game;
     this._key = this.constructor._name;
   }
 

@@ -6,6 +6,13 @@ chai.should();
 const expect = chai.expect;
 
 describe('EntityGenerator', () => {
+  describe('constructor', ()=> {
+    it ('should set the game property', ()=> {
+      const game = {};
+      const generator = new EntityGenerator(game);
+      expect(generator._game).to.equal(game);
+    });
+  });
 
   describe('generate', ()=> {
     it('should generate an entity of the supplied type', ()=> {

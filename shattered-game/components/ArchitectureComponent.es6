@@ -5,8 +5,8 @@ import events from '/events';
 
 @serializable('ArchitectureComponent')
 class ArchitectureComponent extends Component {
-  constructor() {
-    super();
+  constructor(game) {
+    super(game);
     this.addHandler(events.onPosition, 150, this.onPosition);
   }
 

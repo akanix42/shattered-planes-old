@@ -5,8 +5,8 @@ import events from '/events';
 
 @serializable('OccupantComponent')
 class OccupantComponent extends Component {
-  constructor() {
-    super();
+  constructor(game) {
+    super(game);
     this.addHandler(events.onPosition, 100, this.onPositionChanged);
   }
 

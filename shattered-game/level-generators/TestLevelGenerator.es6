@@ -4,12 +4,15 @@ import Level from 'shattered-lib/Level';
 import Map from 'shattered-lib/Map';
 import Tile from 'shattered-lib/Tile';
 import Point from 'shattered-lib/Point';
-import EntityGenerator from 'shattered-lib/generators/EntityGenerator';
+
 import ROT from 'rot-js';
 
 export default class TestLevelGenerator {
-  _entityGenerator = new EntityGenerator();
   theme = 'test';
+
+  constructor(game = {}) {
+    this._entityGenerator = game.entityGenerator;
+  }
 
   generate() {
     const level = new Level(this._theme);

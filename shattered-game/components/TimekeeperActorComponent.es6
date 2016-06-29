@@ -9,8 +9,8 @@ import events from '/events';
 class TimekeeperActorComponent extends Component {
   turnNumber = 0;
 
-  constructor(timeout = 250) {
-    super();
+  constructor(game, timeout = 5) {
+    super(game);
     this._timeout = timeout;
     global.game.engine.add(this);
   }

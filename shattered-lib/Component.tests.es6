@@ -1,12 +1,20 @@
 'use strict';
-import chai from 'chai';
 import jsonc from 'jsonc';
 import Component from './Component.js';
 
+import chai from 'chai';
 chai.should();
+const expect = chai.expect;
 
 describe('Component', () => {
-
+  describe('constructor', ()=> {
+    it ('should set the game property', ()=> {
+      const game = {};
+      const component = new Component(game);
+      expect(component.game).to.equal(game); 
+    });
+  });
+  
   describe('_addHandler', ()=> {
     it('should add the handler', () => {
       const component = new Component();

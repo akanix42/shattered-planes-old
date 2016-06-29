@@ -1,14 +1,16 @@
 'use strict';
 
 import Entity from '../Entity';
-import ComponentGenerator from './ComponentGenerator';
 
 export default class EntityGenerator {
-  _componentGenerator = new ComponentGenerator();
   _Entity = Entity;
 
-  generate(templateName) {
-    const template = EntityGenerator._templates[templateName];
+  constructor(game = {}) {
+    this._game = game;
+    this._componentGenerator = game.componentGenerator;
+  }
+
+  generate(template) {
     const entity = new this._Entity();
     entity.template = template;
     if (template.attributes) {

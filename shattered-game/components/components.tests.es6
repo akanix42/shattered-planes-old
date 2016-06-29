@@ -16,6 +16,20 @@ describe('components', ()=> {
         const component = components[key];
         expect(component._name).to.be.ok;
       });
+
+      describe('should accept the game as the first argument and pass it to the base Component', ()=> {
+        const game = {};
+        const Component = components[key];
+        const component = new Component(game);
+        try {
+          expect(component.game).to.equal(game);
+        }
+        catch (err) {
+          console.log('Component: ', key);
+          throw err;
+        }
+      });
+
     });
   });
 });

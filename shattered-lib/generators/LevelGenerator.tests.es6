@@ -1,12 +1,20 @@
 'use strict';
-import chai from 'chai';
 import LevelGenerator from './LevelGenerator';
 import EntityGenerator from './EntityGenerator';
 import ROT from 'rot-js';
 
+import chai from 'chai';
 chai.should();
+const expect = chai.expect;
 
 describe('LevelGenerator', () => {
+  describe('constructor', ()=> {
+    it ('should set the game property', ()=> {
+      const game = {};
+      const generator = new LevelGenerator(game);
+      expect(generator._game).to.equal(game);
+    });
+  });
 
   describe('generate', ()=> {
     it('should generate a level', ()=> {

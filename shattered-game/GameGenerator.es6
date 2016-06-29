@@ -11,6 +11,7 @@ class Game {
   seed = null;
   levels = null;
   engine = null;
+  componentGenerator = null;
   
   start() {
     this.engine.unlock();
@@ -19,23 +20,24 @@ class Game {
 
 class GameGenerator {
   LevelGenerator = LevelGenerator;
-
+  
   generate(options = {}) {
     idGenerator.reset();
     
     const game = new Game();
-    global.game = game;
-    game.engine = new Engine();
-    const entityGenerator = new EntityGenerator();
-    const timekeeper = entityGenerator.generate('timekeeper');
+    // global.game = game;
     game.seed = ROT.RNG.seed;
+    game.componentGenerator = new ComponentGenerator(game);
+    game.entityGenerator = new EntityGenerator(game);
+    game.engine = new Engine();
+    game.componentGenerator.generateByName('timekeeperActor');
     game.levels = this._generateLevels(options.numberOfLevels || 0);
     return game;
   }
 
   _generateLevels(numberOfLevels) {
     const levels = {};
-    const levelGenerator = new this.LevelGenerator();
+    const levelGenerator = new this.LevelGenerator(this);
     for (var i = 0; i < numberOfLevels; i++) {
       const level = levelGenerator.generateRandom();
       level.id = 1;

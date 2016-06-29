@@ -10,8 +10,8 @@ class VisionComponent extends Component {
   _previousFov = [];
   _shadowCaster = new ROT.FOV.PreciseShadowcasting(this._checkIfLightPasses.bind(this));
 
-  constructor() {
-    super();
+  constructor(game) {
+    super(game);
     this.addHandler(events.onPosition, 150, this.onPositionChanged);
   }
 

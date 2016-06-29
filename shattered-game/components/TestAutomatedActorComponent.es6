@@ -7,8 +7,8 @@ import events from '/events';
 
 @serializable('TestAutomatedActorComponent')
 class TestAutomatedActorComponent extends Component {
-  constructor(timeout = 5) {
-    super();
+  constructor(game, timeout = 0) {
+    super(game);
     this._timeout = timeout;
     global.game.engine.add(this);
   }

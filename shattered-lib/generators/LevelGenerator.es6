@@ -2,19 +2,27 @@
 import ROT from 'rot-js';
 
 class LevelGenerator {
-  
-  addGenerator(generator){
-    LevelGenerator._generators[generator.theme] = generator;
+  _generators = {};
+
+  constructor(game = {}) {
+    this._game = game;
+    const keys = Object.keys(LevelGenerator._generators);
+    keys.forEach(key=> this._generators[key] = new LevelGenerator._generators[key](game));
+  }
+
+  addGenerator(generator) {
+    this._generators[generator.theme] = generator;
   }
 
   generateRandom() {
     const generator = this.getRandomGenerator();
+    generator.game = this._game;
     return generator.generate();
   }
 
   getRandomGenerator() {
-    const themes = Object.keys(LevelGenerator._generators);
-    return LevelGenerator._generators[themes.random()];
+    const themes = Object.keys(this._generators);
+    return this._generators[themes.random()];
   }
 }
 
