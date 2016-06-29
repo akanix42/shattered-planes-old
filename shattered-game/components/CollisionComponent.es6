@@ -5,9 +5,9 @@ import events from '/events';
 
 @serializable('CollisionComponent')
 class CollisionComponent extends Component {
-    this.addHandler(events.move, 50, this.onPosition);
   constructor(game) {
     super(game);
+    this.addHandler(events.onPosition, 50, this.onPosition);
     this.addHandler(events.willNotCollide, 50, this.onWillNotCollide);
   }
 
