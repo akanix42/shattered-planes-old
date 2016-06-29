@@ -83,6 +83,7 @@ function getKeyMap() {
   //keydown[ROT.VK_F1] = toggleRenderMode.bind(this);
   //keydown[ROT.VK_COMMA] = handlePickupCommand.bind(this);
   keydown[ROT.VK_I] = showInventoryCommand.bind(this);
+  keydown[ROT.VK_S] = saveGameCommand.bind(this);
   //keydown[ROT.VK_Z] = handleSpellCastCommand.bind(this);
 
   return keyMap;
@@ -91,4 +92,9 @@ function getKeyMap() {
 
 function showInventoryCommand() {
   inventoryScreen.show();
+}
+
+function saveGameCommand() {
+  this.game.save();
+  this.hide();
 }

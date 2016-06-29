@@ -16,6 +16,11 @@ class Game {
   start() {
     this.engine.unlock();
   }
+
+  save() {
+    const data = jsonc.stringify(this);
+    localStorage.setItem('game', data);
+  }
 }
 
 class GameGenerator {
