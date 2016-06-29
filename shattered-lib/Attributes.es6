@@ -1,5 +1,7 @@
 'use strict';
+import {serializable} from 'shattered-lib/jsonc';
 
+@serializable('AttributeModifiers')
 export class AttributeModifiers {
   _modifiers = [];
   _isUpdating = false;
@@ -29,6 +31,7 @@ export class AttributeModifiers {
   }
 }
 
+@serializable('Attribute')
 export class Attribute {
   _base = 0;
   _bonus = 0;
@@ -57,6 +60,7 @@ export class Attribute {
 
 }
 
+@serializable('Attributes')
 export default class Attributes {
   constructor(attributes = {}) {
     const keys = Object.keys(attributes);
@@ -70,5 +74,3 @@ export default class Attributes {
   }
 
 }
-
-

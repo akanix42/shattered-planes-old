@@ -1,9 +1,9 @@
 'use strict';
-import {serializable} from 'jsonc';
 import Component from 'shattered-lib/Component';
+import {serializable} from 'shattered-lib/jsonc';
 
 @serializable('ActorComponent')
-class ActorComponent extends Component {
+export default class ActorComponent extends Component {
   constructor(game) {
     super(game);
   }
@@ -14,5 +14,3 @@ class ActorComponent extends Component {
 }
 
 ActorComponent._name = 'actor';
-
-export default ActorComponent;

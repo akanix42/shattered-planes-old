@@ -3,7 +3,9 @@
  */
 'use strict';
 import ROT from 'rot-js';
+import {serializable} from 'shattered-lib/jsonc';
 
+@serializable('Engine')
 class Engine {
   _scheduler = new ROT.Scheduler.Action();
   _lock = 1;

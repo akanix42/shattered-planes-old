@@ -1,5 +1,5 @@
 'use strict';
-import jsonc from 'jsonc';
+import jsonc from 'shattered-lib/jsonc';
 import Component from './Component.js';
 
 import chai from 'chai';

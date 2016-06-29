@@ -1,10 +1,10 @@
 'use strict';
-import {serializable} from 'jsonc';
+import {serializable} from 'shattered-lib/jsonc';
 import SubscribedHandlers from './SubscribedHandlers';
 import Attributes from './Attributes';
 
 @serializable('Entity')
-class Entity {
+export default class Entity {
   _components = {};
   stats = {};
   subscribedHandlers = new SubscribedHandlers();
@@ -64,5 +64,3 @@ class Entity {
     return this.subscribedHandlers.emit(event);
   }
 }
-
-export default Entity;

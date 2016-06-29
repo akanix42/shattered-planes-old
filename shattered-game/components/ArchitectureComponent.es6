@@ -1,5 +1,5 @@
 'use strict';
-import {serializable} from 'jsonc';
+import {serializable} from 'shattered-lib/jsonc';
 import Component from 'shattered-lib/Component';
 import events from '/events';
 

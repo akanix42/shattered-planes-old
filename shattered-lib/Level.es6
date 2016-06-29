@@ -1,7 +1,9 @@
 'use strict';
+import {serializable} from 'shattered-lib/jsonc';
 
 let levelId = 0;
 
+@serializable('Level')
 class Level {
   _map = null;
   id = levelId++;

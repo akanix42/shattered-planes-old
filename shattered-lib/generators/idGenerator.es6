@@ -3,7 +3,7 @@
  * the idGenerator should be reset.
  */
 'use strict';
-import {serializable} from 'jsonc';
+import {serializable} from 'shattered-lib/jsonc';
 
 @serializable('IdGenerator')
 class IdGenerator {

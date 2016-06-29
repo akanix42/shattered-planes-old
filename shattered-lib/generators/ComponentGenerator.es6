@@ -1,6 +1,8 @@
 'use strict';
 import idGenerator from './idGenerator';
+import {serializable} from 'shattered-lib/jsonc';
 
+@serializable('ComponentGenerator')
 export default class ComponentGenerator {
   constructor(game = {}) {
     this._game = game;

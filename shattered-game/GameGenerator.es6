@@ -6,13 +6,15 @@ import LevelGenerator from './LevelGenerator';
 import Engine from './Engine';
 import idGenerator from 'shattered-lib/generators/idGenerator';
 import global from './global';
+import jsonc, {serializable} from 'shattered-lib/jsonc';
 
+@serializable('Game')
 class Game {
   seed = null;
   levels = null;
   engine = null;
   componentGenerator = null;
-  
+
   start() {
     this.engine.unlock();
   }
@@ -25,10 +27,10 @@ class Game {
 
 class GameGenerator {
   LevelGenerator = LevelGenerator;
-  
+
   generate(options = {}) {
     idGenerator.reset();
-    
+
     const game = new Game();
     // global.game = game;
     game.seed = ROT.RNG.seed;

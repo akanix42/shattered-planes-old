@@ -1,5 +1,5 @@
 'use strict';
-import {serializable, Deserializer} from 'jsonc';
+import {serializable, Deserializer} from 'shattered-lib/jsonc';
 import Component from 'shattered-lib/Component';
 import events from '/events';
 import ROT from 'rot-js';

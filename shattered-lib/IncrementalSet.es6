@@ -1,5 +1,8 @@
 'use strict';
 
+import {serializable} from 'shattered-lib/jsonc';
+
+@serializable('IncrementalSet')
 export default class IncrementalSet {
   _items = new Map();
 

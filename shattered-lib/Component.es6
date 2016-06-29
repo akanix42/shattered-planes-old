@@ -1,8 +1,8 @@
 'use strict';
-import {serializable} from 'jsonc';
+import {serializable} from 'shattered-lib/jsonc';
 
 @serializable('Component', {exclude: ['handlers']})
-class Component {
+export default class Component {
   entity = null;
   handlers = [];
   id = null;
@@ -22,5 +22,3 @@ class Component {
   }
 
 }
-
-export default Component;

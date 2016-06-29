@@ -4,8 +4,10 @@ import Inventory from './Inventory';
 import SubscribedHandlers from './SubscribedHandlers';
 import events from '/events';
 
+import {serializable} from 'shattered-lib/jsonc';
 
-class Tile {
+@serializable('Tile')
+export default class Tile {
   _architecture = null;
   _handlers = new SubscribedHandlers();
   inventory = new Inventory();
@@ -73,5 +75,3 @@ class Tile {
     return this._handlers.emit(event);
   }
 }
-
-export default Tile;

@@ -1,5 +1,5 @@
 'use strict';
-import {serializable} from 'jsonc';
+import {serializable} from 'shattered-lib/jsonc';
 import ActorComponent from './ActorComponent';
 import global from '/global';
 import ROT from 'rot-js';
@@ -22,7 +22,7 @@ class TestAutomatedActorComponent extends ActorComponent {
         var event = {name: events.move, destination: tile.level.getTileAtXY(x, y)};
         this.entity.emit(event);
 
-        resolve(event.actionTime);
+        resolve(event.actionTime||this.entity.attributes.moveSpeed.current);
       };
       if (this._timeout)
         setTimeout(performAction, this._timeout);

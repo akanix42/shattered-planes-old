@@ -1,7 +1,8 @@
 'use strict';
 
-class Inventory {
+import {serializable} from 'shattered-lib/jsonc';
+
+@serializable('Inventory')
+export default class Inventory {
   
 }
-
-export default Inventory;
