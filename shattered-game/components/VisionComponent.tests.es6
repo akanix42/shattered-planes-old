@@ -53,8 +53,8 @@ describe('VisionComponent', ()=> {
 
       const expectedFov = [];
       const visionRange = 20;
-      for (let x = Math.max(0, entity.tile.point.x); x < Math.min(level.map.length, visionRange); x++) {
-        for (let y = Math.max(0, entity.tile.point.y); y < Math.min(level.map.length, visionRange); y++) {
+      for (let x = Math.max(0, entity.tile.point.x); x < Math.min(level.map.width, visionRange); x++) {
+        for (let y = Math.max(0, entity.tile.point.y); y < Math.min(level.map.height, visionRange); y++) {
           const tile = level.getTileAtXY(x, y);
           expectedFov.push(tile);
         }
