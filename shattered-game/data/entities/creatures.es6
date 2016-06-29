@@ -8,6 +8,7 @@ const data =
       character: 'm',
       color: 'brown',
       components: [
+        components.collision,
         components.normalMovement,
         components.occupant,
         components.vision,
@@ -22,6 +23,7 @@ const data =
       character: '@',
       color: 'white',
       components: [
+        components.collision,
         components.normalMovement,
         components.occupant,
         components.uiVision,
