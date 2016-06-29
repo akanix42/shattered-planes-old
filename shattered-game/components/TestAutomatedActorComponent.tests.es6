@@ -1,6 +1,5 @@
 import TestAutomatedActorComponent from './TestAutomatedActorComponent';
 import events from '/events';
-import global from '/global';
 import TestLevelGenerator from '../level-generators/TestLevelGenerator';
 import Entity from 'shattered-lib/Entity';
 import Tile from 'shattered-lib/Tile';
@@ -9,17 +8,6 @@ import chai from 'chai';
 const expect = chai.expect;
 
 describe('TestAutomatedActorComponent', ()=> {
-  describe('constructor', () => {
-    it(`should add the component to the game engine`, (done) => {
-      const testAutomatedActorComponent = new TestAutomatedActorComponent();
-      testAutomatedActorComponent.act = () => {
-        global.game.engine.lock();
-        done();
-      };
-      global.game.start();
-    });
-  });
-
   describe('act', () => {
     it('should output a move event', (done) => {
       const level = new TestLevelGenerator().generate();

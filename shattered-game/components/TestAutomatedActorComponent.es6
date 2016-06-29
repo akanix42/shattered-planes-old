@@ -1,16 +1,15 @@
 'use strict';
 import {serializable} from 'jsonc';
-import Component from 'shattered-lib/Component';
+import ActorComponent from './ActorComponent';
 import global from '/global';
 import ROT from 'rot-js';
 import events from '/events';
 
 @serializable('TestAutomatedActorComponent')
-class TestAutomatedActorComponent extends Component {
+class TestAutomatedActorComponent extends ActorComponent {
   constructor(game, timeout = 0) {
     super(game);
     this._timeout = timeout;
-    global.game.engine.add(this);
   }
 
   act() {

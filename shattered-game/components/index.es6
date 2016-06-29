@@ -1,5 +1,6 @@
 
 'use strict';
+import ActorComponent from './ActorComponent';
 import ArchitectureComponent from './ArchitectureComponent';
 import CollisionComponent from './CollisionComponent';
 import NormalMovementComponent from './NormalMovementComponent';
@@ -10,6 +11,7 @@ import UIVisionComponent from './UIVisionComponent';
 import VisionComponent from './VisionComponent';
 
 const importRegistrations = {};
+importRegistrations.actor = ActorComponent;
 importRegistrations.architecture = ArchitectureComponent;
 importRegistrations.collision = CollisionComponent;
 importRegistrations.normalMovement = NormalMovementComponent;
