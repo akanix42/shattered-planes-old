@@ -32,17 +32,17 @@ export default class SubscribedHandlers {
 
   emit(event) {
     if (!this._events.has(event.name))
-      return;
+      return event;
 
     const eventHandlers = this._handlersByEvent[event.name];
     for (let handlerIndex = 0; handlerIndex < eventHandlers.length; handlerIndex++) {
       let handler = eventHandlers[handlerIndex];
       let result = handler.callback.call(handler.component || this, event);
-      
+
       if (result === false)
+        event.isCanceled = true;
+      if (event.isCanceled)
         break;
-      else
-        event = result || event;
     }
     return event;
   }

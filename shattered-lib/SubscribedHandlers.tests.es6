@@ -105,15 +105,20 @@ describe('SubscribedHandlers', () => {
       handledEvent.should.equal(event);
     });
 
-    it(`should return the updated event from the handler's callback`, ()=> {
+    it(`should return the event with updates from the handler's callback`, ()=> {
       const subscriptions = new SubscribedHandlers();
       let updatedEvent = {};
-      const handler = {eventName: 'test', priority: 0, component: {}, callback: event => updatedEvent};
+      const handler = {
+        eventName: 'test',
+        priority: 0,
+        component: {},
+        callback: event => event.updatedEvent = updatedEvent
+      };
       const event = {name: 'test'};
       subscriptions.add(handler);
       const result = subscriptions.emit(event);
 
-      result.should.equal(updatedEvent);
+      expect(result.updatedEvent).to.equal(updatedEvent);
     });
 
     it(`should return the original event if the callback returns undefined`, ()=> {

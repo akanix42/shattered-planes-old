@@ -12,7 +12,8 @@ class CollisionComponent extends Component {
   }
 
   onPosition(event) {
-    return event.destination.emit({name: events.willNotCollide, entity: this.entity});
+    const result = event.destination.emit({name: events.willNotCollide, entity: this.entity});
+    event.isCanceled = result.isCanceled;
   }
 
   onWillNotCollide() {
