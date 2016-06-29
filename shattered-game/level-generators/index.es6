@@ -3,7 +3,7 @@
 import TestLevelGenerator from './TestLevelGenerator';
 
 const importRegistrations = {};
-importRegistrations.TestLevelGenerator = new TestLevelGenerator();;
+importRegistrations.TestLevelGenerator = TestLevelGenerator;
 
 export default importRegistrations;
   
