@@ -1,12 +1,12 @@
 'use strict';
 import {serializable} from 'jsonc';
-import ROT from 'rot-js';
-import events from '/events';
 import ActorComponent from './ActorComponent';
+import { postal } from '/global';
 
 @serializable('TimekeeperActorComponent')
-  turnNumber = 0;
 class TimekeeperActorComponent extends ActorComponent {
+  _turnNumber = 0;
+  _turnSpeed = 1000;
 
   constructor(game, timeout = 5) {
     super(game);
@@ -15,8 +15,18 @@ class TimekeeperActorComponent extends ActorComponent {
 
   act() {
     return new Promise((resolve)=> {
-      console.log(`turn ${this.turnNumber++}`);
-      resolve(1000);
+      this._turnNumber++;
+      postal.publish({
+        channel: 'ui',
+        topic: 'turn.update',
+        data: {
+          turn: this._turnNumber
+        }
+      });
+      if (this._timeout > 0)
+        setTimeout(() => resolve(this._turnSpeed), this._timeout);
+      else
+        resolve(this._turnSpeed);
     });
   }
 }

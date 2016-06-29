@@ -1,3 +1,16 @@
+.container {
+  position: relative;
+}
+
 .container canvas {
-    position: absolute;
+  position: absolute;
+}
+
+
+
+.turnNumber {
+  height:40px;
+  background-color: black;
+  color: white;
+  width: 100px;
 }
