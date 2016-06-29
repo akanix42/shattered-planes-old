@@ -17,13 +17,12 @@ class MainMenuScreen extends Screen {
       const gameGenerator = new GameGenerator();
       const game = gameGenerator.generate({numberOfLevels: 1});
       inGameScreen.load(game);
+      inGameScreen.show();
 
-      const entityGenerator = new EntityGenerator();
-      const player = entityGenerator.generate('player');
+      const player = game.entityGenerator.generateByName('player');
 
       player.emit({name: events.onPosition, destination: game.levels[1].getTileAt({x: 0, y: 0})});
 
-      inGameScreen.show();
       game.start();
 
     }, 1000);
