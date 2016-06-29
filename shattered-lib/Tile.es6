@@ -70,7 +70,7 @@ class Tile {
   }
 
   emit(event) {
-    this._handlers.emit(event);
+    return this._handlers.emit(event);
   }
 }
 
