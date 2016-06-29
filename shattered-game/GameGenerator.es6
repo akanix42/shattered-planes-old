@@ -31,13 +31,13 @@ class GameGenerator {
     game.entityGenerator = new EntityGenerator(game);
     game.engine = new Engine();
     game.componentGenerator.generateByName('timekeeperActor');
-    game.levels = this._generateLevels(options.numberOfLevels || 0);
+    game.levels = this._generateLevels(game, options.numberOfLevels || 0);
     return game;
   }
 
-  _generateLevels(numberOfLevels) {
+  _generateLevels(game, numberOfLevels) {
     const levels = {};
-    const levelGenerator = new this.LevelGenerator(this);
+    const levelGenerator = new this.LevelGenerator(game);
     for (var i = 0; i < numberOfLevels; i++) {
       const level = levelGenerator.generateRandom();
       level.id = 1;
