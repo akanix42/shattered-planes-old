@@ -30,7 +30,7 @@ class GameGenerator {
     game.componentGenerator = new ComponentGenerator(game);
     game.entityGenerator = new EntityGenerator(game);
     game.engine = new Engine();
-    game.componentGenerator.generateByName('timekeeperActor');
+    game.entityGenerator.generateByName('timekeeper');
     game.levels = this._generateLevels(game, options.numberOfLevels || 0);
     return game;
   }
