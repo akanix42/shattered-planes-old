@@ -14,7 +14,7 @@ class TestAutomatedActorComponent extends ActorComponent {
 
   act() {
     return new Promise((resolve)=> {
-      setTimeout(() => {
+      const performAction = () => {
         const tile = this.entity.tile;
 
         const x = ROT.RNG.getUniformInt(Math.max(0, tile.point.x - 1), Math.min(tile.level._map.width - 1, tile.point.x + 1));
@@ -23,7 +23,11 @@ class TestAutomatedActorComponent extends ActorComponent {
         this.entity.emit(event);
 
         resolve(event.actionTime);
-      }, this._timeout);
+      };
+      if (this._timeout)
+        setTimeout(performAction, this._timeout);
+      else
+        performAction();
     });
   }
 }

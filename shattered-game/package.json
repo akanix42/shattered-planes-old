@@ -33,6 +33,7 @@
   },
   "dependencies": {
     "postal": "^2.0.4",
+    "ramda": "^0.21.0",
     "rot-js": "^0.6.2"
   }
 }
