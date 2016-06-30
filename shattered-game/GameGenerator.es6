@@ -7,6 +7,7 @@ import Engine from './Engine';
 import idGenerator from 'shattered-lib/generators/idGenerator';
 import global from './global';
 import jsonc, {serializable} from 'shattered-lib/lib/jsonc';
+import lzstring from 'lz-string';
 
 @serializable('Game')
 class Game {
@@ -20,7 +21,7 @@ class Game {
   }
 
   save() {
-    const data = jsonc.stringify(this);
+    const data = lzstring.compress(jsonc.stringify(this));
     localStorage.setItem('game', data);
   }
 }
