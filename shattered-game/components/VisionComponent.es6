@@ -4,7 +4,7 @@ import Component from 'shattered-lib/Component';
 import events from '/events';
 import ROT from 'shattered-lib/lib/rot-js';
 
-@serializable('VisionComponent')
+@serializable('VisionComponent', {exclude: ['_shadowCaster']})
 class VisionComponent extends Component {
   fov = [];
   _previousFov = [];
@@ -20,6 +20,7 @@ class VisionComponent extends Component {
   }
 
   [Deserializer.Symbols.PostProcess]() {
+    this._shadowCaster = new ROT.FOV.PreciseShadowcasting(this._checkIfLightPasses.bind(this));
     this.updateFov();
   }
 
