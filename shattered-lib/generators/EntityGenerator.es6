@@ -1,7 +1,7 @@
 'use strict';
 
 import Entity from '../Entity';
-import {serializable} from 'shattered-lib/lib/jsonc';
+import {serializable} from '/lib/jsonc';
 
 @serializable('EntityGenerator')
 export default class EntityGenerator {

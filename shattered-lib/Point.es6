@@ -1,4 +1,4 @@
-import {serializable} from 'shattered-lib/lib/jsonc';
+import {serializable} from '/lib/jsonc';
 
 @serializable('Point')
 export default class Point {

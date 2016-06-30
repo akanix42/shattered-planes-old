@@ -1,5 +1,5 @@
 'use strict';
-import {serializable} from 'shattered-lib/lib/jsonc';
+import {serializable} from '/lib/jsonc';
 
 let levelId = 0;
 

@@ -1,6 +1,6 @@
 'use strict';
 import idGenerator from './idGenerator';
-import {serializable} from 'shattered-lib/lib/jsonc';
+import {serializable} from '/lib/jsonc';
 
 @serializable('ComponentGenerator')
 export default class ComponentGenerator {

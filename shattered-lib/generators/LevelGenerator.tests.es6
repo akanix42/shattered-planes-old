@@ -1,7 +1,7 @@
 'use strict';
 import LevelGenerator from './LevelGenerator';
 import EntityGenerator from './EntityGenerator';
-import ROT from 'shattered-lib/lib/rot-js';
+import ROT from '/lib/rot-js';
 
 import chai from 'chai';
 chai.should();

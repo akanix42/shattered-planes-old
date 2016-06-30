@@ -1,7 +1,7 @@
 'use strict';
 
 import IncrementalSet from './IncrementalSet';
-import {serializable} from 'shattered-lib/lib/jsonc';
+import {serializable} from '/lib/jsonc';
 
 @serializable('SubscribedHandlers')
 export default class SubscribedHandlers {
