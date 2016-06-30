@@ -3,12 +3,12 @@
   ast: false,
   babelrc: false,
   retainLines: true,
-  "presets": [
-    "babel-preset-es2015",
-    "stage-0"
-  ],
   "plugins": [
+    "transform-export-extensions",
+    "syntax-trailing-function-commas",
+    "transform-es2015-modules-commonjs",
     "transform-decorators-legacy",
+    "transform-class-properties",
     [
       "babel-root-import",
       {
