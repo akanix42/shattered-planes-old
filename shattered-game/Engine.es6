@@ -3,7 +3,7 @@
  */
 'use strict';
 import ROT from 'rot-js';
-import {serializable} from 'shattered-lib/jsonc';
+import {serializable} from 'shattered-lib/lib/jsonc';
 
 @serializable('Engine')
 class Engine {

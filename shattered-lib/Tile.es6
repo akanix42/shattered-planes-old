@@ -4,7 +4,7 @@ import Inventory from './Inventory';
 import SubscribedHandlers from './SubscribedHandlers';
 import events from '/events';
 
-import {serializable} from 'shattered-lib/jsonc';
+import {serializable} from 'shattered-lib/lib/jsonc';
 
 @serializable('Tile')
 export default class Tile {

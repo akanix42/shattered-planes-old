@@ -1,5 +1,5 @@
 'use strict';
-import {serializable} from 'shattered-lib/jsonc';
+import {serializable} from 'shattered-lib/lib/jsonc';
 import ActorComponent from './ActorComponent';
 import global from '/global';
 import ROT from 'rot-js';

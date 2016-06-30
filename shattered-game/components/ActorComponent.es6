@@ -1,6 +1,6 @@
 'use strict';
 import Component from 'shattered-lib/Component';
-import {serializable} from 'shattered-lib/jsonc';
+import {serializable} from 'shattered-lib/lib/jsonc';
 
 @serializable('ActorComponent')
 export default class ActorComponent extends Component {

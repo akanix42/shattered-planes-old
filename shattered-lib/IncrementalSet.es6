@@ -1,6 +1,6 @@
 'use strict';
 
-import {serializable} from 'shattered-lib/jsonc';
+import {serializable} from 'shattered-lib/lib/jsonc';
 
 @serializable('IncrementalSet')
 export default class IncrementalSet {

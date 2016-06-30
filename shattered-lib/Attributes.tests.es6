@@ -1,6 +1,6 @@
 'use strict';
 import chai from 'chai';
-import jsonc from 'shattered-lib/jsonc';
+import jsonc from 'shattered-lib/lib/jsonc';
 import Attributes, {Attribute, AttributeModifiers} from './Attributes.js';
 
 chai.should();

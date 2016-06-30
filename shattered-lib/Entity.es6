@@ -1,5 +1,5 @@
 'use strict';
-import {serializable} from 'shattered-lib/jsonc';
+import {serializable} from 'shattered-lib/lib/jsonc';
 import SubscribedHandlers from './SubscribedHandlers';
 import Attributes from './Attributes';
 
