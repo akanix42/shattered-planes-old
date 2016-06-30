@@ -1,5 +1,5 @@
 'use strict';
-import ROT from 'rot-js';
+import ROT from 'shattered-lib/lib/rot-js';
 
 class LevelGenerator {
   _generators = {};

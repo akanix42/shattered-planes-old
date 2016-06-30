@@ -5,7 +5,7 @@ import Map from 'shattered-lib/Map';
 import Tile from 'shattered-lib/Tile';
 import Point from 'shattered-lib/Point';
 
-import ROT from 'rot-js';
+import ROT from 'shattered-lib/lib/rot-js';
 
 export default class TestLevelGenerator {
   theme = 'test';

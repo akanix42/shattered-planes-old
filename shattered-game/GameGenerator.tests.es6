@@ -1,7 +1,7 @@
 'use strict';
 import chai from 'chai';
 import GameGenerator from './GameGenerator.js';
-import ROT from 'rot-js';
+import ROT from 'shattered-lib/lib/rot-js';
 import idGenerator from 'shattered-lib/generators/idGenerator';
 
 chai.should();

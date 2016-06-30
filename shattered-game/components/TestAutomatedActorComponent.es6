@@ -2,7 +2,7 @@
 import {serializable} from 'shattered-lib/lib/jsonc';
 import ActorComponent from './ActorComponent';
 import global from '/global';
-import ROT from 'rot-js';
+import ROT from 'shattered-lib/lib/rot-js';
 import events from '/events';
 
 @serializable('TestAutomatedActorComponent')

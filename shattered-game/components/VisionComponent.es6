@@ -2,7 +2,7 @@
 import {serializable, Deserializer} from 'shattered-lib/lib/jsonc';
 import Component from 'shattered-lib/Component';
 import events from '/events';
-import ROT from 'rot-js';
+import ROT from 'shattered-lib/lib/rot-js';
 
 @serializable('VisionComponent')
 class VisionComponent extends Component {
