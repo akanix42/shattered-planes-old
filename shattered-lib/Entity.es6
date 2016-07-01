@@ -3,7 +3,7 @@ import {serializable} from '/lib/jsonc';
 import SubscribedHandlers from './SubscribedHandlers';
 import Attributes from './Attributes';
 
-@serializable('Entity')
+@serializable('Entity', {exclude: ['subscribedHandlers']})
 export default class Entity {
   _components = {};
   stats = {};

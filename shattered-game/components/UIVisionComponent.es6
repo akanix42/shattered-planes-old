@@ -4,7 +4,7 @@ import VisionComponent from './VisionComponent';
 import events from '/events';
 import {postal} from '/global';
 
-@serializable('UIVisionComponent')
+@serializable('UIVisionComponent', {exclude: ['_onEntityAddedHandler', '_onEntityRemovedHandler']})
 class UIVisionComponent extends VisionComponent {
   _onEntityAddedHandler = {
     eventName: events.onEntityAdded,

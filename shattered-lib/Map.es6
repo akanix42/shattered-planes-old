@@ -1,5 +1,7 @@
 'use strict';
+import {serializable} from '/lib/jsonc';
 
+@serializable('Map')
 class Map extends Array {
   level = null;
 

@@ -21,8 +21,9 @@ class Game {
   }
 
   save() {
-    const data = lzstring.compress(jsonc.stringify(this));
+    const data = jsonc.stringify({game: this});
     localStorage.setItem('game', data);
+    localStorage.setItem('game-lz', lzstring.compress(data));
   }
 }
 
@@ -40,6 +41,11 @@ class GameGenerator {
     game.engine = new Engine();
     game.entityGenerator.generateByName('timekeeper');
     game.levels = this._generateLevels(game, options.numberOfLevels || 0);
+    return game;
+  }
+  load() {
+    const data = localStorage.getItem('game');
+    const game = jsonc.parse(data).game;
     return game;
   }
 

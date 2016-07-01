@@ -48,7 +48,12 @@ class MainMenuScreen extends Screen {
     }
 
     function loadGameCommand() {
-      console.log('load game');
+      const gameGenerator = new GameGenerator();
+      const game = gameGenerator.load();
+      inGameScreen.load(game);
+      inGameScreen.show();
+
+      game.start();
     }
   }
 

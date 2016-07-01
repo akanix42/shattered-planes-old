@@ -6,7 +6,7 @@ import events from '/events';
 
 import {serializable} from '/lib/jsonc';
 
-@serializable('Tile')
+@serializable('Tile', {exclude: ['_handlers']})
 export default class Tile {
   _architecture = null;
   _handlers = new SubscribedHandlers();
