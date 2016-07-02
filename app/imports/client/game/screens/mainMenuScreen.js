@@ -35,6 +35,7 @@ class MainMenuScreen extends Screen {
     return keyMap;
 
     function newGameCommand() {
+      inGameScreen.init();
       const gameGenerator = new GameGenerator();
       const game = gameGenerator.generate({numberOfLevels: 1});
       inGameScreen.load(game);
@@ -48,10 +49,11 @@ class MainMenuScreen extends Screen {
     }
 
     function loadGameCommand() {
+      inGameScreen.init();
+      inGameScreen.show();
       const gameGenerator = new GameGenerator();
       const game = gameGenerator.load();
       inGameScreen.load(game);
-      inGameScreen.show();
 
       game.start();
     }

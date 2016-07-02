@@ -21,7 +21,6 @@ class VisionComponent extends Component {
 
   [Deserializer.Symbols.PostProcess]() {
     this._shadowCaster = new ROT.FOV.PreciseShadowcasting(this._checkIfLightPasses.bind(this));
-    this.updateFov();
   }
 
   onPositionChanged() {

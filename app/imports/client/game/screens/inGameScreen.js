@@ -11,11 +11,11 @@ class InGameScreen extends Screen {
   game = null;
   _keyMap = getKeyMap.call(this);
   _display = createDisplay();
+  _isInitialized = false;
 
-  load(game) {
-    this.game = game;
-    global.screen = this;
-
+  init() {
+    if (this._isInitialized)
+      return;
     postal.subscribe({
       channel: 'ui',
       topic: 'vision.update',
@@ -30,12 +30,17 @@ class InGameScreen extends Screen {
         this.renderFov(data.fov);
       }
     });
+    this._isInitialized = true;
+  }
+
+  load(game) {
+    this.game = game;
+    global.screen = this;
   }
 
   render(gameState = this.gameState) {
     this._display.clear();
     // this._display.drawText(5, 2, 'PLAY BALL');
-    this.gameState = gameState;
   }
 
   renderFov(fov) {

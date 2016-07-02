@@ -1,5 +1,5 @@
 'use strict';
-import {serializable, Deserializer} from 'shattered-lib/lib/jsonc';
+import {serializable, include, Deserializer} from 'shattered-lib/lib/jsonc';
 import VisionComponent from './VisionComponent';
 import events from '/events';
 import {postal} from '/global';
@@ -19,6 +19,18 @@ class UIVisionComponent extends VisionComponent {
     callback: this.onEntityAdded
   };
 
+
+  [Deserializer.Symbols.PostProcess]() {
+    super[Deserializer.Symbols.PostProcess]();
+
+    postal.publish({
+      channel: 'ui',
+      topic: 'vision.reset',
+      data: {
+        fov: this.fov
+      }
+    });
+  }
 
   updateFov() {
     super.updateFov();
@@ -54,6 +66,7 @@ class UIVisionComponent extends VisionComponent {
 
   }
 
+  @include
   onEntityAdded(event) {
     postal.publish({
       channel: 'ui',
@@ -64,6 +77,7 @@ class UIVisionComponent extends VisionComponent {
     });
   }
 
+  @include
   onEntityRemoved(event) {
     postal.publish({
       channel: 'ui',
