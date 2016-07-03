@@ -1,10 +1,10 @@
 'use strict';
-import {serializable, Deserializer} from 'shattered-lib/lib/jsonc';
+import { serializable, Deserializer } from 'shattered-lib/lib/jsonc';
 import Component from 'shattered-lib/Component';
 import events from '/events';
 import ROT from 'shattered-lib/lib/rot-js';
 
-@serializable('VisionComponent', {exclude: ['_shadowCaster']})
+@serializable('VisionComponent', { exclude: ['_shadowCaster'] })
 class VisionComponent extends Component {
   fov = [];
   _previousFov = [];
@@ -35,7 +35,7 @@ class VisionComponent extends Component {
     if (cachedFov && cachedFov.visionRange >= visionRange)
       return cachedFov[Math.min(cachedFov.length - 1, visionRange)];
 
-    const {fov, tileFovCache} = this._calculateFov(visionRange);
+    const { fov, tileFovCache } = this._calculateFov(visionRange);
 
     this._previousFov = this.fov;
     this.fov = fov;
@@ -51,7 +51,7 @@ class VisionComponent extends Component {
     tileFovCache.visionRange = visionRange || 0;
 
     if (visionRange === 0)
-      return {fov, tileFovCache};
+      return { fov, tileFovCache };
 
     this._shadowCaster.compute(this.entity.tile.point.x, this.entity.tile.point.y, visionRange,
       function recordVisibleTile(x, y, distance, visibility) {
@@ -68,14 +68,14 @@ class VisionComponent extends Component {
     let previousFov = [];
     for (var i = 0; i < fovAtRadius.length; i++)
       previousFov = tileFovCache[i] = fovAtRadius.concat(previousFov);
-    return {fov, tileFovCache};
+    return { fov, tileFovCache };
   }
 
   _checkIfLightPasses(x, y) {
     const map = this.entity.tile.map;
     if (x < 0 || y < 0 || x >= map.width || y >= map.height)
       return false;
-    const isBlockingLight = map[x][y].emit({name: events.isBlockingLight}).isCanceled === true;
+    const isBlockingLight = map[x][y].emit({ name: events.isBlockingLight }).isCanceled === true;
 
     return !isBlockingLight;
   }

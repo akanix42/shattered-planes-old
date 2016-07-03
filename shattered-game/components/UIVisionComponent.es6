@@ -1,10 +1,10 @@
 'use strict';
-import {serializable, Deserializer} from 'shattered-lib/lib/jsonc';
+import { serializable, Deserializer } from 'shattered-lib/lib/jsonc';
 import VisionComponent from './VisionComponent';
 import events from '/events';
-import {postal} from '/global';
+import { postal } from '/global';
 
-@serializable('UIVisionComponent', {exclude: ['_onEntityAddedHandler', '_onEntityRemovedHandler']})
+@serializable('UIVisionComponent', { exclude: ['_onEntityAddedHandler', '_onEntityRemovedHandler'] })
 class UIVisionComponent extends VisionComponent {
   _onEntityAddedHandler = {
     eventName: events.onEntityAdded,
