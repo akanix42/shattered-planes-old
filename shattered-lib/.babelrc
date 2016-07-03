@@ -4,6 +4,8 @@
   babelrc: false,
   retainLines: true,
   "plugins": [
+    "transform-es2015-destructuring",
+    "transform-object-rest-spread",
     "transform-export-extensions",
     "transform-es2015-modules-commonjs",
     "transform-decorators-legacy",

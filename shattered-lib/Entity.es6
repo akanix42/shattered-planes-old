@@ -1,7 +1,8 @@
 'use strict';
-import {serializable} from '/lib/jsonc';
+import { serializable, Serializer, Deserializer } from '/lib/jsonc';
 import SubscribedHandlers from './SubscribedHandlers';
 import Attributes from './Attributes';
+import EntityGenerator from '/generators/EntityGenerator';
 
 @serializable('Entity')
 export default class Entity {
@@ -12,6 +13,16 @@ export default class Entity {
   attributes = new Attributes();
   id = null;
   template = null;
+
+  [Serializer.Symbols.Serialize]() {
+    const obj = { ...this };
+    obj.template = obj.template.name;
+    return obj;
+  }
+
+  [Deserializer.Symbols.PostProcess]() {
+    this.template = EntityGenerator._templates[this.template];
+  }
 
   addComponent(component) {
     if (component._key in this._components)
@@ -39,7 +50,7 @@ export default class Entity {
       return;
 
     Object.defineProperty(this.stats, name, {
-      get: () => this.emit({name: 'onStat.' + name}),
+      get: () => this.emit({ name: 'onStat.' + name }),
       configurable: true,
       enumerable: true
     });
