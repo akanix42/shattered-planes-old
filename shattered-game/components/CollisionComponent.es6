@@ -10,7 +10,7 @@ class CollisionComponent extends Component {
     this.addHandler(events.onPosition, 50, this.onPosition);
     this.addHandler(events.willNotCollide, 50, this.onWillNotCollide);
   }
-
+  
   onPosition(event) {
     const result = event.destination.emit({name: events.willNotCollide, entity: this.entity});
     event.isCanceled = result.isCanceled;
