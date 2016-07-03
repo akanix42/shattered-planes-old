@@ -3,7 +3,7 @@
 import Entity from '../Entity';
 import {serializable} from '/lib/jsonc';
 
-@serializable('EntityGenerator')
+@serializable('EntityGenerator', {exclude: ['_Entity']})
 export default class EntityGenerator {
   _Entity = Entity;
 
