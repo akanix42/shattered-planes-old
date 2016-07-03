@@ -101,5 +101,6 @@ function showInventoryCommand() {
 
 function saveGameCommand() {
   this.game.save();
+  this.game.engine.lock();
   this.hide();
 }

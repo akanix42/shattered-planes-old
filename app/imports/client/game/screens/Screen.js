@@ -9,7 +9,7 @@ export default class Screen {
   }
 
   hide() {
-    this.screenStack.remove(this);
+    this.screenStack.pop(this);
   }
 
   render() {

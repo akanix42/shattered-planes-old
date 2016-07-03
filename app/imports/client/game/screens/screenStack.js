@@ -4,7 +4,7 @@ import ROT from 'rot-js';
 class ScreenStack {
   stack = [];
 
-  constructor(){
+  constructor() {
     window.screenStack = this;
   }
 
@@ -37,10 +37,11 @@ class ScreenStack {
     screen.render();
   }
 
-  pop() {
-    var screen = this.stack.pop();
-    screen.hide();
-    this.currentScreen().render();
+  pop(callingScreen) {
+    const screen = this.stack.pop();
+    if (callingScreen && callingScreen != screen)
+      screen.hide();
+    this.currentScreen.render();
   }
 
   remove(screen) {
