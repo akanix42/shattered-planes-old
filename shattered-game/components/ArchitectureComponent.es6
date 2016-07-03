@@ -1,5 +1,5 @@
 'use strict';
-import {serializable, include} from 'shattered-lib/lib/jsonc';
+import {serializable} from 'shattered-lib/lib/jsonc';
 import Component from 'shattered-lib/Component';
 import events from '/events';
 
@@ -10,7 +10,6 @@ class ArchitectureComponent extends Component {
     this.addHandler(events.onPosition, 150, this.onPosition);
   }
 
-  @include
   onPosition(event) {
     if (event.destination === this.entity.tile)
       return;
