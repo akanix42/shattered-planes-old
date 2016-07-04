@@ -58,7 +58,8 @@ class UIVisionComponent extends VisionComponent {
       channel: 'ui',
       topic: 'vision.reset',
       data: {
-        fov: newTiles
+        fov: newTiles,
+        removedTiles: [...previousFovSet]
       }
     });
 

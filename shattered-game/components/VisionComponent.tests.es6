@@ -38,10 +38,6 @@ describe('VisionComponent', ()=> {
       throw 'not implemented';
     });
 
-    it('should notify the ui of the fov changes', ()=>{
-      throw 'not implemented';
-    });
-
     it(`should add all visible tiles to the field-of-view`, () => {
       const level = new TestLevelGenerator().generate();
       const visionComponent = new VisionComponent();
@@ -63,44 +59,10 @@ describe('VisionComponent', ()=> {
       expect(visionComponent.fov).to.deep.equal(expectedFov);
     });
 
-    it(`should not display tiles that are blocked by other tiles`, () => {
+    it(`should not see tiles that are blocked by other tiles`, () => {
       throw 'not implemented';
     });
 
-    it(`should subscribe to all tiles except for the current tile in the field-of-view (fov)`, () => {
-      const level = new TestLevelGenerator().generate();
-      const visionComponent = new VisionComponent();
-      const entity = new Entity();
-      entity.addComponent(visionComponent);
-      entity.tile = level.getTileAtXY(0, 0);
-
-      visionComponent.updateFov();
-      const shouldBeAVisionComponentHandler = handler=> handler.component === visionComponent;
-      const checkTileHandlers = tile=> {
-        if (entity.tile === tile) {
-          expect(tile._handlers._handlersByEvent[events.onEntityAdded]).to.be.undefined;
-          expect(tile._handlers._handlersByEvent[events.onEntityRemoved]).to.be.undefined;
-          return true;
-        }
-
-        const result = tile._handlers._handlersByEvent[events.onEntityAdded].some(shouldBeAVisionComponentHandler)
-          && tile._handlers._handlersByEvent[events.onEntityRemoved].some(shouldBeAVisionComponentHandler);
-        return result;
-      };
-      expect(visionComponent.fov.every(checkTileHandlers)).to.be.true;
-    });
-  });
-
-  describe('onEntityAdded', () => {
-    it ('should notify the ui of the changed tiles', ()=>{
-      throw 'not implemented';
-    });
-  });
-
-  describe('onEntityRemoved', () => {
-    it ('should notify the ui of the changed tiles', ()=>{
-      throw 'not implemented';
-    });
   });
 
   describe('Handlers', () => {
