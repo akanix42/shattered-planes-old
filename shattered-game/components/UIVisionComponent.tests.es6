@@ -32,7 +32,7 @@ describe('UIVisionComponent', ()=> {
   describe('updateFov', () => {
 
     it(`should unsubscribe from tiles that are no longer in view`, () => {
-      const game = new GameGenerator.generate({numberOfLevels: 0});
+      const game = new GameGenerator().generate({ numberOfLevels: 0 });
       const level = new TestLevelGenerator(game).generate({ numberOfCreatures: 0 });
       const entity = new Entity();
       const visionComponent = new UIVisionComponent();
@@ -42,19 +42,22 @@ describe('UIVisionComponent', ()=> {
       visionComponent.updateFov();
       entity.attributes.visionRange.base = 0;
 
+      let wasCalled = false;
       postal.subscribe({
         channel: 'ui',
         topic: 'vision.reset',
         callback(data) {
           expect(data.removedTiles.length).to.be.greaterThan(0);
           data.removedTiles.forEach(tile=> {
-            const h = tile._handlers.handlersByEvent[events.onEntityAdded];
-            debugger;
+            expect(tile._handlers._handlersByEvent[events.onEntityAdded].length).to.equal(0);
+            expect(tile._handlers._handlersByEvent[events.onEntityRemoved].length).to.equal(0);
           });
+          wasCalled = true;
         }
       });
       visionComponent.updateFov();
 
+      expect(wasCalled).to.be.true;
     });
 
     it('should notify the ui of the fov changes', ()=> {
