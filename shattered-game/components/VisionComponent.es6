@@ -19,16 +19,11 @@ class VisionComponent extends Component {
     this.entity.attributes.add('visionRange', 0);
   }
 
-  [Deserializer.Symbols.PostProcess]() {
-    this._shadowCaster = new ROT.FOV.PreciseShadowcasting(this._checkIfLightPasses.bind(this));
-  }
-
   onPositionChanged() {
     this.updateFov();
   }
 
   updateFov() {
-    const level = this.entity.tile.level;
     const visionRange = this.entity.attributes.visionRange.current;
 
     const cachedFov = this.entity.tile.fovCache;

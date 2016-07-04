@@ -21,8 +21,6 @@ class UIVisionComponent extends VisionComponent {
 
 
   [Deserializer.Symbols.PostProcess]() {
-    super[Deserializer.Symbols.PostProcess]();
-
     postal.publish({
       channel: 'ui',
       topic: 'vision.reset',

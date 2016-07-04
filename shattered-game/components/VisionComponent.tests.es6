@@ -13,12 +13,6 @@ describe('VisionComponent', ()=> {
     });
   });
 
-  describe('deserialization', () => {
-    it(`should restore the vision handlers when deserialized`, () => {
-      throw 'not implemented';
-    });
-  });
-
   describe('onPositionChanged', () => {
     it(`should update the field-of-view (fov)`, (done) => {
       const visionComponent = new VisionComponent();
