@@ -35,24 +35,26 @@ class GameGenerator {
 
     const game = new Game();
     // global.game = game;
+    game.options = options;
     game.seed = ROT.RNG.seed;
     game.componentGenerator = new ComponentGenerator(game);
     game.entityGenerator = new EntityGenerator(game);
     game.engine = new Engine();
     game.entityGenerator.generateByName('timekeeper');
-    game.levels = this._generateLevels(game, options.numberOfLevels || 0);
+    game.levels = this._generateLevels(game);
     return game;
   }
+
   load() {
     const data = localStorage.getItem('game');
     const game = jsonc.parse(data).game;
     return game;
   }
 
-  _generateLevels(game, numberOfLevels) {
+  _generateLevels(game) {
     const levels = {};
     const levelGenerator = new this.LevelGenerator(game);
-    for (var i = 0; i < numberOfLevels; i++) {
+    for (var i = 0; i < game.options.numberOfLevels || 0; i++) {
       const level = levelGenerator.generateRandom();
       level.id = 1;
       levels[level.id] = level;
