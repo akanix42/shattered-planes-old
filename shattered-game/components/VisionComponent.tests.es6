@@ -7,9 +7,13 @@ import chai from 'chai';
 const expect = chai.expect;
 
 describe('VisionComponent', ()=> {
-  describe('onCreated', () => {
+  describe('init', () => {
     it(`should set a default visionRange of zero`, () => {
-      throw 'not implemented';
+      const entity = new Entity();
+      const visionComponent = new VisionComponent();
+      visionComponent.entity = entity;
+      visionComponent.init();
+      expect(entity.attributes.visionRange.current).to.equal(0);
     });
   });
 
@@ -23,11 +27,11 @@ describe('VisionComponent', ()=> {
 
   describe('updateFov', () => {
     it(`should be empty when the visionRange is 0`, () => {
-      throw 'not implemented';
-    });
-
-    it(`should unsubscribe from tiles that are no longer in view`, () => {
-      throw 'not implemented';
+      const entity = new Entity();
+      const visionComponent = new VisionComponent();
+      entity.addComponent(visionComponent);
+      visionComponent.updateFov();
+      expect(visionComponent.fov).to.eql([]);
     });
 
     it(`should update the previous fov`, () => {

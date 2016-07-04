@@ -26,6 +26,12 @@ class VisionComponent extends Component {
   updateFov() {
     const visionRange = this.entity.attributes.visionRange.current;
 
+    if (visionRange === 0) {
+      this._previousFov = this.fov;
+      this.fov = [];
+      return;
+    }
+
     const cachedFov = this.entity.tile.fovCache;
     if (cachedFov && cachedFov.visionRange >= visionRange)
       return cachedFov[Math.min(cachedFov.length - 1, visionRange)];
