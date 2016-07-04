@@ -6,7 +6,7 @@ import LevelGenerator from './LevelGenerator';
 import Engine from './Engine';
 import idGenerator from 'shattered-lib/generators/idGenerator';
 import global from './global';
-import jsonc, {serializable} from 'shattered-lib/lib/jsonc';
+import jsonc, { serializable } from 'shattered-lib/lib/jsonc';
 import lzstring from 'lz-string';
 
 @serializable('Game')
@@ -21,7 +21,7 @@ class Game {
   }
 
   save() {
-    const data = jsonc.stringify({game: this});
+    const data = jsonc.stringify({ game: this });
     localStorage.setItem('game', data);
     localStorage.setItem('game-lz', lzstring.compress(data));
   }
