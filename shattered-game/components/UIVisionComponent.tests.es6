@@ -31,32 +31,6 @@ describe('UIVisionComponent', ()=> {
 
   describe('updateFov', () => {
 
-    it(`should unsubscribe from tiles that are no longer in view`, () => {
-      const visionComponent = new UIVisionComponent();
-      const proto =visionComponent.__proto__.__proto__;
-      visionComponent.__proto__.__proto__ = {
-        ...visionComponent.__proto__.__proto__, updateFov: ()=> {
-        }
-      };
-      const newlyVisibleTile = new Tile();
-      const alreadyVisibleTile = new Tile();
-      const noLongerVisibleTile = new Tile();
-      visionComponent._previousFov = [alreadyVisibleTile, noLongerVisibleTile];
-      visionComponent.fov = [newlyVisibleTile, alreadyVisibleTile];
-
-      noLongerVisibleTile._handlers.add({eventName: events.onEntityAdded, callback: ()=>{}, component: visionComponent, priority: 0});
-      noLongerVisibleTile._handlers.add({eventName: events.onEntityRemoved, callback: ()=>{}, component: visionComponent, priority: 0});
-      expect(noLongerVisibleTile._handlers._handlersByEvent[events.onEntityAdded].length).to.equal(1);
-      expect(noLongerVisibleTile._handlers._handlersByEvent[events.onEntityRemoved].length).to.equal(1);
-
-      visionComponent.updateFov();
-
-      expect(noLongerVisibleTile._handlers._handlersByEvent[events.onEntityAdded].length).to.equal(0);
-      expect(noLongerVisibleTile._handlers._handlersByEvent[events.onEntityRemoved].length).to.equal(0);
-
-      visionComponent.__proto__.__proto__ = proto;
-    });
-
     it('should notify the ui of the fov changes', ()=> {
       const visionComponent = new UIVisionComponent();
       const proto =visionComponent.__proto__.__proto__;
@@ -89,7 +63,7 @@ describe('UIVisionComponent', ()=> {
       visionComponent.__proto__.__proto__ = proto;
     });
 
-    it(`should subscribe to all tiles in the field-of-view (fov)`, () => {
+    it(`should subscribe to all tiles in the field-of-view`, () => {
       const visionComponent = new UIVisionComponent();
       const proto =visionComponent.__proto__.__proto__;
       visionComponent.__proto__.__proto__ = {
@@ -98,9 +72,6 @@ describe('UIVisionComponent', ()=> {
       };
       const newlyVisibleTile1 = new Tile();
       const newlyVisibleTile2 = new Tile();
-      const noLongerVisibleTile1 = new Tile();
-      const noLongerVisibleTile2 = new Tile();
-      visionComponent._previousFov = [noLongerVisibleTile1, noLongerVisibleTile2];
       visionComponent.fov = [newlyVisibleTile1, newlyVisibleTile2];
 
       visionComponent.updateFov();
@@ -116,6 +87,33 @@ describe('UIVisionComponent', ()=> {
 
       visionComponent.__proto__.__proto__ = proto;
     });
+
+    it(`should unsubscribe from tiles that are no longer in the field-of-view`, () => {
+      const visionComponent = new UIVisionComponent();
+      const proto =visionComponent.__proto__.__proto__;
+      visionComponent.__proto__.__proto__ = {
+        ...visionComponent.__proto__.__proto__, updateFov: ()=> {
+        }
+      };
+      const newlyVisibleTile = new Tile();
+      const alreadyVisibleTile = new Tile();
+      const noLongerVisibleTile = new Tile();
+      visionComponent._previousFov = [alreadyVisibleTile, noLongerVisibleTile];
+      visionComponent.fov = [newlyVisibleTile, alreadyVisibleTile];
+
+      noLongerVisibleTile._handlers.add({eventName: events.onEntityAdded, callback: ()=>{}, component: visionComponent, priority: 0});
+      noLongerVisibleTile._handlers.add({eventName: events.onEntityRemoved, callback: ()=>{}, component: visionComponent, priority: 0});
+      expect(noLongerVisibleTile._handlers._handlersByEvent[events.onEntityAdded].length).to.equal(1);
+      expect(noLongerVisibleTile._handlers._handlersByEvent[events.onEntityRemoved].length).to.equal(1);
+
+      visionComponent.updateFov();
+
+      expect(noLongerVisibleTile._handlers._handlersByEvent[events.onEntityAdded].length).to.equal(0);
+      expect(noLongerVisibleTile._handlers._handlersByEvent[events.onEntityRemoved].length).to.equal(0);
+
+      visionComponent.__proto__.__proto__ = proto;
+    });
+
   });
 
   describe('onEntityAdded', () => {
