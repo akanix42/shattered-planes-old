@@ -49,9 +49,9 @@ describe('VisionComponent', ()=> {
 
       const visionRange = 20;
       const entity = new Entity();
+      entity.attributes.add('visionRange', visionRange);
       entity.addComponent(visionComponent);
       entity.tile = level.getTileAtXY(0, 0);
-      entity.attributes.add('visionRange', visionRange);
       const expectedFov = [];
       for (let x = Math.max(0, entity.tile.point.x); x < Math.min(level.map.width, visionRange); x++) {
         for (let y = Math.max(0, entity.tile.point.y); y < Math.min(level.map.height, visionRange); y++) {
