@@ -90,47 +90,31 @@ describe('UIVisionComponent', ()=> {
     });
 
     it(`should subscribe to all tiles in the field-of-view (fov)`, () => {
-      throw 'in progress';
       const visionComponent = new UIVisionComponent();
       const proto =visionComponent.__proto__.__proto__;
       visionComponent.__proto__.__proto__ = {
         ...visionComponent.__proto__.__proto__, updateFov: ()=> {
         }
       };
-      const newlyVisibleTile = new Tile();
-      const alreadyVisibleTile = new Tile();
-      const noLongerVisibleTile = new Tile();
-      visionComponent._previousFov = [alreadyVisibleTile, noLongerVisibleTile];
-      visionComponent.fov = [newlyVisibleTile, alreadyVisibleTile];
-      let wasCalled = false;
+      const newlyVisibleTile1 = new Tile();
+      const newlyVisibleTile2 = new Tile();
+      const noLongerVisibleTile1 = new Tile();
+      const noLongerVisibleTile2 = new Tile();
+      visionComponent._previousFov = [noLongerVisibleTile1, noLongerVisibleTile2];
+      visionComponent.fov = [newlyVisibleTile1, newlyVisibleTile2];
 
       visionComponent.updateFov();
-      expect(wasCalled).to.be.true;
-
-      subscription.unsubscribe();
-      visionComponent.__proto__.__proto__ = proto;
 
 
-      const level = new TestLevelGenerator().generate();
-      const visionComponent = new VisionComponent();
-      const entity = new Entity();
-      entity.addComponent(visionComponent);
-      entity.tile = level.getTileAtXY(0, 0);
-
-      visionComponent.updateFov();
       const shouldBeAVisionComponentHandler = handler=> handler.component === visionComponent;
-      const checkTileHandlers = tile=> {
-        if (entity.tile === tile) {
-          expect(tile._handlers._handlersByEvent[events.onEntityAdded]).to.be.undefined;
-          expect(tile._handlers._handlersByEvent[events.onEntityRemoved]).to.be.undefined;
-          return true;
-        }
-
+      const hasTileHandlers = tile=> {
         const result = tile._handlers._handlersByEvent[events.onEntityAdded].some(shouldBeAVisionComponentHandler)
           && tile._handlers._handlersByEvent[events.onEntityRemoved].some(shouldBeAVisionComponentHandler);
         return result;
       };
-      expect(visionComponent.fov.every(checkTileHandlers)).to.be.true;
+      expect(visionComponent.fov.every(hasTileHandlers)).to.be.true;
+
+      visionComponent.__proto__.__proto__ = proto;
     });
   });
 
@@ -173,13 +157,6 @@ describe('UIVisionComponent', ()=> {
 
       subscription.unsubscribe();
       expect(wasCalled).to.be.true;
-    });
-  });
-
-  describe('Handlers', () => {
-    it('should listen to onPosition events', () => {
-      const visionComponent = new VisionComponent();
-      expect(visionComponent.handlers.find(handler=>handler.eventName === events.onPosition)).to.be.ok;
     });
   });
 });
