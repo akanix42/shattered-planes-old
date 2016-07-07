@@ -24,21 +24,24 @@
     "chai": "^3.5.0",
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
+    "gulp-bump": "^2.2.0",
+    "gulp-install": "^0.6.0",
     "gulp-plumber": "^1.1.0",
     "gulp-sourcemaps": "^1.6.0",
+    "gulp-sym": "0.0.14",
     "gulp-watch": "^4.3.6",
     "istanbul": "^0.4.3",
     "karma": "^0.13.22",
     "karma-babel-preprocessor": "^6.0.1",
     "karma-coverage": "^1.0.0",
     "karma-mocha": "^1.0.1",
+    "lockfile": "^1.0.1",
     "mocha": "^2.4.5",
     "source-map-support": "^0.4.0"
   },
   "dependencies": {
     "lz-string": "^1.4.4",
     "postal": "^2.0.4",
-    "ramda": "^0.21.0",
-    "rot-js": "^0.6.2"
+    "ramda": "^0.21.0"
   }
 }
