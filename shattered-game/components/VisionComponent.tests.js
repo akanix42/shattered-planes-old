@@ -8,9 +8,10 @@ import Tile from 'shattered-lib/Tile';
 import chai from 'chai';
 const expect = chai.expect;
 
+
 describe('VisionComponent', ()=> {
   describe('init', () => {
-    it(`should set a default visionRange of zero`, () => {
+    it('should set a default visionRange of zero', () => {
       const entity = new Entity();
       const visionComponent = new VisionComponent();
       visionComponent.entity = entity;
@@ -63,11 +64,53 @@ describe('VisionComponent', ()=> {
       visionComponent.updateFov();
 
       expect(visionComponent.fov.length).to.equal(expectedFov.length);
-      // expect(visionComponent.fov).to.have.members(expectedFov);
+      expect(visionComponent.fov).to.have.members(expectedFov);
     });
 
-    it(`should not see tiles that are blocked by other tiles`, () => {
-      throw 'not implemented';
+    it(`should add all visible tiles to the field-of-view (2)`, () => {
+      const game = new GameGenerator().generate();
+      const level = new TestLevelGenerator(game).generate({ width: 3, height: 1 });
+      const visionComponent = new VisionComponent();
+
+      const visionRange = 2;
+      const entity = new Entity();
+      entity.attributes.add('visionRange', visionRange);
+      entity.addComponent(visionComponent);
+      entity.tile = level.getTileAtXY(0, 0);
+      const expectedFov = [];
+      for (let x = Math.max(0, entity.tile.point.x); x < Math.min(level.map.width, visionRange + 1); x++) {
+        for (let y = Math.max(0, entity.tile.point.y); y < Math.min(level.map.height, visionRange + 1); y++) {
+          const tile = level.getTileAtXY(x, y);
+          expectedFov.push(tile);
+        }
+      }
+
+      visionComponent.updateFov();
+
+      expect(visionComponent.fov.length).to.equal(expectedFov.length);
+      expect(visionComponent.fov).to.have.members(expectedFov);
+    });
+
+    it('should not see tiles that are blocked by other tiles', () => {
+      const game = new GameGenerator().generate();
+      const level = new TestLevelGenerator(game).generate({ width: 3, height: 1 });
+      const visionComponent = new VisionComponent();
+
+      const visionRange = 2;
+      const entity = new Entity();
+      entity.attributes.add('visionRange', visionRange);
+      entity.addComponent(visionComponent);
+      entity.tile = level.getTileAtXY(0, 0);
+      level.getTileAtXY(1, 0).emit = event=> {
+        event.isCanceled = true;
+        return event;
+      };
+      const expectedFov = [level.getTileAtXY(0, 0), level.getTileAtXY(1, 0)];
+
+      visionComponent.updateFov();
+
+      expect(visionComponent.fov.length).to.equal(expectedFov.length);
+      expect(visionComponent.fov).to.have.members(expectedFov);
     });
 
 
