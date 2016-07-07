@@ -17,7 +17,7 @@ export default class TestLevelGenerator {
   }
 
   generate(options) {
-    options = {...options, ...{ width: 10, height: 10 }};
+    options = {...{ width: 10, height: 10 }, ...options, };
 
     const level = new Level(this._theme);
     level.map = this._generateMap(options);
