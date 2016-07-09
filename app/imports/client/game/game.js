@@ -4,9 +4,9 @@ import fonts from '/client/fonts';
 import mainMenu from './screens/mainMenuScreen';
 import screenStack from './screens/screenStack';
 import styles from './game.scss';
-import {postal} from 'shattered-game/global';
+import { postal } from 'shattered-game/global';
 
-export {default as gameScreen} from './game.html';
+export { default as gameScreen } from './game.html';
 
 screen.helpers({
   styles

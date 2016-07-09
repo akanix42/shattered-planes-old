@@ -1,4 +1,4 @@
-import {createDisplay} from '../display';
+import { createDisplay } from '../display';
 import inGameScreen from './inGameScreen';
 import GameGenerator from 'shattered-game/GameGenerator';
 import Screen from './Screen';
@@ -26,7 +26,7 @@ class MainMenuScreen extends Screen {
   }
 
   _getKeyMap() {
-    const keyMap = {keydown: {}, keyup: {}, keypress: {}};
+    const keyMap = { keydown: {}, keyup: {}, keypress: {} };
     const keydown = keyMap.keydown,
       keyup = keyMap.keyup;
 
@@ -49,7 +49,7 @@ class MainMenuScreen extends Screen {
 
       const player = game.entityGenerator.generateByName('player');
 
-      player.emit({name: events.onPosition, destination: game.levels[1].getTileAt({x: 0, y: 0})});
+      player.emit({ name: events.onPosition, destination: game.levels[1].getTileAt({ x: 0, y: 0 }) });
 
       game.start();
     }
