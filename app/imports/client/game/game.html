@@ -1,6 +1,11 @@
 <component name="game">
-    <div class="{{styles.turnNumber}}">Turn: {{turn}} | TPS: {{turnsPerSecond}} </div>
-    <div id="game" class="{{styles.container}}">
-        <div {{b "ref: container"}}></div>
-    </div>
+  <div class="{{styles.turnNumber}}">Turn: {{turn}} | TPS: {{turnsPerSecond}} </div>
+  <div>
+    <label>width<input type="text" {{b "value: width"}}></label>
+    <label>height<input type="text" {{b "value: height"}}></label>
+    <label>number of creatures<input type="text" {{b "value: numberOfCreatures"}}></label>
+  </div>
+  <div id="game" class="{{styles.container}}">
+    <div {{b "ref: container"}}></div>
+  </div>
 </component>

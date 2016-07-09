@@ -8,6 +8,7 @@ import events from 'shattered-game/events';
 class MainMenuScreen extends Screen {
   _display = createDisplay();
   _keyMap = this._getKeyMap();
+  options:{};
 
   handleInput(inputType, inputData) {
     var command = this._keyMap[inputType][inputData.keyCode];
@@ -37,7 +38,12 @@ class MainMenuScreen extends Screen {
     function newGameCommand() {
       inGameScreen.init();
       const gameGenerator = new GameGenerator();
-      const game = gameGenerator.generate({numberOfLevels: 1});
+      const width = 100;
+      const height = 100;
+      const game = gameGenerator.generate({
+        numberOfLevels: 1,
+        testLevel: this.options
+      });
       inGameScreen.load(game);
       inGameScreen.show();
 

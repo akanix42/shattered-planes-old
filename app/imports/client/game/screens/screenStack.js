@@ -18,6 +18,8 @@ class ScreenStack {
       if (!ui) return;
 
       window.addEventListener(event, (e) => {
+        if (e.target.tagName==='INPUT')
+          return;
         if (e.keyCode === ROT.VK_F5)
           return;
         e.preventDefault();

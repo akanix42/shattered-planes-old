@@ -17,6 +17,9 @@ let lastTurnAt = null;
 screen.viewmodel({
   turn: 0,
   turnsPerSecond: 0,
+  width: 10,
+  height: 10,
+  numberOfCreatures: 0,
   async onRendered(){
     await fonts;
     //setTimeout(()=>{
@@ -39,5 +42,13 @@ screen.viewmodel({
         lastTurnAt = turnAt;
       }
     });
-  }
+  },
+  autorun: [
+    function () {
+      this.numberOfCreatures(this.width() * this.height() / 2);
+    },
+    function () {
+      mainMenu.options = { numberOfCreatures: parseInt(this.numberOfCreatures()), width: parseInt(this.width()), height: parseInt(this.height()) };
+    }
+  ]
 });
