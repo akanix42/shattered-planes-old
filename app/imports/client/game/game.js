@@ -32,6 +32,8 @@ screen.viewmodel({
       topic: 'turn.update',
       callback: (data)=> {
         const turnAt = performance.now();
+        if (data.turn === 1)
+          lastTurnAt = null;
         this.turn(data.turn);
         if (lastTurnAt !== null) {
           const diff = turnAt - lastTurnAt;
