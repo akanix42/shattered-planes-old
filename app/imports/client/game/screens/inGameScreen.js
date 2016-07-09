@@ -89,6 +89,7 @@ function getKeyMap() {
   //keydown[ROT.VK_COMMA] = handlePickupCommand.bind(this);
   keydown[ROT.VK_I] = showInventoryCommand.bind(this);
   keydown[ROT.VK_S] = saveGameCommand.bind(this);
+  keydown[ROT.VK_Q] = quitGameCommand.bind(this);
   //keydown[ROT.VK_Z] = handleSpellCastCommand.bind(this);
 
   return keyMap;
@@ -101,6 +102,11 @@ function showInventoryCommand() {
 
 function saveGameCommand() {
   this.game.save();
+  this.game.engine.lock();
+  this.hide();
+}
+
+function quitGameCommand() {
   this.game.engine.lock();
   this.hide();
 }

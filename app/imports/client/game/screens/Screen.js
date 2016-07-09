@@ -6,10 +6,12 @@ export default class Screen {
   show() {
     this.screenStack.container.append(this._display.getContainer());
     this.screenStack.push(this);
+    $(this._display.getContainer()).show();
   }
 
   hide() {
     this.screenStack.pop(this);
+    $(this._display.getContainer()).hide();
   }
 
   render() {
