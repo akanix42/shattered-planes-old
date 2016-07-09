@@ -34,7 +34,7 @@ gulp.task('transpile', () =>
       .pipe(gulp.dest('../npm-link/shattered-game/')),
 
     gulp.src(['**/*.js', '!{node_modules,node_modules/**}'])
-      .pipe(watch('src/**/*.js'))
+      .pipe(watch(['**/*.js', '!{node_modules,node_modules/**}']))
       .pipe(plumber())
       .pipe(sourcemaps.init())
       .pipe(babel())
@@ -56,7 +56,8 @@ gulp.task('copy-assets', ['bump'], () =>
 );
 
 gulp.task('bump', () => gulp.src('package.json')
-  .pipe(bump({ type: 'prerelease' })));
+  .pipe(bump({ type: 'prerelease' }))
+  .pipe(gulp.dest('./')));
 
 gulp.task('link-shattered-lib', () =>
   gulp.src(['../shattered-lib'])
