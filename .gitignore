@@ -7,6 +7,5 @@ app/packages/jsonc
 app/packages/ecmascript
 app/packages/babel-compiler
 app/packages/
-shattered-lib/**/*.js.map
-shattered-lib/**/*.js
 npm-link/
+app/.meteor/dev_bundle/
