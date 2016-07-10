@@ -9,7 +9,7 @@ module.exports = function indexDirectory(directory, globExcludePatterns, outputF
   recursive(directory, globExcludePatterns, function (err, files) {
     // Files is an array of filename
     if (!files) return;
-    console.log(files);
+    // console.log(files);
     files = files.map(file=> file.replace(/\\/g, '/'));
     const importStatements = [];
     const importRegistrations = [];
