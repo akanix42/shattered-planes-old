@@ -1,6 +1,6 @@
 {
   "name": "shattered-lib",
-  "version": "0.0.1",
+  "version": "0.0.2-13",
   "description": "",
   "main": "",
   "scripts": {
@@ -24,8 +24,13 @@
     "chai": "^3.5.0",
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
+    "gulp-beautify": "^2.0.0",
+    "gulp-bump": "^2.2.0",
+    "gulp-install": "^0.6.0",
     "gulp-plumber": "^1.1.0",
     "gulp-sourcemaps": "^1.6.0",
+    "gulp-sym": "0.0.14",
+    "gulp-transform": "^1.0.8",
     "gulp-watch": "^4.3.6",
     "istanbul": "^0.4.3",
     "karma": "^0.13.22",
@@ -36,6 +41,7 @@
     "source-map-support": "^0.4.0"
   },
   "dependencies": {
-    "rot-js": "^0.6.2"
+    "jcson": "F:/projects/personal/jsonc",
+    "rot-js": "F:/projects/roguelikes/rot.js/node-deploy"
   }
 }
