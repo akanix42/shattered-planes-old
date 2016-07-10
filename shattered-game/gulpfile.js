@@ -9,79 +9,78 @@ const vfs = require('vinyl-fs');
 const symlink = require('gulp-sym');
 const bump = require('gulp-bump');
 const indexDirectory = require('../builder/index-directory');
+const beautify = require('gulp-beautify');
+const path = require('path');
 
-require("babel-register");
+require('babel-register');
+require('app-module-path').addPath(`../npm-link`);
 
-gulp.task('default', ['lock', 'transpile', 'copy-assets', 'link-shattered-lib', 'link-rot-js', 'link-jcson', 'install-node-modules'], () => {
-  // lockFile.unlockSync('gulpfile.lock');
-});
+const dirName = path.basename(process.cwd());
 
-gulp.task('lock', ()=> {
-  // if (lockFile.checkSync('gulpfile.lock')) {
-  //   console.log('Gulp already running, exiting!');
-  //   process.exit(0);
-  // }
-  // lockFile.lockSync('gulpfile.lock');
-});
+gulp.task('default', [
+  'transpile',
+  'copy-assets',
+  // 'link-shattered-lib', 'link-rot-js', 'link-jcson',
+  'install-node-modules'
+]);
 
-gulp.task('transpile', () =>
+gulp.task('transpile', ['copy-assets', 'index-components', 'index-entity-templates', 'index-level-generators'], () =>
   [
-    gulp.src(['**/*.js', '!{node_modules,node_modules/**}'])
-      .pipe(plumber())
+    gulp.src(['**/*.js', "!gulpfile.js", '!{node_modules,node_modules/**}'])
       .pipe(sourcemaps.init())
       .pipe(babel())
+      .pipe(beautify({ indentSize: 2 }))
       .pipe(sourcemaps.write('.'))
-      .pipe(gulp.dest('../npm-link/shattered-game/')),
+      .pipe(gulp.dest(`../npm-link/${dirName}/`)),
 
-    gulp.src(['**/*.js', '!{node_modules,node_modules/**}'])
-      .pipe(watch(['**/*.js', '!{node_modules,node_modules/**}']))
+    gulp.src(['**/*.js', "!gulpfile.js", '!{node_modules,node_modules/**}'])
+      .pipe(watch(['**/*.js', "!gulpfile.js", '!{node_modules,node_modules/**}']))
       .pipe(plumber())
       .pipe(sourcemaps.init())
       .pipe(babel())
+      .pipe(beautify({ indentSize: 2 }))
       .pipe(sourcemaps.write('.'))
-      .pipe(gulp.dest('../npm-link/shattered-game/'))
+      .pipe(gulp.dest(`../npm-link/${dirName}/`))
   ]
 );
 
 gulp.task('copy-assets', ['bump'], () =>
   [
-    gulp.src(['**/*', '!**/*.js', '!{node_modules,node_modules/**}'])
-      .pipe(watch(['**/*', '!**/*.js', '!{node_modules,node_modules/**}']))
+    gulp.src(['**', '!**.js', '!{node_modules,node_modules/**}'])
+      .pipe(watch(['**', '!**.js', '!{node_modules,node_modules/**}']))
       .pipe(plumber())
-      .pipe(gulp.dest('../npm-link/shattered-game/')),
+      .pipe(gulp.dest(`../npm-link/${dirName}/`)),
 
-    gulp.src(['**/*', '!**/*.js', '!{node_modules,node_modules/**}'])
-      .pipe(gulp.dest('../npm-link/shattered-game/'))
+    gulp.src(['**', '!**.js', '!{node_modules,node_modules/**}'])
+      .pipe(gulp.dest(`../npm-link/${dirName}/`))
   ]
 );
 
 gulp.task('bump', () => gulp.src('package.json')
   .pipe(bump({ type: 'prerelease' }))
   .pipe(gulp.dest('./')));
+//
+// gulp.task('link-shattered-lib', () =>
+//   gulp.src(['../npm-link/shattered-lib'])
+//     .pipe(symlink('../npm-link/shattered-game/node_modules/shattered-lib'))
+// );
+//
+// gulp.task('link-rot-js', () =>
+//   gulp.src(['../../roguelikes/rot.js/node-deploy'])
+//     .pipe(symlink(`../npm-link/${dirName}/node_modules/rot-js`))
+// );
+//
+// gulp.task('link-jcson', () =>
+//   gulp.src(['../../personal/jsonc'])
+//     .pipe(symlink(`../npm-link/${dirName}/node_modules/jcson`))
+// );
 
-gulp.task('link-shattered-lib', () =>
-  gulp.src(['../shattered-lib'])
-    .pipe(symlink('../npm-link/shattered-game/node_modules/shattered-lib'))
+gulp.task('install-node-modules', ['copy-assets'], () =>
+  gulp.src(`../npm-link/${dirName}/package.json`)
+    .pipe(install({ production: true }))
 );
 
-gulp.task('link-rot-js', () =>
-  gulp.src(['../../roguelikes/rot.js/node-deploy'])
-    .pipe(symlink('../npm-link/shattered-game/node_modules/rot-js'))
-);
-
-gulp.task('link-jcson', () =>
-  gulp.src(['../../personal/jsonc'])
-    .pipe(symlink('../npm-link/shattered-game/node_modules/jcson'))
-);
-
-gulp.task('install-node-modules', () =>
-    gulp.src('../npm-link/shattered-game/package.json')
-    // .pipe(watch('src/**/*.js'))
-      .pipe(install({ production: true }))
-  // .pipe(gulp.dest('../npm-link/shattered-game/node_modules'))
-);
-
-gulp.task('index components', ()=> {
+gulp.task('index-components', ()=> {
   const indexComponents = ()=> indexDirectory('components', ['!*.js', '*.tests.js']);
   indexComponents();
   watch(['components/**/*.js', '!components/index.js'], ()=> {
@@ -89,7 +88,7 @@ gulp.task('index components', ()=> {
   });
 });
 
-gulp.task('index level generators', ()=> {
+gulp.task('index-level-generators', ()=> {
   const indexLevelGenerators = ()=> indexDirectory('level-generators', ['!*.js', '*.tests.js']);
   indexLevelGenerators();
   watch(['level-generators/**/*.js', '!level-generators/index.js'], ()=> {
@@ -97,7 +96,7 @@ gulp.task('index level generators', ()=> {
   });
 });
 
-gulp.task('index entity templates', ()=> {
+gulp.task('index-entity-templates', ()=> {
   const indexTemplates = ()=> indexDirectory('data/entities', ['!*.js', '*.tests.js']);
   indexTemplates();
   watch(['data/entities/**/*.js', '!data/entities/index.js'], ()=> {
