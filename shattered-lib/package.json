@@ -21,6 +21,7 @@
     "babel-register": "^6.7.2",
     "babel-root-import": "git+https://github.com/nathantreid/babel-root-import.git",
     "babel-root-slash-import": "^1.0.0",
+    "benchmark": "^2.1.0",
     "chai": "^3.5.0",
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
@@ -38,6 +39,7 @@
     "karma-coverage": "^1.0.0",
     "karma-mocha": "^1.0.1",
     "mocha": "^2.4.5",
+    "perfy": "^1.1.2",
     "source-map-support": "^0.4.0"
   },
   "dependencies": {
