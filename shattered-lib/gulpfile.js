@@ -19,6 +19,10 @@ gulp.task('default', [
   'transpile',
   'copy-assets',
   // 'link-rot-js', 'link-jcson',
+]);
+
+gulp.task('everything', [
+  'default',
   'install-node-modules']);
 
 gulp.task('transpile', () =>
