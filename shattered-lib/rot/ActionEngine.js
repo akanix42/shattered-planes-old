@@ -2,16 +2,16 @@
  * Adapted from ROT.Engine
  */
 'use strict';
-import ROT from 'shattered-lib/lib/rot-js';
-import {serializable} from 'shattered-lib/lib/jsonc';
+import { serializable } from '/lib/jsonc';
+import ROT from '/lib/rot-js';
 
-@serializable('Engine')
-class Engine {
+@serializable('ActionEngine')
+export default class ActionEngine {
   _scheduler = new ROT.Scheduler.Action();
   _lock = 1;
 
-  add(actor, isRecurring = true) {
-    this._scheduler.add(actor, isRecurring);
+  add(actor, isRecurring = true, time=0) {
+    this._scheduler.add(actor, isRecurring, time);
   }
 
   remove(actor) {
@@ -23,12 +23,9 @@ class Engine {
   }
 
   unlock() {
-    if (!this._lock) {
-      throw new Error("Cannot unlock unlocked engine");
-    }
-    this._lock--;
+    this._lock = Math.max(0, this._lock - 1);
 
-    while (!this._lock) {
+    while (this._lock === 0) {
       const actor = this._scheduler.next();
       if (!actor) {
         return this.lock();
@@ -45,5 +42,3 @@ class Engine {
     }
   }
 }
-
-export default Engine;
