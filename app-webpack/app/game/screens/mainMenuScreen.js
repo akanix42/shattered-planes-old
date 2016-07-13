@@ -10,6 +10,7 @@ class MainMenuScreen extends Screen {
   _display = createDisplay();
   _keyMap = this._getKeyMap();
   options = {};
+  game = null;
 
   constructor() {
     super();
@@ -50,7 +51,7 @@ class MainMenuScreen extends Screen {
       const gameGenerator = new GameGenerator();
       const width = 100;
       const height = 100;
-      const game = gameGenerator.generate({
+      const game = this.game = gameGenerator.generate({
         numberOfLevels: 1,
         testLevel: this.options
       });

@@ -4,6 +4,8 @@ import {serializable} from 'shattered-lib/lib/jsonc';
 
 @serializable('ActorComponent')
 export default class ActorComponent extends Component {
+  isRepeating = true;
+
   constructor(game) {
     super(game);
   }

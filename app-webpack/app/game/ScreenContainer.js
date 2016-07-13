@@ -54,6 +54,10 @@ export default class ScreenContainer extends React.Component {
           }
           this.lastTurnAt = turnAt;
           this.props.updateTPS({ turn: data.turn, turnsPerSecond });
+          mainMenu.game.engine.lock();
+          setTimeout(function() {
+            mainMenu.game.engine.unlock();
+          }, 5);
         }
       });
     }

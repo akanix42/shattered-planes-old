@@ -65,6 +65,15 @@ export default class TimeQueue {
   _updateTurn(time) {
     this._turn += time / this.timePerTurn;
     let currentTurn = Math.floor(this._turn);
+    if (currentTurn > this._lastTurn) {
+      postal.publish({
+        channel: 'ui',
+        topic: 'turn.update',
+        data: {
+          turn: currentTurn
+        }
+      });
+    }
 
     this._lastTurn = currentTurn;
   }

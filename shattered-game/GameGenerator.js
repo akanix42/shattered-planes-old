@@ -3,7 +3,7 @@ import ROT from 'shattered-lib/lib/rot-js';
 import ComponentGenerator from './ComponentGenerator';
 import EntityGenerator from './EntityGenerator';
 import LevelGenerator from './LevelGenerator';
-import Engine from './Engine';
+import Engine from 'shattered-lib/rot/TimeEngine';
 import idGenerator from 'shattered-lib/generators/idGenerator';
 import global from './global';
 import jsonc, { serializable } from 'shattered-lib/lib/jsonc';
@@ -40,7 +40,6 @@ class GameGenerator {
     game.componentGenerator = new ComponentGenerator(game);
     game.entityGenerator = new EntityGenerator(game);
     game.engine = new Engine();
-    game.entityGenerator.generateByName('timekeeper');
     game.levels = this._generateLevels(game);
     return game;
   }
