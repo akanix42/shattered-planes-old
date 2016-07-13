@@ -33,13 +33,7 @@ const data =
         'moveSpeed': 1000,
         'visionRange': 20
       }
-    },
-    {
-      name: 'timekeeper',
-      components: [
-        components.timekeeperActor,
-      ]
-    },
+    }
   ];
 
 data.__type__ = 'creatures';
