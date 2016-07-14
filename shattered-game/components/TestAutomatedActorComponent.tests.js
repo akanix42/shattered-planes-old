@@ -1,5 +1,5 @@
 import TestAutomatedActorComponent from './TestAutomatedActorComponent';
-import events from '/events';
+import events from '/eventTypes';
 import GameGenerator from '/GameGenerator';
 import EntityGenerator from '/EntityGenerator';
 import TestLevelGenerator from '../level-generators/TestLevelGenerator';
@@ -18,8 +18,8 @@ describe('TestAutomatedActorComponent', ()=> {
       entity.addComponent(testAutomatedActorComponent);
       entity.tile = level.getTileAtXY(0, 0);
       entity.emit = (event) => {
-        expect(event.name).to.equal(events.move);
-        expect(event.destination).to.be.an.instanceOf(Tile);
+        expect(event.type).to.equal(events.move);
+        expect(event.data.destination).to.be.an.instanceOf(Tile);
         done();
       };
       testAutomatedActorComponent.init();

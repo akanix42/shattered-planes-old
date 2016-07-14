@@ -1,15 +1,16 @@
 'use strict';
 import EntitiesByPriority from './EntitiesByPriority';
 import Inventory from './Inventory';
-import SubscribedHandlers from './SubscribedHandlers';
-import events from '/events';
+import PrioritizedHandlers from './event-system/PrioritizedHandlers';
+import events from '/event-system/eventTypes';
+import Event from '/event-system/Event';
 
-import {serializable} from '/lib/jsonc';
+import { serializable } from '/lib/jsonc';
 
 @serializable('Tile')
 export default class Tile {
   _architecture = null;
-  _handlers = new SubscribedHandlers();
+  _handlers = new PrioritizedHandlers();
   inventory = new Inventory();
   occupants = [];
 
@@ -34,7 +35,6 @@ export default class Tile {
     this._architecture = architecture;
     if (architecture) {
       architecture.tile = this;
-      this._addHandlers(architecture);
     }
   }
 
@@ -42,8 +42,9 @@ export default class Tile {
     this.occupants.push(occupant);
     occupant.tile = this;
 
-    this._addHandlers(occupant);
-    this.emit({name: events.onEntityAdded, tile: this});
+    const event = new Event(events.onEntityAdded);
+    event.data.tile = this;
+    this.emit(event);
   }
 
   removeOccupant(occupant) {
@@ -53,25 +54,26 @@ export default class Tile {
 
     this.occupants.splice(index, 1);
     occupant.tile = null;
-    this._removeHandlers(occupant);
-    this.emit({name: events.onEntityRemoved, tile: this});
-  }
-
-  _addHandlers(entity) {
-    const keys = Object.keys(entity.subscribedHandlers._handlersByEvent);
-    keys.forEach(key=> {
-      entity.subscribedHandlers._handlersByEvent[key].forEach(handler=>this._handlers.add(handler));
-    });
-  }
-
-  _removeHandlers(entity) {
-    const keys = Object.keys(entity.subscribedHandlers._handlersByEvent);
-    keys.forEach(key=> {
-      entity.subscribedHandlers._handlersByEvent[key].forEach(handler=>this._handlers.remove(handler));
-    });
+    const event = new Event(events.onEntityRemoved);
+    event.data.tile = this;
+    this.emit(event);
   }
 
   emit(event) {
-    return this._handlers.emit(event);
+    for (let i = 0; i < event.type.priorities.array.length; i++) {
+      let priority = event.type.priorities.array[i];
+      this._architecture.subscribedHandlers.emitTo(priority, event);
+      if (event.isCanceled) return event;
+
+      for (let j = 0; j < this.occupants.length; j++) {
+        this.occupants[j].subscribedHandlers.emitTo(priority, event);
+        if (event.isCanceled) return event;
+      }
+
+      this._handlers.emitTo(priority, event);
+      if (event.isCanceled) return event;
+    }
+    return event;
   }
+
 }

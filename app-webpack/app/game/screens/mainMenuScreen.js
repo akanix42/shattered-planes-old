@@ -3,7 +3,8 @@ import inGameScreen from './inGameScreen';
 import GameGenerator from 'shattered-game/GameGenerator';
 import Screen from './Screen';
 import ROT from 'rot-js';
-import events from 'shattered-game/events';
+import eventTypes from 'shattered-game/eventTypes';
+import Event from 'shattered-lib/event-system/Event';
 import { postal } from 'shattered-game/global';
 
 class MainMenuScreen extends Screen {
@@ -60,7 +61,9 @@ class MainMenuScreen extends Screen {
 
       const player = game.entityGenerator.generateByName('player');
 
-      player.emit({ name: events.onPosition, destination: game.levels[1].getTileAt({ x: 0, y: 0 }) });
+      const event = new Event(eventTypes.onPosition);
+      event.data.destination = game.levels[1].getTileAt({ x: 0, y: 0 });
+      player.emit(event);
 
       game.start();
     }

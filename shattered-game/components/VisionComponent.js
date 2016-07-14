@@ -1,7 +1,8 @@
 'use strict';
 import { serializable, Deserializer } from 'shattered-lib/lib/jsonc';
 import Component from 'shattered-lib/Component';
-import events from '/events';
+import events from '/eventTypes';
+import Event from 'shattered-lib/event-system/Event';
 import ROT from 'shattered-lib/lib/rot-js';
 
 @serializable('VisionComponent', { exclude: ['_shadowCaster'] })
@@ -12,7 +13,7 @@ class VisionComponent extends Component {
 
   constructor(game) {
     super(game);
-    this.addHandler(events.onPosition, 150, this.onPositionChanged);
+    this.addHandler(events.onPosition, events.priorities.AFTER, this.onPositionChanged);
   }
 
   init() {
@@ -76,7 +77,8 @@ class VisionComponent extends Component {
     const map = this.entity.tile.map;
     if (x < 0 || y < 0 || x >= map.width || y >= map.height)
       return false;
-    const isBlockingLight = map[x][y].emit({ name: events.isBlockingLight }).isCanceled === true;
+    const event = new Event(events.isBlockingLight);
+    const isBlockingLight = map[x][y].emit(event).isCanceled === true;
 
     return !isBlockingLight;
   }

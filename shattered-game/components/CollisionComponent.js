@@ -1,19 +1,22 @@
 'use strict';
 import {serializable} from 'shattered-lib/lib/jsonc';
 import Component from 'shattered-lib/Component';
-import events from '/events';
+import events from '/eventTypes';
+import Event from 'shattered-lib/event-system/Event';
 
 @serializable('CollisionComponent')
 class CollisionComponent extends Component {
   constructor(game) {
     super(game);
-    this.addHandler(events.onPosition, 50, this.onPosition);
-    this.addHandler(events.willNotCollide, 50, this.onWillNotCollide);
+    this.addHandler(events.onPosition, events.priorities.BEFORE, this.onPosition);
+    this.addHandler(events.willNotCollide, events.priorities.BEFORE, this.onWillNotCollide);
   }
   
-  onPosition(event) {
-    const result = event.destination.emit({name: events.willNotCollide, entity: this.entity});
-    event.isCanceled = result.isCanceled;
+  onPosition(positionEvent) {
+    const collisionEvent = new Event(events.willNotCollide);
+    collisionEvent.data.entity = this.entity;
+
+    positionEvent.isCanceled = positionEvent.data.destination.emit(collisionEvent).isCanceled;
   }
 
   onWillNotCollide() {

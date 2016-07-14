@@ -1,19 +1,23 @@
 'use strict';
 import {serializable} from 'shattered-lib/lib/jsonc';
 import Component from 'shattered-lib/Component';
-import events from '/events';
+import events from '/eventTypes';
+import Event from 'shattered-lib/event-system/Event';
 
 @serializable('NormalMovementComponent')
 class NormalMovementComponent extends Component {
   constructor(game) {
     super(game);
-    this.addHandler(events.move, 100, this.onMove);
+    this.addHandler(events.move, events.priorities.DURING, this.onMove);
   }
 
-  onMove(event) {
+  onMove(moveEvent) {
     const actionTime = this._calculateActionTime();
-    this.entity.emit({name: events.onPosition, destination: event.destination});
-    event.actionTime = actionTime;
+    const positionEvent = new Event(events.onPosition);
+    positionEvent.data.destination = moveEvent.data.destination;
+    this.entity.emit(positionEvent);
+
+    moveEvent.actionTime = actionTime;
   }
 
   _calculateActionTime(){

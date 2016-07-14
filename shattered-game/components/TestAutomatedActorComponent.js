@@ -3,7 +3,8 @@ import { serializable } from 'shattered-lib/lib/jsonc';
 import ActorComponent from './ActorComponent';
 import global from '/global';
 import ROT from 'shattered-lib/lib/rot-js';
-import events from '/events';
+import Event from 'shattered-lib/event-system/Event';
+import events from '/eventTypes';
 
 @serializable('TestAutomatedActorComponent')
 class TestAutomatedActorComponent extends ActorComponent {
@@ -18,8 +19,9 @@ class TestAutomatedActorComponent extends ActorComponent {
 
       const x = ROT.RNG.getUniformInt(Math.max(0, tile.point.x - 1), Math.min(tile.level._map.width - 1, tile.point.x + 1));
       const y = ROT.RNG.getUniformInt(Math.max(0, tile.point.y - 1), Math.min(tile.level._map.height - 1, tile.point.y + 1));
-      var event = { name: events.move, destination: tile.level.getTileAtXY(x, y) };
-      this.entity.emit(event);
+    const event = new Event(events.move);
+    event.data.destination = tile.level.getTileAtXY(x, y);
+    this.entity.emit(event);
 
       return event.actionTime || this.entity.attributes.moveSpeed.current;
       // resolve(event.actionTime||this.entity.attributes.moveSpeed.current);

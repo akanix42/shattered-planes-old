@@ -1,5 +1,6 @@
 import OccupantComponent from './OccupantComponent';
-import events from '/events';
+import events from '/eventTypes';
+import Event from 'shattered-lib/event-system/Event';
 import Entity from 'shattered-lib/Entity';
 import Tile from 'shattered-lib/Tile';
 import chai from 'chai';
@@ -26,7 +27,10 @@ describe('OccupantComponent', ()=> {
       entity.addComponent(occupantComponent);
 
       const destination = new Tile();
-      entity.emit({name: events.onPosition, destination});
+
+      const positionEvent = new Event(events.onPosition);
+      positionEvent.data.destination = destination;
+      entity.emit(positionEvent);
       entity.tile.should.equal(destination);
     });
   });

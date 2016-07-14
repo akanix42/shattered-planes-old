@@ -1,5 +1,5 @@
 import NormalMovementComponent from './NormalMovementComponent';
-import events from '/events';
+import events from '/eventTypes';
 import Entity from 'shattered-lib/Entity';
 import chai from 'chai';
 

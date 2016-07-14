@@ -1,6 +1,6 @@
 import VisionComponent from './VisionComponent';
 import GameGenerator from '/GameGenerator';
-import events from '/events';
+import events from '/eventTypes';
 import TestLevelGenerator from '../level-generators/TestLevelGenerator';
 import Entity from 'shattered-lib/Entity';
 import Tile from 'shattered-lib/Tile';
@@ -101,6 +101,7 @@ describe('VisionComponent', ()=> {
       entity.attributes.add('visionRange', visionRange);
       entity.addComponent(visionComponent);
       entity.tile = level.getTileAtXY(0, 0);
+
       level.getTileAtXY(1, 0).emit = event=> {
         event.isCanceled = true;
         return event;

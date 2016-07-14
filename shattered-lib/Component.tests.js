@@ -1,6 +1,7 @@
 'use strict';
 import jsonc from '/lib/jsonc';
 import Component from './Component.js';
+import eventTypes from './event-system/eventTypes';
 
 import chai from 'chai';
 chai.should();
@@ -18,21 +19,21 @@ describe('Component', () => {
   describe('_addHandler', ()=> {
     it('should add the handler', () => {
       const component = new Component();
-      component.addHandler({});
+      component.addHandler(eventTypes.test);
       component.handlers.length.should.equal(1);
     });
 
     it('should supply the event name, priority, callback, and component', () => {
       const component = new Component();
-      let eventName = 'test', priority = 10, callback = ()=>null;
+      let priority = 10, callback = ()=>null;
 
-      component.addHandler('test', 10, callback);
+      component.addHandler(eventTypes.test, 10, callback);
 
       const handler = component.handlers[0];
-      handler.eventName.should.equal(eventName);
+      handler.eventType.should.equal(eventTypes.test);
       handler.priority.should.equal(priority);
       handler.callback.should.equal(callback);
-      handler.component.should.equal(component);
+      handler.context.should.equal(component);
     });
 
   });

@@ -1,5 +1,5 @@
 import UIVisionComponent from './UIVisionComponent';
-import events from '/events';
+import events from '/eventTypes';
 import TestLevelGenerator from '../level-generators/TestLevelGenerator';
 import Entity from 'shattered-lib/Entity';
 import GameGenerator from '/GameGenerator';

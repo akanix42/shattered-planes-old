@@ -1,6 +1,6 @@
 'use strict';
 import { serializable, Serializer, Deserializer } from '/lib/jsonc';
-import SubscribedHandlers from './SubscribedHandlers';
+import PrioritizedHandlers from './event-system/PrioritizedHandlers';
 import Attributes from './Attributes';
 import EntityGenerator from '/generators/EntityGenerator';
 
@@ -8,7 +8,7 @@ import EntityGenerator from '/generators/EntityGenerator';
 export default class Entity {
   _components = {};
   stats = {};
-  subscribedHandlers = new SubscribedHandlers();
+  subscribedHandlers = new PrioritizedHandlers();
   tile = null;
   attributes = new Attributes();
   id = null;

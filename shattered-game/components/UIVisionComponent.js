@@ -1,24 +1,14 @@
 'use strict';
 import { serializable, Deserializer } from 'shattered-lib/lib/jsonc';
 import VisionComponent from './VisionComponent';
-import events from '/events';
+import events from '/eventTypes';
 import { postal } from '/global';
+import Handler from 'shattered-lib/event-system/Handler';
 
 @serializable('UIVisionComponent', { exclude: ['_onEntityAddedHandler', '_onEntityRemovedHandler'] })
 class UIVisionComponent extends VisionComponent {
-  _onEntityAddedHandler = {
-    eventName: events.onEntityAdded,
-    priority: 150,
-    component: this,
-    callback: this.onEntityAdded
-  };
-  _onEntityRemovedHandler = {
-    eventName: events.onEntityRemoved,
-    priority: 150,
-    component: this,
-    callback: this.onEntityAdded
-  };
-
+  _onEntityAddedHandler = new Handler(events.onEntityAdded, events.priorities.AFTER, this, this.onEntityAdded);
+  _onEntityRemovedHandler = new Handler(events.onEntityRemoved, events.priorities.AFTER, this, this.onEntityRemoved);
 
   [Deserializer.Symbols.PostProcess]() {
     postal.publish({
@@ -70,7 +60,7 @@ class UIVisionComponent extends VisionComponent {
       channel: 'ui',
       topic: 'vision.update',
       data: {
-        tile: event.tile
+        tile: event.data.tile
       }
     });
   }
@@ -80,7 +70,7 @@ class UIVisionComponent extends VisionComponent {
       channel: 'ui',
       topic: 'vision.update',
       data: {
-        tile: event.tile
+        tile: event.data.tile
       }
     });
   }
