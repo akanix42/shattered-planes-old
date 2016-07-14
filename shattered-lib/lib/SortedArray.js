@@ -1,9 +1,9 @@
 'use strict';
-class SortedArray extends Array {
+class SortedArray {
 
   constructor(array, compare = compareDefault) {
-    super();
     this.compare = compare;
+    this.array = [];
 
     if (array && array instanceof Array) {
       var length = array.length;
@@ -13,12 +13,20 @@ class SortedArray extends Array {
     }
   }
 
+  get(index) {
+    return this.array[index];
+  }
+
+  get length() {
+    return this.array.length;
+  }
+
   push(element) {
-    var array = this;
+    var array = this.array;
     var compare = this.compare;
     var index = array.length;
 
-    super.push(element);
+    array.push(element);
 
     while (index > 0) {
       var i = index, j = --index;
@@ -35,7 +43,7 @@ class SortedArray extends Array {
   }
 
   indexOf(element) {
-    var array = this;
+    var array = this.array;
     var compare = this.compare;
     var high = array.length;
     var low = 0;
@@ -53,13 +61,9 @@ class SortedArray extends Array {
   }
 
   remove(element) {
-    var index = this.indexOf(element);
-    if (index >= 0) {
-      this.splice(index, 1);
-      return true;
-    }
-
-    return false;
+    var index = this.array.indexOf(element);
+    if (index >= 0) this.array.splice(index, 1);
+    return this;
   }
 
 }
@@ -76,4 +80,3 @@ function compareDefault(a, b) {
 }
 
 module.exports = SortedArray;
-

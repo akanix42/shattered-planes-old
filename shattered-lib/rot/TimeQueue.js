@@ -23,9 +23,9 @@ export default class TimeQueue {
   }
 
   clear() {
-    for (let i = 0; i < this._queue.length; i++)
-      this._freeElements.push(this._queue[i]);
-    this._queue.length = 0;
+    for (let i = 0; i < this._queue.array.length; i++)
+      this._freeElements.push(this._queue.array[i]);
+    this._queue.array.length = 0;
     return this;
   }
 
@@ -43,17 +43,17 @@ export default class TimeQueue {
   }
 
   get() {
-    if (!this._queue.length) {
+    if (!this._queue.array.length) {
       return null;
     }
 
-    var element = this._queue.shift();
+    var element = this._queue.array.shift();
     var time = element.time;
     if (time > 0) { /* advance */
       this.time += time;
       this._updateTurn(time);
-      for (var i = 0; i < this._queue.length; i++) {
-        this._queue[i].time -= time;
+      for (var i = 0; i < this._queue.array.length; i++) {
+        this._queue.array[i].time -= time;
       }
     }
 
