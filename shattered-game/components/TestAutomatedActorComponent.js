@@ -14,24 +14,15 @@ class TestAutomatedActorComponent extends ActorComponent {
   }
 
   act() {
-    const performAction = () => {
-      const tile = this.entity.tile;
+    const tile = this.entity.tile;
 
-      const x = ROT.RNG.getUniformInt(Math.max(0, tile.point.x - 1), Math.min(tile.level._map.width - 1, tile.point.x + 1));
-      const y = ROT.RNG.getUniformInt(Math.max(0, tile.point.y - 1), Math.min(tile.level._map.height - 1, tile.point.y + 1));
+    const x = ROT.RNG.getUniformInt(Math.max(0, tile.point.x - 1), Math.min(tile.level._map.width - 1, tile.point.x + 1));
+    const y = ROT.RNG.getUniformInt(Math.max(0, tile.point.y - 1), Math.min(tile.level._map.height - 1, tile.point.y + 1));
     const event = new Event(events.move);
     event.data.destination = tile.level.getTileAtXY(x, y);
     this.entity.emit(event);
 
-      return event.actionTime || this.entity.attributes.moveSpeed.current;
-      // resolve(event.actionTime||this.entity.attributes.moveSpeed.current);
-    };
-    if (this._timeout)
-      return new Promise((resolve)=> {
-        setTimeout(()=>resolve(performAction), this._timeout);
-      });
-    else
-      return performAction();
+    return event.actionTime || this.entity.attributes.moveSpeed.current;
   }
 }
 TestAutomatedActorComponent._name = 'testAutomatedActor';
