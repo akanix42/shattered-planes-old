@@ -9,16 +9,17 @@ export default class Game extends React.Component {
     this.state = {
       turn: 0,
       turnsPerSecond: 0,
-      width: 10,
-      height: 10,
+      width: 40,
+      height: 40,
+      numberOfLevels: 1,
       numberOfCreatures: null,
     };
   }
 
   getNumberOfCreatures() {
     return this.state.numberOfCreatures === null
-      ? this.state.width * this.state.height / 2
-      : this.state.numberOfCreatures;
+      ? this.state.width * this.state.height / 2 / this.state.numberOfLevels
+      : this.state.numberOfCreatures / this.state.numberOfLevels;
   }
 
   updateMainMenuOptions() {
@@ -26,9 +27,12 @@ export default class Game extends React.Component {
       channel: 'ui',
       topic: 'mainMenu',
       data: {
-        numberOfCreatures: parseInt(this.getNumberOfCreatures()),
-        width: parseInt(this.state.width),
-        height: parseInt(this.state.height)
+        options: {
+          numberOfCreatures: parseInt(this.getNumberOfCreatures()),
+          width: parseInt(this.state.width),
+          height: parseInt(this.state.height),
+        },
+        numberOfLevels: parseInt(this.state.numberOfLevels),
       }
     });
   }
@@ -40,6 +44,7 @@ export default class Game extends React.Component {
           Turn: {this.state.turn} | TPS: {this.state.turnsPerSecond}
         </div>
         <div>
+          <label>number of levels<input type="text" value={this.state.numberOfLevels} onChange={this._setValue('numberOfLevels')}/></label>
           <label>width<input type="text" value={this.state.width} onChange={this._setWidthOrHeight('width')}/></label>
           <label>height<input type="text" value={this.state.height}
                               onChange={this._setWidthOrHeight('height')}/></label>

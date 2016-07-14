@@ -12,13 +12,17 @@ class MainMenuScreen extends Screen {
   _keyMap = this._getKeyMap();
   options = {};
   game = null;
+  numberOfLevels = 1;
 
   constructor() {
     super();
     postal.subscribe({
       channel: 'ui',
       topic: 'mainMenu',
-      callback: (data) => this.options = data
+      callback: (data) => {
+        this.options = data.options;
+        this.numberOfLevels = data.numberOfLevels;
+      }
     });
   }
 
@@ -53,7 +57,7 @@ class MainMenuScreen extends Screen {
       const width = 100;
       const height = 100;
       const game = this.game = gameGenerator.generate({
-        numberOfLevels: 1,
+        numberOfLevels: this.numberOfLevels,
         testLevel: this.options
       });
       inGameScreen.load(game);
