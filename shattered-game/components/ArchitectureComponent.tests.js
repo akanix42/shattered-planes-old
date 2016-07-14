@@ -1,6 +1,5 @@
 'use strict';
 import ArchitectureComponent from './ArchitectureComponent';
-import events from '/events';
 import Entity from 'shattered-lib/Entity';
 import Tile from 'shattered-lib/Tile';
 import chai from 'chai';
