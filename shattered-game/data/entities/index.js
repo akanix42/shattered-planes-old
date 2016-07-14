@@ -1,11 +1,11 @@
 
 'use strict';
-import architecture from './architecture';
 import creatures from './creatures';
+import architecture from './architecture';
 
 const importRegistrations = {};
-importRegistrations.architecture = architecture;
 importRegistrations.creatures = creatures;
+importRegistrations.architecture = architecture;
 
 export default importRegistrations;
   
