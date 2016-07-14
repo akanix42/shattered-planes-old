@@ -9,3 +9,5 @@ app/packages/babel-compiler
 app/packages/
 npm-link/
 app/.meteor/dev_bundle/
+optimizing/
+optimzing.txt
