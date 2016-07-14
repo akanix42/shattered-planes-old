@@ -1,0 +1,19 @@
+{
+  "extends": [
+    "sensible/babel",
+    "sensible/node"
+  ],
+  "rules": {
+    "comma-dangle": "off",
+    "curly": [
+      "error",
+      "multi-or-nest"
+    ],
+    "linebreak-style": "off",
+    "no-console": "warn",
+    "prefer-arrow-callback": "off",
+    "quotes": ["error", "single", {"avoidEscape": true, "allowTemplateLiterals": true}],
+    "quote-props": "off"
+
+  }
+}

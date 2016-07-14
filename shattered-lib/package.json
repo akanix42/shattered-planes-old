@@ -9,6 +9,7 @@
   "author": "Nathan Reid",
   "license": "ISC",
   "devDependencies": {
+    "babel-eslint": "^6.1.2",
     "babel-plugin-syntax-export-extensions": "^6.8.0",
     "babel-plugin-syntax-trailing-function-commas": "^6.8.0",
     "babel-plugin-transform-class-properties": "^6.10.2",
@@ -23,6 +24,10 @@
     "babel-root-slash-import": "^1.0.0",
     "benchmark": "^2.1.0",
     "chai": "^3.5.0",
+    "eslint": "^3.0.1",
+    "eslint-config-sensible": "^3.1.1",
+    "eslint-plugin-babel": "^3.3.0",
+    "eslint-plugin-import": "^1.10.2",
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
     "gulp-beautify": "^2.0.0",
