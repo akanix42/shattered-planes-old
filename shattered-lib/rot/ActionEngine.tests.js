@@ -1,6 +1,6 @@
 'use strict';
 import chai from 'chai';
-import Engine from './Engine.js';
+import Engine from './ActionEngine';
 
 chai.should();
 
