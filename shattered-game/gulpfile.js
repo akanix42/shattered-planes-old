@@ -24,7 +24,7 @@ gulp.task('default', [
   'install-node-modules'
 ]);
 
-gulp.task('transpile', ['copy-assets', 'index-components', 'index-entity-templates', 'index-level-generators'], () =>
+gulp.task('transpile', ['watch-transpile', 'copy-assets', 'index-components', 'index-entity-templates', 'index-level-generators'], () =>
   [
     gulp.src(['**/*.js', "!gulpfile.js", '!{node_modules,node_modules/**}'])
       .pipe(sourcemaps.init())
@@ -33,17 +33,18 @@ gulp.task('transpile', ['copy-assets', 'index-components', 'index-entity-templat
       .pipe(sourcemaps.write('.'))
       .pipe(gulp.dest(`../npm-link/${dirName}/`)),
 
-    gulp.src(['**/*.js', "!gulpfile.js", '!{node_modules,node_modules/**}'])
-      .pipe(watch(['**/*.js', "!gulpfile.js", '!{node_modules,node_modules/**}']))
-      .pipe(plumber())
-      .pipe(sourcemaps.init())
-      .pipe(babel())
-      .pipe(beautify({ indentSize: 2 }))
-      .pipe(sourcemaps.write('.'))
-      .pipe(gulp.dest(`../npm-link/${dirName}/`))
   ]
 );
-
+gulp.task('watch-transpile', ()=>
+  gulp.src(['**/*.js', "!gulpfile.js", '!{node_modules,node_modules/**}'])
+    .pipe(watch(['**/*.js', "!gulpfile.js", '!{node_modules,node_modules/**}']))
+    .pipe(plumber())
+    .pipe(sourcemaps.init())
+    .pipe(babel())
+    .pipe(beautify({ indentSize: 2 }))
+    .pipe(sourcemaps.write('.'))
+    .pipe(gulp.dest(`../npm-link/${dirName}/`))
+);
 gulp.task('copy-assets', ['bump'], () =>
   [
     gulp.src(['**', '!**.js', '!{node_modules,node_modules/**}'])
