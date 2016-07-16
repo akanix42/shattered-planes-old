@@ -20,7 +20,7 @@ describe('Tile', () => {
   describe('level', ()=> {
     it('should return the tile`s level', ()=> {
       const level = {};
-      const tile = new Tile({}, {level});
+      const tile = new Tile({}, { level });
       tile.level.should.equal(level);
     });
   });
@@ -29,6 +29,7 @@ describe('Tile', () => {
 
     it(`should add the occupant`, ()=> {
       const tile = new Tile();
+      tile._architecture = new Entity();
       const occupant = new Entity();
       tile.addOccupant(occupant);
       expect(tile.occupant).to.equal(occupant);
@@ -40,6 +41,7 @@ describe('Tile', () => {
 
     it(`should remove the occupant`, ()=> {
       const tile = new Tile();
+      tile._architecture = new Entity();
       const occupant = new Entity();
       tile.addOccupant(occupant);
       expect(tile.occupant).to.equal(occupant);
