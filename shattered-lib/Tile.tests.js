@@ -31,18 +31,9 @@ describe('Tile', () => {
       const tile = new Tile();
       const occupant = new Entity();
       tile.addOccupant(occupant);
-      expect(tile.occupants[0]).to.equal(occupant);
+      expect(tile.occupant).to.equal(occupant);
     });
 
-    it(`should add multiple occupants`, ()=> {
-      const tile = new Tile();
-      const occupant = new Entity();
-      const occupant2 = new Entity();
-      tile.addOccupant(occupant);
-      tile.addOccupant(occupant2);
-      expect(tile.occupants[0]).to.equal(occupant);
-      expect(tile.occupants[1]).to.equal(occupant2);
-    });
   });
 
   describe('removeOccupant()', ()=> {
@@ -51,7 +42,7 @@ describe('Tile', () => {
       const tile = new Tile();
       const occupant = new Entity();
       tile.addOccupant(occupant);
-      expect(tile.occupants[0]).to.equal(occupant);
+      expect(tile.occupant).to.equal(occupant);
     });
   });
 

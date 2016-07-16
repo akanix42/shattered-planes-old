@@ -5,6 +5,7 @@ import { serializable } from '/lib/jsonc';
 export default class PrioritizedHandlers {
   _handlersByPriority = {};
   _handlersById = {};
+  numberOfHandlers = 0;
   // _allHandlers = [];
   // priorities = new SortedArray;
 
@@ -29,6 +30,7 @@ export default class PrioritizedHandlers {
       }
     }
     this._handlersById[handler.id] = index;
+    this.numberOfHandlers++;
     // this._allHandlers.push(handler);
   }
 
@@ -51,7 +53,7 @@ export default class PrioritizedHandlers {
     else eventHandlers.splice(index, 1);
     this._handlersById[handler.id] = undefined;
     // this._allHandlers.splice(this._allHandlers.indexOf(handler), 1);
-
+    this.numberOfHandlers--;
   }
 
   removeMultiple(handlers) {

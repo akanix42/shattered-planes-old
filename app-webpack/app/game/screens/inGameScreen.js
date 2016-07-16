@@ -49,6 +49,7 @@ class InGameScreen extends Screen {
 
   renderTile(tile) {
     const entityToRender = tile.occupants.slice(-1)[0] || tile.architecture;
+    const entityToRender = tile.occupant || tile.architecture;
     this._display.draw(tile.point.x, tile.point.y, entityToRender.template.character, entityToRender.template.color, 'black');
   }
 

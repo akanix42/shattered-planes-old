@@ -12,7 +12,7 @@ export default class Tile {
   _architecture = null;
   _handlers = new PrioritizedHandlers();
   inventory = new Inventory();
-  occupants = [];
+  occupant = null;
 
   constructor(point, map) {
     this.point = point;
@@ -39,7 +39,7 @@ export default class Tile {
   }
 
   addOccupant(occupant) {
-    this.occupants.push(occupant);
+    this.occupant = occupant;
     occupant.tile = this;
 
     const event = new Event(events.onEntityAdded);
@@ -48,30 +48,37 @@ export default class Tile {
   }
 
   removeOccupant(occupant) {
-    const index = this.occupants.indexOf(occupant);
-    if (index === -1)
+    if (this.occupant !== occupant)
       return;
-
-    this.occupants.splice(index, 1);
+    this.occupant = null;
     occupant.tile = null;
+
     const event = new Event(events.onEntityRemoved);
     event.data.tile = this;
     this.emit(event);
   }
 
   emit(event) {
+    const shouldEmitToArchitecture = this._architecture.subscribedHandlers.numberOfHandlers > 0;
+    const shouldEmitToOccupant = this.occupant !== null;
+    const shouldEmitToSelf = this._handlers.numberOfHandlers > 0;
+
     for (let i = 0; i < event.type.priorities.array.length; i++) {
       let priority = event.type.priorities.array[i];
-      this._architecture.subscribedHandlers.emitTo(priority, event);
-      if (event.isCanceled) return event;
-
-      for (let j = 0; j < this.occupants.length; j++) {
-        this.occupants[j].subscribedHandlers.emitTo(priority, event);
+      if (shouldEmitToArchitecture) {
+        this._architecture.subscribedHandlers.emitTo(priority, event);
         if (event.isCanceled) return event;
       }
 
-      this._handlers.emitTo(priority, event);
-      if (event.isCanceled) return event;
+      if (shouldEmitToOccupant) {
+        this.occupant.subscribedHandlers.emitTo(priority, event);
+        if (event.isCanceled) return event;
+      }
+
+      if (shouldEmitToSelf) {
+        this._handlers.emitTo(priority, event);
+        if (event.isCanceled) return event;
+      }
     }
     return event;
   }
