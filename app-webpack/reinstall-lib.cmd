@@ -1,1 +1,1 @@
-npm uninstall shattered-lib && npm i shattered-lib
+npm uninstall shattered-lib && npm i shattered-lib && npm start
