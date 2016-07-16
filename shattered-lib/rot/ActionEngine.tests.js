@@ -4,7 +4,7 @@ import Engine from './ActionEngine';
 
 chai.should();
 
-describe('Engine', () => {
+describe('ActionEngine', () => {
 
   describe('add', ()=> {
     it('should add the actor to the scheduler as a recurring item', () => {
