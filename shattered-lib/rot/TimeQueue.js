@@ -79,6 +79,6 @@ export default class TimeQueue {
   }
 
   remove(item) {
-    return this._queue.remove(event);
+    return this._queue.remove(item);
   }
 }
