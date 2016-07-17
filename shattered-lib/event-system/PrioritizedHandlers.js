@@ -6,8 +6,6 @@ export default class PrioritizedHandlers {
   _handlersByPriority = {};
   _handlersById = {};
   numberOfHandlers = 0;
-  // _allHandlers = [];
-  // priorities = new SortedArray;
 
   add(handler) {
     if (this._handlersById[handler.id] !== undefined)
@@ -18,7 +16,6 @@ export default class PrioritizedHandlers {
     let handlers = handlersByPriority[handler.priority];
     if (handlers === undefined) {
       handlersByPriority[handler.priority] = { [handler.eventType.id]: [handler] };
-      // this.priorities.push(handler.priority);
     }
     else {
       let eventHandlers = handlers[handler.eventType.id];
@@ -31,7 +28,6 @@ export default class PrioritizedHandlers {
     }
     this._handlersById[handler.id] = index;
     this.numberOfHandlers++;
-    // this._allHandlers.push(handler);
   }
 
   addMultiple(handlers) {
@@ -52,7 +48,6 @@ export default class PrioritizedHandlers {
     else if (index === eventHandlers.length - 1) eventHandlers.pop();
     else eventHandlers.splice(index, 1);
     this._handlersById[handler.id] = undefined;
-    // this._allHandlers.splice(this._allHandlers.indexOf(handler), 1);
     this.numberOfHandlers--;
   }
 
