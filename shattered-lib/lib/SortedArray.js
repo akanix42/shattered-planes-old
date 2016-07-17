@@ -1,4 +1,7 @@
 'use strict';
+import { serializable } from '/lib/jsonc';
+
+@serializable('SortedArray')
 class SortedArray {
 
   constructor(array, compare = compareDefault) {
