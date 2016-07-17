@@ -10,12 +10,14 @@ export default class TimeQueue {
     this._lastTurn = 0;
     this._turn = 0;
     this.timePerTurn = timePerTurn;
-    this._queue = new SortedArray(null, function sortByTime(a, b) {
-      if (a.time === b.time) return 0;
-
-      return a.time < b.time ? -1 : 1;
-    });
+    this._queue = new SortedArray(null, this._sortByTime);
     this._freeElements = [];
+  }
+
+  _sortByTime(a, b) {
+    if (a.time === b.time) return 0;
+
+    return a.time < b.time ? -1 : 1;
   }
 
   get turn() {
