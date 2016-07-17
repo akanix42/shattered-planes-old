@@ -21,21 +21,25 @@ gulp.task('default', [
   'transpile',
   'copy-assets',
   // 'link-shattered-lib', 'link-rot-js', 'link-jcson',
-  'install-node-modules'
+  // 'install-node-modules'
 ]);
 
-gulp.task('transpile', ['watch-transpile', 'copy-assets', 'index-components', 'index-entity-templates', 'index-level-generators'], () =>
+gulp.task('transpile',
   [
+    'watch-transpile',
+    'copy-assets',
+    'index-components',
+    'index-entity-templates',
+    'index-level-generators'
+  ], () =>
     gulp.src(['**/*.js', "!gulpfile.js", '!{node_modules,node_modules/**}'])
       .pipe(sourcemaps.init())
       .pipe(babel())
       .pipe(beautify({ indentSize: 2 }))
       .pipe(sourcemaps.write('.'))
-      .pipe(gulp.dest(`../npm-link/${dirName}/`)),
-
-  ]
+      .pipe(gulp.dest(`../npm-link/${dirName}/`))
 );
-gulp.task('watch-transpile', ()=>
+gulp.task('watch-transpile', ()=> [
   gulp.src(['**/*.js', "!gulpfile.js", '!{node_modules,node_modules/**}'])
     .pipe(watch(['**/*.js', "!gulpfile.js", '!{node_modules,node_modules/**}']))
     .pipe(plumber())
@@ -44,6 +48,7 @@ gulp.task('watch-transpile', ()=>
     .pipe(beautify({ indentSize: 2 }))
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest(`../npm-link/${dirName}/`))
+  ]
 );
 gulp.task('copy-assets', ['bump'], () =>
   [
