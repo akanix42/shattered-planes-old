@@ -15,11 +15,13 @@ describe('OccupantComponent', ()=> {
       entity.addComponent(occupantComponent);
 
       const destination = new Tile();
-      occupantComponent.onPositionChanged({destination});
+      destination._architecture = new Entity;
+
+      occupantComponent.onPositionChanged({ data: { destination } });
       entity.tile.should.equal(destination);
     });
   });
-  
+
   describe('Handlers', () => {
     it('should listen to onPositioned events', () => {
       const occupantComponent = new OccupantComponent();
@@ -27,6 +29,7 @@ describe('OccupantComponent', ()=> {
       entity.addComponent(occupantComponent);
 
       const destination = new Tile();
+      destination._architecture = new Entity;
 
       const positionEvent = new Event(events.onPosition);
       positionEvent.data.destination = destination;

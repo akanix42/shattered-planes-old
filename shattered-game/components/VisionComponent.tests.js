@@ -140,7 +140,7 @@ describe('VisionComponent', ()=> {
   describe('Handlers', () => {
     it('should listen to onPosition events', () => {
       const visionComponent = new VisionComponent();
-      expect(visionComponent.handlers.find(handler=>handler.eventName === events.onPosition)).to.be.ok;
+      expect(visionComponent.handlers.find(handler=>handler.eventType === events.onPosition)).to.be.ok;
     });
   });
 });

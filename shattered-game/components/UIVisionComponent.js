@@ -12,8 +12,7 @@ class UIVisionComponent extends VisionComponent {
 
   [Deserializer.Symbols.PostProcess]() {
     postal.publish({
-      channel: 'ui',
-      topic: 'vision.reset',
+      topic: 'ui.vision.reset',
       data: {
         fov: this.fov
       }
@@ -45,8 +44,7 @@ class UIVisionComponent extends VisionComponent {
     });
 
     postal.publish({
-      channel: 'ui',
-      topic: 'vision.reset',
+      topic: 'ui.vision.reset',
       data: {
         fov: newTiles,
         removedTiles: [...previousFovSet]
@@ -57,8 +55,7 @@ class UIVisionComponent extends VisionComponent {
 
   onEntityAdded(event) {
     postal.publish({
-      channel: 'ui',
-      topic: 'vision.update',
+      topic: 'ui.vision.update',
       data: {
         tile: event.data.tile
       }
@@ -67,8 +64,7 @@ class UIVisionComponent extends VisionComponent {
 
   onEntityRemoved(event) {
     postal.publish({
-      channel: 'ui',
-      topic: 'vision.update',
+      topic: 'ui.vision.update',
       data: {
         tile: event.data.tile
       }

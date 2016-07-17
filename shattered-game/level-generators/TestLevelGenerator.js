@@ -14,6 +14,7 @@ export default class TestLevelGenerator {
     if (arguments.length === 0) return this;
 
     this._entityGenerator = game.entityGenerator;
+    this.game = game;
   }
 
   generate(options) {

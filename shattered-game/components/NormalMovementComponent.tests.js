@@ -14,7 +14,7 @@ describe('NormalMovementComponent', ()=> {
       entity.attributes.add('moveSpeed', 1000);
 
       const destination = {};
-      const event = {destination};
+      const event = {data:destination};
       movementComponent.onMove(event);
       event.actionTime.should.equal(1000);
     });
@@ -25,7 +25,7 @@ describe('NormalMovementComponent', ()=> {
   describe('Handlers', () => {
     it('should listen to move events', () => {
       const movementComponent = new NormalMovementComponent();
-      movementComponent.handlers.find(handler=>handler.eventName === events.move).should.be.ok;
+      movementComponent.handlers.find(handler=>handler.eventType === events.move).should.be.ok;
     });
   });
 });

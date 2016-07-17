@@ -15,6 +15,7 @@ describe('TestAutomatedActorComponent', ()=> {
       const level = new TestLevelGenerator(game).generate();
       const testAutomatedActorComponent = new TestAutomatedActorComponent(game, 1000);
       const entity = game.entityGenerator.generate({});
+      entity.attributes.add('moveSpeed', 1);
       entity.addComponent(testAutomatedActorComponent);
       entity.tile = level.getTileAtXY(0, 0);
       entity.emit = (event) => {

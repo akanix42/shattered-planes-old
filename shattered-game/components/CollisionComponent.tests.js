@@ -16,15 +16,15 @@ describe('CollisionComponent', ()=> {
 
       const destination = {
         emit(event) {
-          expect(event).to.eql({name: events.willNotCollide, entity: entity});
+          expect(event.data).to.eql({ entity: entity });
           done();
           return event;
         }
       };
-      collisionComponent.onPosition({destination});
+      collisionComponent.onPosition({ data: { destination } });
     });
 
-    it(`should be canceled if the willNotCollide event was canceled`, () => {
+    it('should be canceled if the willNotCollide event was canceled', () => {
       const collisionComponent = new CollisionComponent();
       const entity = new Entity();
       entity.addComponent(collisionComponent);
@@ -32,10 +32,10 @@ describe('CollisionComponent', ()=> {
       let shouldBeCanceled = true;
       const destination = {
         emit(event) {
-          return {isCanceled: shouldBeCanceled};
+          return { isCanceled: shouldBeCanceled };
         }
       };
-      const event = {destination};
+      const event = { data: { destination } };
       collisionComponent.onPosition(event);
       expect(event.isCanceled).to.equal(shouldBeCanceled);
     });
@@ -48,10 +48,10 @@ describe('CollisionComponent', ()=> {
       let shouldBeCanceled = false;
       const destination = {
         emit(event) {
-          return {isCanceled: shouldBeCanceled};
+          return { isCanceled: shouldBeCanceled };
         }
       };
-      const event = {destination};
+      const event = { data: { destination } };
       collisionComponent.onPosition(event);
       expect(event.isCanceled).to.equal(shouldBeCanceled);
     });
@@ -61,12 +61,12 @@ describe('CollisionComponent', ()=> {
   describe('Handlers', () => {
     it('should listen to onPosition events', () => {
       const collisionComponent = new CollisionComponent();
-      collisionComponent.handlers.find(handler=>handler.eventName === events.onPosition).should.be.ok;
+      collisionComponent.handlers.find(handler=>handler.eventType === events.onPosition).should.be.ok;
     });
 
     it('should listen to willNotCollide events', () => {
       const collisionComponent = new CollisionComponent();
-      collisionComponent.handlers.find(handler=>handler.eventName === events.willNotCollide).should.be.ok;
+      collisionComponent.handlers.find(handler=>handler.eventType === events.willNotCollide).should.be.ok;
     });
   });
 });

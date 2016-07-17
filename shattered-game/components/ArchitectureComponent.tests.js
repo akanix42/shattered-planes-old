@@ -15,7 +15,7 @@ describe('ArchitectureComponent', ()=> {
       const currentTile = new Tile();
       entity.addComponent(architectureComponent);
 
-      architectureComponent.onPosition({destination: currentTile});
+      architectureComponent.onPosition({data: {destination: currentTile}});
       expect(currentTile.architecture).to.equal(entity);
     });
 
@@ -26,7 +26,7 @@ describe('ArchitectureComponent', ()=> {
       entity.addComponent(architectureComponent);
       previousTile.architecture = entity;
 
-      architectureComponent.onPosition({destination: null});
+      architectureComponent.onPosition({data:{destination: null}});
       expect(previousTile.architecture).to.be.null;
     });
 

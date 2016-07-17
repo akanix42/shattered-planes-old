@@ -17,8 +17,7 @@ describe('UIVisionComponent', ()=> {
     it(`should publish an fov reset`, () => {
       let wasCalled = false;
       const subscription = postal.subscribe({
-        channel: 'ui',
-        topic: 'vision.reset',
+        topic: 'ui.vision.reset',
         callback: ()=>wasCalled = true
       });
 
@@ -33,7 +32,7 @@ describe('UIVisionComponent', ()=> {
 
     it('should notify the ui of the fov changes', ()=> {
       const visionComponent = new UIVisionComponent();
-      const proto =visionComponent.__proto__.__proto__;
+      const proto = visionComponent.__proto__.__proto__;
       visionComponent.__proto__.__proto__ = {
         ...visionComponent.__proto__.__proto__, updateFov: ()=> {
         }
@@ -45,8 +44,7 @@ describe('UIVisionComponent', ()=> {
       visionComponent.fov = [newlyVisibleTile, alreadyVisibleTile];
       let wasCalled = false;
       const subscription = postal.subscribe({
-        channel: 'ui',
-        topic: 'vision.reset',
+        topic: 'ui.vision.reset',
         callback: (data)=> {
           wasCalled = true;
           expect(data.fov[0]).to.equal(newlyVisibleTile);
@@ -63,9 +61,9 @@ describe('UIVisionComponent', ()=> {
       visionComponent.__proto__.__proto__ = proto;
     });
 
-    it(`should subscribe to all tiles in the field-of-view`, () => {
+    it('should subscribe to all tiles in the field-of-view', () => {
       const visionComponent = new UIVisionComponent();
-      const proto =visionComponent.__proto__.__proto__;
+      const proto = visionComponent.__proto__.__proto__;
       visionComponent.__proto__.__proto__ = {
         ...visionComponent.__proto__.__proto__, updateFov: ()=> {
         }
@@ -76,21 +74,24 @@ describe('UIVisionComponent', ()=> {
 
       visionComponent.updateFov();
 
-
-      const shouldBeAVisionComponentHandler = handler=> handler.component === visionComponent;
+      let evt = events.onEntityAdded;
+      const shouldBeAVisionComponentHandler = handler=> handler.context === visionComponent;
       const hasTileHandlers = tile=> {
-        const result = tile._handlers._handlersByEvent[events.onEntityAdded].some(shouldBeAVisionComponentHandler)
-          && tile._handlers._handlersByEvent[events.onEntityRemoved].some(shouldBeAVisionComponentHandler);
+        const result = tile._handlers._handlersByPriority[visionComponent._onEntityAddedHandler.priority][events.onEntityAdded.id].some(shouldBeAVisionComponentHandler)
+          && tile._handlers._handlersByPriority[visionComponent._onEntityAddedHandler.priority][events.onEntityRemoved.id].some(shouldBeAVisionComponentHandler);
         return result;
       };
-      expect(visionComponent.fov.every(hasTileHandlers)).to.be.true;
 
-      visionComponent.__proto__.__proto__ = proto;
+      try {
+        expect(visionComponent.fov.every(hasTileHandlers)).to.be.true;
+      } finally {
+        visionComponent.__proto__.__proto__ = proto;
+      }
     });
 
     it(`should unsubscribe from tiles that are no longer in the field-of-view`, () => {
       const visionComponent = new UIVisionComponent();
-      const proto =visionComponent.__proto__.__proto__;
+      const proto = visionComponent.__proto__.__proto__;
       visionComponent.__proto__.__proto__ = {
         ...visionComponent.__proto__.__proto__, updateFov: ()=> {
         }
@@ -101,15 +102,23 @@ describe('UIVisionComponent', ()=> {
       visionComponent._previousFov = [alreadyVisibleTile, noLongerVisibleTile];
       visionComponent.fov = [newlyVisibleTile, alreadyVisibleTile];
 
-      noLongerVisibleTile._handlers.add({eventName: events.onEntityAdded, callback: ()=>{}, component: visionComponent, priority: 0});
-      noLongerVisibleTile._handlers.add({eventName: events.onEntityRemoved, callback: ()=>{}, component: visionComponent, priority: 0});
-      expect(noLongerVisibleTile._handlers._handlersByEvent[events.onEntityAdded].length).to.equal(1);
-      expect(noLongerVisibleTile._handlers._handlersByEvent[events.onEntityRemoved].length).to.equal(1);
+      noLongerVisibleTile._handlers.add({
+        id: visionComponent._onEntityAddedHandler.id,
+        eventType: events.onEntityAdded, callback: ()=> {
+        }, component: visionComponent, priority: visionComponent._onEntityAddedHandler.priority
+      });
+      noLongerVisibleTile._handlers.add({
+        id: visionComponent._onEntityRemovedHandler.id,
+        eventType: events.onEntityRemoved, callback: ()=> {
+        }, component: visionComponent, priority: visionComponent._onEntityRemovedHandler.priority
+      });
+      expect(noLongerVisibleTile._handlers._handlersByPriority[visionComponent._onEntityAddedHandler.priority][events.onEntityAdded.id].length).to.equal(1);
+      expect(noLongerVisibleTile._handlers._handlersByPriority[visionComponent._onEntityRemovedHandler.priority][events.onEntityRemoved.id].length).to.equal(1);
 
       visionComponent.updateFov();
 
-      expect(noLongerVisibleTile._handlers._handlersByEvent[events.onEntityAdded].length).to.equal(0);
-      expect(noLongerVisibleTile._handlers._handlersByEvent[events.onEntityRemoved].length).to.equal(0);
+      expect(noLongerVisibleTile._handlers._handlersByPriority[visionComponent._onEntityAddedHandler.priority][events.onEntityAdded.id].length).to.equal(0);
+      expect(noLongerVisibleTile._handlers._handlersByPriority[visionComponent._onEntityRemovedHandler.priority][events.onEntityRemoved.id].length).to.equal(0);
 
       visionComponent.__proto__.__proto__ = proto;
     });
@@ -122,15 +131,14 @@ describe('UIVisionComponent', ()=> {
       const tile = {};
       let wasCalled = false;
       const subscription = postal.subscribe({
-        channel: 'ui',
-        topic: 'vision.update',
+        topic: 'ui.vision.update',
         callback: (data)=> {
           wasCalled = true;
           expect(data.tile).to.equal(tile);
         }
       });
 
-      visionComponent.onEntityAdded({tile});
+      visionComponent.onEntityAdded({ data: { tile } });
 
       subscription.unsubscribe();
       expect(wasCalled).to.be.true;
@@ -143,15 +151,14 @@ describe('UIVisionComponent', ()=> {
       const tile = {};
       let wasCalled = false;
       const subscription = postal.subscribe({
-        channel: 'ui',
-        topic: 'vision.update',
+        topic: 'ui.vision.update',
         callback: (data)=> {
           wasCalled = true;
           expect(data.tile).to.equal(tile);
         }
       });
 
-      visionComponent.onEntityRemoved({tile});
+      visionComponent.onEntityRemoved({ data: { tile } });
 
       subscription.unsubscribe();
       expect(wasCalled).to.be.true;
