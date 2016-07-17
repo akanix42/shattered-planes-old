@@ -17,15 +17,13 @@ class InGameScreen extends Screen {
     if (this._isInitialized)
       return;
     postal.subscribe({
-      channel: 'ui',
-      topic: 'vision.update',
+      topic: 'ui.vision.update',
       callback: (data)=> {
         this.renderTile(data.tile);
       }
     });
     postal.subscribe({
-      channel: 'ui',
-      topic: 'vision.reset',
+      topic: 'ui.vision.reset',
       callback: (data)=> {
         this.renderFov(data.fov);
       }

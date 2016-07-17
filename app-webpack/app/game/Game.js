@@ -24,8 +24,7 @@ export default class Game extends React.Component {
 
   updateMainMenuOptions() {
     postal.publish({
-      channel: 'ui',
-      topic: 'mainMenu',
+      topic: 'ui.mainMenu',
       data: {
         options: {
           numberOfCreatures: parseInt(this.getNumberOfCreatures()),

@@ -17,8 +17,7 @@ class MainMenuScreen extends Screen {
   constructor() {
     super();
     postal.subscribe({
-      channel: 'ui',
-      topic: 'mainMenu',
+      topic: 'ui.mainMenu',
       callback: (data) => {
         this.options = data.options;
         this.numberOfLevels = data.numberOfLevels;

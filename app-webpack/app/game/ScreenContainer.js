@@ -37,8 +37,7 @@ export default class ScreenContainer extends React.Component {
       screenStack.bindInputEvents();
       mainMenu.show();
       postal.subscribe({
-        channel: 'ui',
-        topic: 'turn.update',
+        topic: 'ui.turn.update',
         callback: (data)=> {
           const turnAt = performance.now();
           if (data.turn === 1)
