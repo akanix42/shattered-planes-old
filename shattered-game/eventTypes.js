@@ -9,7 +9,7 @@ eventTypes.onPosition = new EventType('onPosition', eventTypes.getNextId());
 
 let eventLookup = {};
 const keys = Object.keys(eventTypes);
-keys.forEach(key=>eventLookup[eventTypes[key]] = key);
+keys.forEach(key=>eventLookup[eventTypes[key].id] = key);
 
 eventTypes.eventLookup = eventLookup;
 export default eventTypes;
