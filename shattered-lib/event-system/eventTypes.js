@@ -7,7 +7,7 @@ eventTypes.getNextId = function getNextId() {
   return id++;
 };
 eventTypes.test = new EventType('test', eventTypes.getNextId());
-eventTypes.onEntityAdded =new EventType('onEntityAdded', eventTypes.getNextId());
+eventTypes.onEntityAdded = new EventType('onEntityAdded', eventTypes.getNextId());
 eventTypes.onEntityRemoved = new EventType('onEntityRemoved', eventTypes.getNextId());
 
 const eventPriorities = {
@@ -20,4 +20,4 @@ eventTypes.priorities = eventPriorities;
 
 export default eventTypes;
 
-export {eventPriorities};
+export { eventPriorities };
