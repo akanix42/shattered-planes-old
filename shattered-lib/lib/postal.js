@@ -1,25 +1,37 @@
+class Subscription {
+  constructor(messageBus, topic, index) {
+    this.messageBus = messageBus;
+    this.topic = topic;
+    this.index = index;
+  }
+
+  unsubscribe() {
+    this.messageBus.unsubscribe(this.topic, this.index);
+  }
+}
+
 class MessageBus {
   topics = new Map;
 
-  subscribe(subscription) {
-    let topic = `${subscription.channel}.${subscription.topic}`;
+  subscribe(data) {
+    let topic = data.topic;
     let entry = this.topics.get(topic);
     if (entry === undefined)
       this.topics.set(topic, entry = []);
-    entry.push(subscription.callback);
-    return entry.length -1;
+
+    let subscription = new Subscription(this, topic, entry.length);
+    entry.push(data.callback);
+    return subscription;
   }
 
-  unsubscribe(channel, topic, index) {
-    topic = `${data.channel}.${data.topic}`;
+  unsubscribe(topic, index) {
     let entry = this.topics.get(topic);
     if (entry === undefined) return;
-      entry.splice(index, 1);
+    entry.splice(index, 1);
   }
 
   publish(data) {
-    let topic = `${data.channel}.${data.topic}`;
-    let entry = this.topics.get(topic);
+    let entry = this.topics.get(data.topic);
     if (entry === undefined) return;
 
     for (let i = 0; i < entry.length; i++)

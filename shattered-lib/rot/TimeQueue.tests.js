@@ -86,8 +86,7 @@ describe('TimeQueue', () => {
 
       let result;
       postal.subscribe({
-        channel: 'ui',
-        topic: 'turn.update',
+        topic: 'ui.turn.update',
         callback: (turn) => {
           result = turn
         }
