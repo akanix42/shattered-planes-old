@@ -75,7 +75,7 @@ class MainMenuScreen extends Screen {
       inGameScreen.init();
       inGameScreen.show();
       const gameGenerator = new GameGenerator();
-      const game = gameGenerator.load();
+      const game = this.game = gameGenerator.load();
       inGameScreen.load(game);
 
       game.start();
