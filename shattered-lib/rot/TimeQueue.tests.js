@@ -1,6 +1,7 @@
 'use strict';
 import chai from 'chai';
 import TimeQueue from './TimeQueue';
+import postal from '/lib/postal';
 
 const expect = chai.expect;
 
@@ -34,8 +35,8 @@ describe('TimeQueue', () => {
 
     it('should add items to the queue in order by time', () => {
       const queue = new TimeQueue();
-      const item1 = { };
-      const item2 = { };
+      const item1 = {};
+      const item2 = {};
       queue.add(item1, 150);
       queue.add(item2, 50);
       expect(queue._queue.array[0].item).to.equal(item2);
@@ -67,7 +68,7 @@ describe('TimeQueue', () => {
       expect(queue._freeElements[0].item).to.equal(item1);
     });
 
-    it (`should advance the game time by the item's time`, ()=>{
+    it(`should advance the game time by the item's time`, ()=> {
       const queue = new TimeQueue();
       const item1 = {};
       queue.add(item1, 150);
@@ -75,7 +76,26 @@ describe('TimeQueue', () => {
       expect(queue.time).to.equal(0);
       queue.get();
       expect(queue.time).to.equal(150);
+    });
 
+    it(`should publish an update when the turn is incremented`, ()=> {
+      const queue = new TimeQueue();
+      const item1 = {};
+      queue.add(item1, 100);
+      queue.add(item1, 1000);
+
+      let result;
+      postal.subscribe({
+        channel: 'ui',
+        topic: 'turn.update',
+        callback: (turn) => {
+          result = turn
+        }
+      });
+      queue.get();
+      expect(result).to.be.undefined;
+      queue.get();
+      expect(result.turn).to.equal(1);
     });
   });
 
@@ -91,7 +111,7 @@ describe('TimeQueue', () => {
       queue.remove(item1);
       expect(queue._queue.array.length).to.equal(0);
     });
-    });
+  });
 
   describe('clear', ()=> {
     it('should empty the queue', () => {
