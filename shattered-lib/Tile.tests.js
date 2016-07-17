@@ -37,6 +37,34 @@ describe('Tile', () => {
 
   });
 
+  describe('architecture', ()=> {
+    describe('get', () => {
+      it(`should return the architecture`, ()=> {
+        const tile = new Tile();
+        tile._architecture = new Entity();
+        expect(tile.architecture).to.equal(tile._architecture);
+      });
+    });
+
+    describe('set', () => {
+      it(`should set the architecture`, ()=> {
+        const tile = new Tile();
+        const architecture = new Entity();
+        tile.architecture = architecture;
+        expect(tile.architecture).to.equal(architecture);
+      });
+
+      it(`should update the architecture's tile`, ()=> {
+        const tile = new Tile();
+        const architecture = new Entity();
+
+        tile.architecture = architecture;
+        expect(tile.architecture.tile).to.equal(tile);
+      });
+    });
+
+  });
+
   describe('removeOccupant()', ()=> {
 
     it(`should remove the occupant`, ()=> {

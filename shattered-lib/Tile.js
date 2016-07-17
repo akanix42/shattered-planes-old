@@ -28,10 +28,6 @@ export default class Tile {
   }
 
   set architecture(architecture) {
-    const previousArchitecture = this._architecture;
-    if (previousArchitecture)
-      this._removeHandlers(previousArchitecture);
-
     this._architecture = architecture;
     if (architecture) {
       architecture.tile = this;
