@@ -26,7 +26,7 @@ export default class TimeScheduler {
   }
 
   remove() {
-    return this._queue.remove(item);
+    this._queue.remove(item);
   }
 
   next() {
