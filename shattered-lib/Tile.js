@@ -13,6 +13,7 @@ export default class Tile {
   _handlers = new PrioritizedHandlers();
   inventory = new Inventory();
   occupant = null;
+  transients = [];
 
   constructor(point, map) {
     this.point = point;
@@ -54,10 +55,31 @@ export default class Tile {
     this.emit(event);
   }
 
+  addTransient(transient) {
+    this.transients.push(transient);
+    transient.tile = this;
+
+    const event = new Event(events.onEntityAdded);
+    event.data.tile = this;
+    this.emit(event);
+  }
+
+  removeTransient(transient) {
+    let index = this.transients.indexOf(transient);
+    // if (index === -1) return;
+    this.transients.splice(index, 1);
+    transient.tile = null;
+
+    const event = new Event(events.onEntityRemoved);
+    event.data.tile = this;
+    this.emit(event);
+  }
+
   emit(event) {
     const shouldEmitToArchitecture = this._architecture.subscribedHandlers.numberOfHandlers > 0;
     const shouldEmitToOccupant = this.occupant !== null;
     const shouldEmitToSelf = this._handlers.numberOfHandlers > 0;
+    const shouldEmitToTransients = this.transients.length > 0;
 
     for (let i = 0; i < event.type.priorities.array.length; i++) {
       let priority = event.type.priorities.array[i];
@@ -69,6 +91,13 @@ export default class Tile {
       if (shouldEmitToOccupant) {
         this.occupant.subscribedHandlers.emitTo(priority, event);
         if (event.isCanceled) return event;
+      }
+
+      if (shouldEmitToTransients) {
+        for (let i = 0; i < this.transients.length; i++) {
+          this.transients[i].subscribedHandlers.emitTo(priority, event);
+          if (event.isCanceled) return event;
+        }
       }
 
       if (shouldEmitToSelf) {
