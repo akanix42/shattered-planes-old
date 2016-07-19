@@ -38,7 +38,6 @@ class InGameScreen extends Screen {
 
   render(gameState = this.gameState) {
     this._display.clear();
-    // this._display.drawText(5, 2, 'PLAY BALL');
   }
 
   renderFov(fov) {
