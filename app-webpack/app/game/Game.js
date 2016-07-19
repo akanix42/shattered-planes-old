@@ -1,7 +1,8 @@
 import React from 'react';
-import styles from './game.scss';
+import styles from './Game.scss';
 import ScreenContainer from './ScreenContainer';
 import { postal } from 'shattered-game/global';
+import SideBar from './sideBar/SideBar';
 
 export default class Game extends React.Component {
   constructor(props) {
@@ -43,14 +44,18 @@ export default class Game extends React.Component {
           Turn: {this.state.turn} | TPS: {this.state.turnsPerSecond}
         </div>
         <div>
-          <label>number of levels<input type="text" value={this.state.numberOfLevels} onChange={this._setValue('numberOfLevels')}/></label>
+          <label>number of levels<input type="text" value={this.state.numberOfLevels}
+                                        onChange={this._setValue('numberOfLevels')}/></label>
           <label>width<input type="text" value={this.state.width} onChange={this._setWidthOrHeight('width')}/></label>
           <label>height<input type="text" value={this.state.height}
                               onChange={this._setWidthOrHeight('height')}/></label>
           <label>number of creatures<input type="text" value={this.getNumberOfCreatures()}
                                            onChange={this._setValue('numberOfCreatures')}/></label>
         </div>
-        <ScreenContainer updateTPS={this.updateTPS.bind(this)}/>
+        <div className={styles.layout}>
+          <ScreenContainer updateTPS={this.updateTPS.bind(this)}/>
+          <SideBar/>
+        </div>
         {this.updateMainMenuOptions()}
       </div>
     );

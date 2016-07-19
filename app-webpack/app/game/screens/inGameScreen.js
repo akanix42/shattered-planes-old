@@ -88,10 +88,15 @@ function getKeyMap() {
   keydown[ROT.VK_I] = showInventoryCommand.bind(this);
   keydown[ROT.VK_S] = saveGameCommand.bind(this);
   keydown[ROT.VK_Q] = quitGameCommand.bind(this);
+  keydown[ROT.VK_Z] = () => displayInSideBar('SpellBook');
   //keydown[ROT.VK_Z] = handleSpellCastCommand.bind(this);
 
   return keyMap;
 
+}
+
+function displayInSideBar(componentName) {
+  postal.publish({topic:'ui.sideBar.display', data: componentName});
 }
 
 function showInventoryCommand() {
