@@ -1,9 +1,9 @@
 
 'use strict';
-import TestLevelGenerator from './TestLevelGenerator';
+import __TestLevelGenerator from '././TestLevelGenerator';
 
 const importRegistrations = {};
-importRegistrations.TestLevelGenerator = TestLevelGenerator;
+importRegistrations.TestLevelGenerator = __TestLevelGenerator;
 
 export default importRegistrations;
   
