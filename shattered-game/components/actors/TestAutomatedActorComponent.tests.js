@@ -1,8 +1,7 @@
 import TestAutomatedActorComponent from './TestAutomatedActorComponent';
 import events from '/eventTypes';
 import GameGenerator from '/GameGenerator';
-import EntityGenerator from '/EntityGenerator';
-import TestLevelGenerator from '../level-generators/TestLevelGenerator';
+import TestLevelGenerator from '/level-generators/TestLevelGenerator';
 import Tile from 'shattered-lib/Tile';
 
 import chai from 'chai';

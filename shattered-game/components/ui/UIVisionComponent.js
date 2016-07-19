@@ -1,6 +1,6 @@
 'use strict';
 import { serializable, Deserializer } from 'shattered-lib/lib/jsonc';
-import VisionComponent from './VisionComponent';
+import VisionComponent from '../VisionComponent';
 import events from '/eventTypes';
 import { postal } from '/global';
 import Handler from 'shattered-lib/event-system/Handler';

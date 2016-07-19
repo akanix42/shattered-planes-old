@@ -1,10 +1,6 @@
 import UIVisionComponent from './UIVisionComponent';
 import events from '/eventTypes';
-import TestLevelGenerator from '../level-generators/TestLevelGenerator';
-import Entity from 'shattered-lib/Entity';
-import GameGenerator from '/GameGenerator';
 import Tile from 'shattered-lib/Tile';
-import components from '/components/index';
 import { Deserializer } from 'shattered-lib/lib/jsonc';
 import { postal } from '/global';
 
