@@ -1,6 +1,6 @@
 'use strict';
 import idGenerator from './idGenerator';
-import {serializable} from '/lib/jsonc';
+import { serializable } from '/lib/jsonc';
 
 @serializable('ComponentGenerator')
 export default class ComponentGenerator {
@@ -9,7 +9,13 @@ export default class ComponentGenerator {
   }
 
   generate(Component) {
-    const component = new Component(this._game);
+    let options;
+    if (Array.isArray(Component)) {
+      options = Component[1];
+      Component = Component[0];
+    }
+
+    const component = new Component(this._game, options);
     component._key = Component._name;
     component.id = idGenerator.generate();
 
