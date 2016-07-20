@@ -38,7 +38,7 @@ export default class UISpellBookComponent extends Component {
     let point = this.entity.tile.point;
     let level = this.entity.tile.level;
 
-    spell.components.push([components.explodeWhenTriggered, { triggers: [events.onTargetReached] }]);
+    spell.components.push([components.generateWhenTriggered, { triggers: [events.onTargetReached] }]);
     spell.components.push([components.directionalActor, { x: 1, y: 0, moveTime: 100 }]);
     spell.components.push([components.targetTile, { tile: level.getTileAtXY(point.x + 5, point.y) }]);
     this.game.entityGenerator.generate(spell);
