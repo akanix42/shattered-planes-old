@@ -43,7 +43,7 @@
     "source-map-support": "^0.4.0"
   },
   "dependencies": {
-    "jcson": "F:/projects/personal/jsonc",
-    "rot-js": "F:/projects/roguelikes/rot.js/node-deploy"
+    "jcson": "file:///C:\\projects\\personal\\jsonc",
+    "rot-js": "file:///C:\\projects\\roguelikes\\rot.js\\node-deploy"
   }
 }
