@@ -1,13 +1,16 @@
 'use strict';
-import { serializable } from '/lib/jsonc';
+import { serializable } from 'jcson';
+import Handler from "event-system/Handler";
+import { INumberMap } from "typings/IMap";
+import Event from 'event-system/Event';
 
 @serializable('PrioritizedHandlers')
 export default class PrioritizedHandlers {
-  _handlersByPriority = {};
-  _handlersById = {};
+  _handlersByPriority: INumberMap<INumberMap<Handler[]>> = {};
+  _handlersById: INumberMap<number | undefined> = {};
   numberOfHandlers = 0;
 
-  add(handler) {
+  add(handler: Handler) {
     if (this._handlersById[handler.id] !== undefined)
       return;
 
@@ -30,12 +33,12 @@ export default class PrioritizedHandlers {
     this.numberOfHandlers++;
   }
 
-  addMultiple(handlers) {
+  addMultiple(handlers: Handler[]) {
     for (var i = 0; i < handlers.length; i++)
       this.add(handlers[i]);
   }
 
-  remove(handler) {
+  remove(handler: Handler) {
     let index = this._handlersById[handler.id];
     if (index === undefined)
       return;
@@ -51,20 +54,20 @@ export default class PrioritizedHandlers {
     this.numberOfHandlers--;
   }
 
-  removeMultiple(handlers) {
+  removeMultiple(handlers: Handler[]) {
     for (var i = 0; i < handlers.length; i++)
       this.remove(handlers[i]);
   }
 
-  emit(event) {
-    let length =  event.type.priorities.length;
+  emit(event: Event) {
+    let length = event.type.priorities.length;
     for (let i = 0; i < length; i++) {
-     this.emitTo(event.type.priorities.get(i), event);
+      this.emitTo(event.type.priorities.get(i), event);
     }
     return event;
   }
 
-  emitTo(priority, event) {
+  emitTo(priority: number, event: Event) {
     let eventMap = this._handlersByPriority[priority];
     let handlers;
     if (eventMap === undefined || (handlers = eventMap[event.type.id]) === undefined) return event;
@@ -74,7 +77,7 @@ export default class PrioritizedHandlers {
       return event;
   }
 
-  _callHandlers(handlers, event) {
+  _callHandlers(handlers: Handler[], event: Event) {
     for (let j = 0; j < handlers.length; j++) {
       let handler = handlers[j];
       let result = handler.callback.call(handler.context, event);

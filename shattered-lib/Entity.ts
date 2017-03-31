@@ -1,21 +1,24 @@
 'use strict';
-import { serializable, Serializer, Deserializer } from '/lib/jsonc';
+import { serializable, Serializer, Deserializer } from 'jcson';
 import PrioritizedHandlers from './event-system/PrioritizedHandlers';
 import Attributes from './Attributes';
 import EntityGenerator from '/generators/EntityGenerator';
+import Component from './Component';
+import { IStringMap } from "typings/IMap";
+import Tile from 'Tile';
 
 @serializable('Entity')
 export default class Entity {
-  _components = {};
+  _components: IStringMap<Component> = {};
   stats = {};
   subscribedHandlers = new PrioritizedHandlers();
-  tile = null;
+  tile: Tile | null;
   attributes = new Attributes();
   id = null;
   template = null;
 
   [Serializer.Symbols.Serialize]() {
-    const obj = { ...this };
+    const obj = { ...(this as Entity) };
     obj.template = obj.template.name;
     return obj;
   }
@@ -24,7 +27,7 @@ export default class Entity {
     this.template = EntityGenerator._templates[this.template];
   }
 
-  addComponent(component) {
+  addComponent(component: Component) {
     if (component._key in this._components)
       throw new Error(`Component ${component._key} already exists for entity ${this}`);
 

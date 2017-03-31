@@ -3,7 +3,7 @@
  * the idGenerator should be reset.
  */
 'use strict';
-import {serializable} from '/lib/jsonc';
+import {serializable} from 'jcson';
 
 @serializable('IdGenerator')
 class IdGenerator {

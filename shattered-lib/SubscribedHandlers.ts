@@ -1,7 +1,7 @@
 'use strict';
 
 import IncrementalSet from './IncrementalSet';
-import {serializable} from '/lib/jsonc';
+import {serializable} from 'jcson';
 
 @serializable('SubscribedHandlers')
 export default class SubscribedHandlers {

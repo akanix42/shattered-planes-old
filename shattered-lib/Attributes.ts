@@ -1,24 +1,31 @@
 'use strict';
-import {serializable} from '/lib/jsonc';
+import { serializable } from 'jcson';
+import Component from './Component';
+import { IStringMap } from "interfaces/IMap";
+interface IModifier {
+  component: Component,
+  name: string,
+  value: number,
+}
 
 @serializable('AttributeModifiers')
 export class AttributeModifiers {
-  _modifiers = [];
+  _modifiers: IModifier[] = [];
   _isUpdating = false;
   total = 0;
 
-  add(component, name, value) {
+  add(component: Component, name: string, value: number) {
     this._isUpdating = true;
 
     this.remove(component, name);
-    this._modifiers.push({component, name, value});
+    this._modifiers.push({ component, name, value });
 
     this._isUpdating = false;
     this.calculateTotal();
   }
 
-  remove(component, name) {
-    const index = this._modifiers.findIndex(modifier=>modifier.component === component && modifier.name === name);
+  remove(component: Component, name: string) {
+    const index = this._modifiers.findIndex(modifier => modifier.component === component && modifier.name === name);
     if (index < 0) return;
 
     this._modifiers.splice(index, 1);
@@ -27,48 +34,43 @@ export class AttributeModifiers {
 
   calculateTotal() {
     if (this._isUpdating) return;
-    this.total = this._modifiers.reduce((total, modifier)=> total + modifier.value, 0);
+    this.total = this._modifiers.reduce((total, modifier) => total + modifier.value, 0);
   }
 }
 
 @serializable('Attribute')
 export class Attribute {
-  _base = 0;
   _bonus = 0;
   modifiers = new AttributeModifiers();
 
-  baseMax = 0;
-  name = null;
-
-  constructor(name, value, max) {
-    this.name = name;
-    this._base = value;
-    this._baseMax = max;
+  constructor(readonly name: string, private baseValue: number = 0, public baseMax: number = 0) {
   }
 
   get base() {
-    return this._base;
+    return this.baseValue;
   }
 
-  set base(value) {
-    this._base = Math.min(value, this.baseMax || value);
+  set base(value: number) {
+    this.baseValue = Math.min(value, this.baseMax || value);
   }
 
   get current() {
-    return this._base + this.modifiers.total;
+    return this.baseValue + this.modifiers.total;
   }
 
 }
 
 @serializable('Attributes')
 export default class Attributes {
-  constructor(attributes = {}) {
+  [key: string]: Attribute | Function;
+
+  constructor(attributes: IStringMap<number> = {}) {
     const keys = Object.keys(attributes);
-    for (let i = 0, attributeName = keys[i]; i < keys.length; i++, attributeName = keys[i])
+    for (let i = 0, attributeName = keys[i]; i < keys.length; i++ , attributeName = keys[i])
       this.add(attributeName, attributes[attributeName]);
   }
 
-  add(attributeName, value) {
+  add(attributeName: string, value: number) {
     if (!(attributeName in this))
       this[attributeName] = new Attribute(attributeName, value);
   }

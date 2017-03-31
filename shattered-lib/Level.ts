@@ -1,16 +1,16 @@
 'use strict';
-import {serializable} from '/lib/jsonc';
+import {serializable} from 'jcson';
+import Point from 'Point';
+import LevelMap from 'LevelMap';
 
 let levelId = 0;
 
 @serializable('Level')
-class Level {
-  _map = null;
+export class Level {
+  private _map: LevelMap;
   id = levelId++;
 
-  constructor(theme) {
-    this._theme = theme;
-  }
+  constructor(private theme: string) { }
 
   get map() {
     return this._map;
@@ -22,11 +22,11 @@ class Level {
       this._map.level = this;
   }
 
-  getTileAt(point) {
+  getTileAt(point: Point) {
     return this.getTileAtXY(point.x, point.y);
   }
 
-  getTileAtXY(x, y) {
+  getTileAtXY(x: number, y: number) {
     const row = this._map[x];
     if (!row)
       return;

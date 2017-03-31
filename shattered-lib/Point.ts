@@ -1,9 +1,6 @@
-import {serializable} from '/lib/jsonc';
+import { serializable } from 'jcson';
 
 @serializable('Point')
 export default class Point {
-  constructor(x,y) {
-    this.x = x;
-    this.y = y;
-  }
+  constructor(public x: number, public y: number) { }
 }

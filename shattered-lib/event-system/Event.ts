@@ -1,14 +1,13 @@
-import { serializable } from '/lib/jsonc';
+import { serializable } from 'jcson';
+import EventType from './EventType';
 
 @serializable('Event')
 export default class Event {
-  data = {};
+  data: any = {};
   isCanceled = false;
   actionTime = null;
 
-  constructor(type) {
-    this.type = type;
-  }
+  constructor(public type: EventType) { }
 
   reset() {
     this.data = null;

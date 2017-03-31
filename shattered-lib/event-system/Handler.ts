@@ -1,16 +1,14 @@
-import idGenerator from '/generators/idGenerator';
-import { serializable, Serializer, Deserializer } from '/lib/jsonc';
-import eventTypes from '/event-system/eventTypes';
+import idGenerator from 'generators/idGenerator';
+import { serializable, Serializer, Deserializer, ISerializable } from 'jcson';
+import eventTypes from 'event-system/eventTypes';
+import EventType from "event-system/EventType";
 
 @serializable('Handler')
 export default class Handler {
-  constructor(eventType, priority, context, callback) {
-    this.eventType = eventType;
-    this.priority = priority;
-    this.context = context;
-    this.callback = callback;
-    this.id = idGenerator.generate(Handler.__type__);
+  id: number;
 
+  constructor(public eventType: EventType, public priority: number, public context: any, public callback: Function) {
+    this.id = idGenerator.generate();//(Handler as ISerializable).__type__);
     if (arguments.length === 0) return;
     /* Don't call during deserialization */
     this.eventType.addPriority(priority);

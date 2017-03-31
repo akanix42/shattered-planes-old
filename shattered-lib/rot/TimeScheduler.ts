@@ -1,6 +1,7 @@
 'use strict';
-import { serializable } from '/lib/jsonc';
+import {serializable} from 'jcson';
 import TimeQueue from './TimeQueue';
+import IActor from "./IActor";
 
 @serializable('TimeScheduler')
 export default class TimeScheduler {
@@ -15,8 +16,8 @@ export default class TimeScheduler {
     return this._queue.turn;
   }
 
-  add(item, time) {
-    this._queue.add(item, time||1);
+  add(item: IActor, time: number) {
+    this._queue.add(item, time || 1);
     return this;
   }
 
@@ -25,7 +26,7 @@ export default class TimeScheduler {
     return this;
   }
 
-  remove(item) {
+  remove(item: IActor) {
     this._queue.remove(item);
   }
 

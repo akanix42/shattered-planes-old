@@ -1,10 +1,24 @@
 'use strict';
-import { serializable } from '/lib/jsonc';
-import postal from '/lib/postal';
-import SortedArray from '/lib/SortedArray';
+import { serializable } from 'jcson';
+import postal from 'lib/postal';
+import SortedArray from 'lib/SortedArray';
+import IActor from "./IActor";
+
+interface ITimeQueueElement {
+  time: number;
+  item: IActor;
+}
 
 @serializable('TimeQueue')
 export default class TimeQueue {
+  public time: number;
+  private _lastTurn: number;
+  private _turn: number;
+  private timePerTurn: number;
+
+  private _freeElements: Array<ITimeQueueElement>;
+  private _queue: SortedArray<ITimeQueueElement>;
+
   constructor(timePerTurn = 1000) {
     this.time = 0;
     this._lastTurn = 0;
@@ -14,7 +28,7 @@ export default class TimeQueue {
     this._freeElements = [];
   }
 
-  _sortByTime(a, b) {
+  private _sortByTime(a: ITimeQueueElement, b: ITimeQueueElement): SortResult {
     if (a.time === b.time) return 0;
 
     return a.time < b.time ? -1 : 1;
@@ -31,12 +45,12 @@ export default class TimeQueue {
     return this;
   }
 
-  add(item, time) {
+  add(item: IActor, time: number) {
     this._queue.push(this._getEvent(item, time));
   }
 
-  _getEvent(item, time) {
-    var element = this._freeElements.pop();
+  private _getEvent(item: IActor, time: number): ITimeQueueElement {
+    const element = this._freeElements.pop();
     if (element === undefined) return { item, time };
     element.item = item;
     element.time = time;
@@ -49,12 +63,12 @@ export default class TimeQueue {
       return null;
     }
 
-    var element = this._queue.array.shift();
-    var time = element.time;
+    const element = this._queue.array.shift() as ITimeQueueElement;
+    const time = element.time;
     if (time > 0) { /* advance */
       this.time += time;
       this._updateTurn(time);
-      for (var i = 0; i < this._queue.array.length; i++) {
+      for (let i = 0; i < this._queue.array.length; i++) {
         this._queue.array[i].time -= time;
       }
     }
@@ -64,7 +78,7 @@ export default class TimeQueue {
     return element.item;
   }
 
-  _updateTurn(time) {
+  private _updateTurn(time: number) {
     this._turn += time / this.timePerTurn;
     let currentTurn = Math.floor(this._turn);
     if (currentTurn > this._lastTurn) {
@@ -79,7 +93,7 @@ export default class TimeQueue {
     this._lastTurn = currentTurn;
   }
 
-  remove(item) {
+  remove(item: ITimeQueueElement) {
     this._queue.remove(item);
   }
 }

@@ -1,7 +1,8 @@
 'use strict';
 import EventType from './EventType';
+import { IStringMap } from 'typings/IMap';
 
-const eventTypes = {};
+const eventTypes: IStringMap<any> = {};
 let id = 1;
 eventTypes.getNextId = function getNextId() {
   return id++;

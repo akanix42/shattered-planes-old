@@ -2,23 +2,22 @@
 import EntitiesByPriority from './EntitiesByPriority';
 import Inventory from './Inventory';
 import PrioritizedHandlers from './event-system/PrioritizedHandlers';
-import events from '/event-system/eventTypes';
-import Event from '/event-system/Event';
+import events from 'event-system/eventTypes';
+import Event from 'event-system/Event';
 
-import { serializable } from '/lib/jsonc';
+import { serializable } from 'jcson';
+import Point from 'Point';
+import LevelMap from 'LevelMap';
+import Entity from 'Entity';
 
 @serializable('Tile')
 export default class Tile {
-  _architecture = null;
+  _architecture: Entity;
   _handlers = new PrioritizedHandlers();
   inventory = new Inventory();
-  occupant = null;
-  transients = [];
+  occupant: Entity | null = null;
 
-  constructor(point, map) {
-    this.point = point;
-    this.map = map;
-  }
+  constructor(private point: Point, private map: LevelMap) { }
 
   get level() {
     return this.map.level;
@@ -35,7 +34,7 @@ export default class Tile {
     }
   }
 
-  addOccupant(occupant) {
+  addOccupant(occupant: Entity) {
     this.occupant = occupant;
     occupant.tile = this;
 
@@ -44,7 +43,7 @@ export default class Tile {
     this.emit(event);
   }
 
-  removeOccupant(occupant) {
+  removeOccupant(occupant: Entity) {
     if (this.occupant !== occupant)
       return;
     this.occupant = null;
@@ -75,7 +74,7 @@ export default class Tile {
     this.emit(event);
   }
 
-  emit(event) {
+  emit(event: Event) {
     const shouldEmitToArchitecture = this._architecture.subscribedHandlers.numberOfHandlers > 0;
     const shouldEmitToOccupant = this.occupant !== null;
     const shouldEmitToSelf = this._handlers.numberOfHandlers > 0;
@@ -89,7 +88,7 @@ export default class Tile {
       }
 
       if (shouldEmitToOccupant) {
-        this.occupant.subscribedHandlers.emitTo(priority, event);
+        (<Entity>this.occupant).subscribedHandlers.emitTo(priority, event);
         if (event.isCanceled) return event;
       }
 

@@ -1,22 +1,25 @@
 'use strict';
-import { serializable } from '/lib/jsonc';
+import { serializable } from 'lib/jsonc';
 
 @serializable('SortedArray')
-class SortedArray {
+export default class SortedArray<T> {
+  private compare: ISortComparer<T>;
 
-  constructor(array, compare = compareDefault) {
+  public array: Array<T>;
+
+  constructor(array?: Array<T> | null, compare: ISortComparer<T> = compareDefault) {
     this.compare = compare;
     this.array = [];
 
     if (array && array instanceof Array) {
-      var length = array.length;
-      var index = 0;
+      const length = array.length;
+      let index = 0;
 
       while (index < length) this.push(array[index++]);
     }
   }
 
-  get(index) {
+  get(index: number) {
     return this.array[index];
   }
 
@@ -24,10 +27,10 @@ class SortedArray {
     return this.array.length;
   }
 
-  push(element) {
-    var array = this.array;
-    var compare = this.compare;
-    var index = array.length;
+  push(element: T) {
+    const array = this.array;
+    const compare = this.compare;
+    let index = array.length;
 
     array.push(element);
 
@@ -35,7 +38,7 @@ class SortedArray {
       var i = index, j = --index;
 
       if (compare(array[i], array[j]) < 0) {
-        var temp = array[i];
+        const temp = array[i];
         array[i] = array[j];
         array[j] = temp;
       } else
@@ -45,15 +48,15 @@ class SortedArray {
     return this;
   }
 
-  indexOf(element) {
-    var array = this.array;
-    var compare = this.compare;
-    var high = array.length;
-    var low = 0;
+  indexOf(element: T) {
+    const array = this.array;
+    const compare = this.compare;
+    let high = array.length;
+    let low = 0;
 
     while (high > low) {
-      var index = (high + low) / 2 >>> 0;
-      var ordering = compare(array[index], element);
+      const index = (high + low) / 2 >>> 0;
+      const ordering = compare(array[index], element);
 
       if (ordering < 0) low = index + 1;
       else if (ordering > 0) high = index;
@@ -63,8 +66,8 @@ class SortedArray {
     return -1;
   }
 
-  remove(element) {
-    var index = this.array.indexOf(element);
+  remove(element: T) {
+    const index = this.array.indexOf(element);
     if (index >= 0) this.array.splice(index, 1);
     return this;
   }
@@ -77,9 +80,7 @@ SortedArray.comparing = function (property, array) {
   });
 };
 
-function compareDefault(a, b) {
+function compareDefault<T>(a: T, b: T) {
   if (a === b) return 0;
   return a < b ? -1 : 1;
 }
-
-module.exports = SortedArray;
