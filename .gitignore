@@ -11,3 +11,5 @@ npm-link/
 app/.meteor/dev_bundle/
 optimizing/
 optimzing.txt
+*.js
+shattered-lib/dist/

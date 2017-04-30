@@ -15,13 +15,13 @@ export default class Handler {
   }
 
   [Serializer.Symbols.Serialize]() {
-    const obj = { ...this };
-    obj.eventType = obj.eventType.id;
+    const obj: any = { ...<Handler>this };
+    obj.eventType = {id: obj.eventType.id};
     return obj;
   }
 
   [Deserializer.Symbols.PostProcess]() {
-    this.eventType = eventTypes[eventTypes.eventLookup[this.eventType]];
+    this.eventType = eventTypes[eventTypes.eventLookup[this.eventType.id]];
     this.eventType.addPriority(this.priority);
   }
 }

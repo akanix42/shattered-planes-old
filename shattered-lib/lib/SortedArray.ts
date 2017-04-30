@@ -73,12 +73,12 @@ export default class SortedArray<T> {
   }
 
 }
-
-SortedArray.comparing = function (property, array) {
-  return new SortedArray(array, function (a, b) {
-    return compareDefault(property(a), property(b));
-  });
-};
+//
+// SortedArray.comparing = function (property, array) {
+//   return new SortedArray(array, function (a, b) {
+//     return compareDefault(property(a), property(b));
+//   });
+// };
 
 function compareDefault<T>(a: T, b: T) {
   if (a === b) return 0;
